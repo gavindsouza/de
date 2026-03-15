@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f0f13">
+<title>DE A1 Blitz</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- BOTTOM NAV -->
+<nav id="bottomNav">
+  <button class="active" onclick="go('flashcards')" data-s="flashcards"><span class="ico">&#x1F0CF;</span>Cards</button>
+  <button onclick="go('wordlist')" data-s="wordlist"><span class="ico">&#x1F4D6;</span>Words</button>
+  <button onclick="go('grammar')" data-s="grammar"><span class="ico">&#x1F4DD;</span>Grammar</button>
+  <button onclick="go('email')" data-s="email"><span class="ico">&#x2709;</span>Email</button>
+  <button onclick="go('speaking')" data-s="speaking"><span class="ico">&#x1F5E3;</span>Speak</button>
+  <button onclick="go('overview')" data-s="overview"><span class="ico">&#x1F3E0;</span>Home</button>
+</nav>
+
+<main>
+  <!-- ===== FLASHCARDS ===== -->
+  <div id="flashcards" class="section active">
+    <h2>Flashcards</h2>
+    <div class="filter-scroll" id="catFilters"></div>
+    <div class="fc-stats" id="fcStats"></div>
+    <div class="progress-bar"><div class="fill" id="fcProg"></div></div>
+    <div class="fc-counter" id="fcCounter"></div>
+    <div class="card-area" id="cardArea">
+      <div class="flashcard" id="flashcard">
+        <div class="face front">
+          <div class="cat-badge" id="fcCat"></div>
+          <div class="article" id="fcArt"></div>
+          <div class="word" id="fcWord"></div>
+          <div class="tap-hint">tap to flip</div>
+        </div>
+        <div class="face back">
+          <div class="word" id="fcWordB"></div>
+          <div class="example" id="fcEx"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-actions">
+      <button class="btn-dunno" onclick="mark(false)">Don't Know</button>
+      <button class="btn-know" onclick="mark(true)">Know It &#x2714;</button>
+    </div>
+  </div>
+
+  <!-- ===== WORD LIST ===== -->
+  <div id="wordlist" class="section">
+    <h2>Word List</h2>
+    <div class="search-wrap">
+      <span class="search-ico">&#x1F50D;</span>
+      <input type="text" placeholder="Search words..." oninput="filterWL(this.value)" id="wlSearch">
+    </div>
+    <div class="filter-scroll" id="wlFilters"></div>
+    <div class="wl-count" id="wlCount"></div>
+    <div class="wl-scroll" id="wlList"></div>
+  </div>
+
+  <!-- ===== GRAMMAR ===== -->
+  <div id="grammar" class="section">
+    <h2>Grammar Cheat Sheet</h2>
+
+    <div class="g-card">
+      <h4>sein (to be)</h4>
+      <div class="g-scroll"><table>
+        <tr><th>Pronoun</th><th>Form</th><th>Example</th></tr>
+        <tr><td>ich</td><td class="hl">bin</td><td>Ich bin Student.</td></tr>
+        <tr><td>du</td><td class="hl">bist</td><td>Du bist nett.</td></tr>
+        <tr><td>er/sie/es</td><td class="hl">ist</td><td>Er ist Arzt.</td></tr>
+        <tr><td>wir</td><td class="hl">sind</td><td>Wir sind aus Spanien.</td></tr>
+        <tr><td>ihr</td><td class="hl">seid</td><td>Ihr seid Freunde.</td></tr>
+        <tr><td>sie/Sie</td><td class="hl">sind</td><td>Sie sind sehr nett.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="g-card">
+      <h4>haben (to have)</h4>
+      <div class="g-scroll"><table>
+        <tr><th>Pronoun</th><th>Form</th><th>Example</th></tr>
+        <tr><td>ich</td><td class="hl">habe</td><td>Ich habe ein Auto.</td></tr>
+        <tr><td>du</td><td class="hl">hast</td><td>Du hast Hunger.</td></tr>
+        <tr><td>er/sie/es</td><td class="hl">hat</td><td>Sie hat zwei Kinder.</td></tr>
+        <tr><td>wir</td><td class="hl">haben</td><td>Wir haben Zeit.</td></tr>
+        <tr><td>ihr</td><td class="hl">habt</td><td>Habt ihr Kinder?</td></tr>
+        <tr><td>sie/Sie</td><td class="hl">haben</td><td>Haben Sie Fragen?</td></tr>
+      </table></div>
+    </div>
+
+    <div class="g-card">
+      <h4>Regular Verbs (-en)</h4>
+      <p style="margin-bottom:6px">Example: <strong>wohnen</strong>, <strong>machen</strong></p>
+      <div class="g-scroll"><table>
+        <tr><th>Pronoun</th><th>Ending</th><th>wohnen</th><th>machen</th></tr>
+        <tr><td>ich</td><td class="hl">-e</td><td>wohne</td><td>mache</td></tr>
+        <tr><td>du</td><td class="hl">-st</td><td>wohnst</td><td>machst</td></tr>
+        <tr><td>er/sie/es</td><td class="hl">-t</td><td>wohnt</td><td>macht</td></tr>
+        <tr><td>wir</td><td class="hl">-en</td><td>wohnen</td><td>machen</td></tr>
+        <tr><td>ihr</td><td class="hl">-t</td><td>wohnt</td><td>macht</td></tr>
+        <tr><td>sie/Sie</td><td class="hl">-en</td><td>wohnen</td><td>machen</td></tr>
+      </table></div>
+    </div>
+
+    <div class="g-card">
+      <h4>V2 Rule: Verb = 2nd Element</h4>
+      <div class="g-scroll"><table>
+        <tr><th>Pos 1</th><th>Pos 2 (VERB)</th><th>Rest</th></tr>
+        <tr><td>Ich</td><td class="hl">wohne</td><td>in Berlin.</td></tr>
+        <tr><td>Morgen</td><td class="hl">fahre</td><td>ich nach Hamburg.</td></tr>
+        <tr><td>Am Montag</td><td class="hl">kommt</td><td>er nicht.</td></tr>
+        <tr><td>Wo</td><td class="hl">wohnen</td><td>Sie?</td></tr>
+      </table></div>
+      <p style="color:var(--yellow);margin-top:8px;font-size:.82rem">If Pos 1 is NOT the subject, the subject goes to Pos 3!</p>
+    </div>
+
+    <div class="g-card">
+      <h4>Polite Requests (Sie form)</h4>
+      <div class="g-scroll"><table>
+        <tr><th>German</th><th>English</th></tr>
+        <tr><td class="hl">Geben Sie mir bitte...</td><td>Please give me...</td></tr>
+        <tr><td class="hl">Sprechen Sie bitte langsam.</td><td>Please speak slowly.</td></tr>
+        <tr><td class="hl">Schreiben Sie Ihren Namen.</td><td>Write your name.</td></tr>
+        <tr><td class="hl">Kreuzen Sie an.</td><td>Mark with a cross.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="g-card">
+      <h4>Articles: der / die / das</h4>
+      <div class="g-scroll"><table>
+        <tr><th></th><th>Masc.</th><th>Fem.</th><th>Neut.</th><th>Pl.</th></tr>
+        <tr><td>Nom.</td><td class="hl">der</td><td class="hl">die</td><td class="hl">das</td><td class="hl">die</td></tr>
+        <tr><td>Acc.</td><td class="hl">den</td><td class="hl">die</td><td class="hl">das</td><td class="hl">die</td></tr>
+      </table></div>
+      <p style="margin-top:6px;font-size:.82rem">Always use <span class="hl">Sie</span> (formal you) on the exam.</p>
+    </div>
+
+    <div class="g-card">
+      <h4>Exam Instructions</h4>
+      <div class="g-scroll"><table>
+        <tr><th>German</th><th>English</th></tr>
+        <tr><td class="hl">Kreuzen Sie an</td><td>Mark with a cross</td></tr>
+        <tr><td class="hl">Schreiben Sie</td><td>Write</td></tr>
+        <tr><td class="hl">Lesen Sie</td><td>Read</td></tr>
+        <tr><td class="hl">Hören Sie</td><td>Listen</td></tr>
+        <tr><td class="hl">Richtig oder falsch?</td><td>True or false?</td></tr>
+        <tr><td class="hl">Ergänzen Sie</td><td>Complete</td></tr>
+        <tr><td class="hl">Ordnen Sie zu</td><td>Match</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ===== EMAIL ===== -->
+  <div id="email" class="section">
+    <h2>Email Practice</h2>
+    <div class="desc">Write 20-30 words. Follow the template exactly.</div>
+
+    <div class="tmpl-hint">
+      <span class="hl">Liebe/r [Name],</span> or <span class="hl">Sehr geehrte Damen und Herren,</span><br>
+      <span class="hl">Ich schreibe, weil...</span> (I'm writing because...)<br>
+      [1-2 sentences]<br>
+      <span class="hl">Mit freundlichen Grüßen</span> / <span class="hl">Viele Grüße</span>
+    </div>
+
+    <div class="email-prompt" onclick="newPrompt()" id="emailPrompt"></div>
+
+    <div class="email-form">
+      <div class="field">
+        <label>Greeting</label>
+        <select id="emGreet">
+          <option>Liebe Maria,</option>
+          <option>Lieber Hans,</option>
+          <option>Sehr geehrte Damen und Herren,</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Your email (20-30 words)</label>
+        <textarea id="emBody" placeholder="Ich schreibe, weil..." oninput="countWords()"></textarea>
+        <div class="wc" id="emWC">0 / 20-30 words</div>
+      </div>
+      <div class="field">
+        <label>Closing</label>
+        <select id="emClose">
+          <option>Mit freundlichen Grüßen</option>
+          <option>Viele Grüße</option>
+          <option>Herzliche Grüße</option>
+        </select>
+      </div>
+      <button class="btn-full" onclick="checkEmail()">Check My Email</button>
+      <div id="emFB" style="margin-top:12px"></div>
+    </div>
+
+    <div class="g-card" style="margin-top:16px">
+      <h4>Example Emails</h4>
+      <div class="email-ex">
+        <strong>Invite to a party</strong><br><br>
+        Liebe Anna,<br><br>
+        Ich schreibe, weil ich am Samstag eine Party mache. Kommst du? Die Party beginnt um 19 Uhr. Bitte bring Musik mit.<br><br>
+        Viele Grüße
+      </div>
+      <div class="email-ex">
+        <strong>Cancel appointment</strong><br><br>
+        Sehr geehrte Damen und Herren,<br><br>
+        Ich schreibe, weil ich meinen Termin am Montag nicht kommen kann. Kann ich einen neuen Termin bekommen?<br><br>
+        Mit freundlichen Grüßen
+      </div>
+      <div class="email-ex">
+        <strong>Ask about a course</strong><br><br>
+        Sehr geehrte Damen und Herren,<br><br>
+        Ich schreibe, weil ich einen Deutschkurs suche. Wann beginnt der nächste Kurs? Was kostet er?<br><br>
+        Mit freundlichen Grüßen
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SPEAKING ===== -->
+  <div id="speaking" class="section">
+    <h2>Speaking Sim</h2>
+    <div class="desc">A word card appears. Form a question or request out loud!</div>
+
+    <div class="spk-card">
+      <div class="art" id="spkArt"></div>
+      <div class="wd" id="spkWd"></div>
+    </div>
+    <div id="spkSugs"></div>
+    <button class="btn-full" onclick="newSpeak()" style="margin-top:12px">Next Card &#x2192;</button>
+
+    <div class="g-card" style="margin-top:20px">
+      <h4>Magic Structures</h4>
+      <div class="g-scroll"><table>
+        <tr><th>Pattern</th><th>Example</th></tr>
+        <tr><td class="hl">Wo ist der/die/das...?</td><td>Wo ist der Bahnhof?</td></tr>
+        <tr><td class="hl">Haben Sie...?</td><td>Haben Sie Äpfel?</td></tr>
+        <tr><td class="hl">Ich möchte... bitte.</td><td>Ich möchte ein Brot, bitte.</td></tr>
+        <tr><td class="hl">Was kostet...?</td><td>Was kostet der Kaffee?</td></tr>
+        <tr><td class="hl">Kann ich... haben?</td><td>Kann ich die Karte haben?</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ===== OVERVIEW ===== -->
+  <div id="overview" class="section">
+    <h2>Overview</h2>
+
+    <!-- Hero stats -->
+    <div class="ov-hero" id="ovHero"></div>
+
+    <!-- Progress ring -->
+    <div class="ov-ring-wrap">
+      <svg class="ov-ring" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="52" fill="none" stroke="var(--card)" stroke-width="10"/>
+        <circle cx="60" cy="60" r="52" fill="none" stroke="var(--accent)" stroke-width="10"
+          stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="327" id="ovRingCircle"
+          transform="rotate(-90 60 60)"/>
+        <text x="60" y="56" text-anchor="middle" fill="var(--text)" font-size="26" font-weight="800" id="ovRingPct">0%</text>
+        <text x="60" y="74" text-anchor="middle" fill="var(--muted)" font-size="10" font-weight="600">MASTERED</text>
+      </svg>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="ov-section-label">Continue Learning</div>
+    <div class="ov-actions">
+      <button class="ov-action" onclick="go('flashcards')">
+        <span class="ov-action-ico">&#x1F0CF;</span>
+        <span class="ov-action-info">
+          <span class="ov-action-title">Flashcards</span>
+          <span class="ov-action-sub" id="ovFcSub">0 words to review</span>
+        </span>
+        <span class="ov-action-arrow">&#x203A;</span>
+      </button>
+      <button class="ov-action" onclick="go('wfragen')">
+        <span class="ov-action-ico">&#x2753;</span>
+        <span class="ov-action-info">
+          <span class="ov-action-title">W-Fragen Quiz</span>
+          <span class="ov-action-sub" id="ovWfSub">0 / 0 correct</span>
+        </span>
+        <span class="ov-action-arrow">&#x203A;</span>
+      </button>
+      <button class="ov-action" onclick="go('speaking')">
+        <span class="ov-action-ico">&#x1F5E3;</span>
+        <span class="ov-action-info">
+          <span class="ov-action-title">Speaking Sim</span>
+          <span class="ov-action-sub">Practice oral exam cards</span>
+        </span>
+        <span class="ov-action-arrow">&#x203A;</span>
+      </button>
+      <button class="ov-action" onclick="go('email')">
+        <span class="ov-action-ico">&#x2709;</span>
+        <span class="ov-action-info">
+          <span class="ov-action-title">Email Practice</span>
+          <span class="ov-action-sub">Write 20-30 word emails</span>
+        </span>
+        <span class="ov-action-arrow">&#x203A;</span>
+      </button>
+    </div>
+
+    <div class="ov-section-label">Tools</div>
+    <div class="ov-actions">
+      <button class="ov-action" onclick="go('intro')">
+        <span class="ov-action-ico">&#x1F399;</span>
+        <span class="ov-action-info">
+          <span class="ov-action-title">Self-Introduction</span>
+          <span class="ov-action-sub" id="ovIntroSub">0 / 20 practices</span>
+        </span>
+        <span class="ov-action-arrow">&#x203A;</span>
+      </button>
+      <button class="ov-action" onclick="go('grammar')">
+        <span class="ov-action-ico">&#x1F4DD;</span>
+        <span class="ov-action-info">
+          <span class="ov-action-title">Grammar Cheat Sheet</span>
+          <span class="ov-action-sub">sein, haben, V2 rule, articles</span>
+        </span>
+        <span class="ov-action-arrow">&#x203A;</span>
+      </button>
+      <button class="ov-action" onclick="go('wordlist')">
+        <span class="ov-action-ico">&#x1F4D6;</span>
+        <span class="ov-action-info">
+          <span class="ov-action-title">Word List</span>
+          <span class="ov-action-sub" id="ovWlSub">0 words</span>
+        </span>
+        <span class="ov-action-arrow">&#x203A;</span>
+      </button>
+      <button class="ov-action" onclick="go('schedule')">
+        <span class="ov-action-ico">&#x1F4C5;</span>
+        <span class="ov-action-info">
+          <span class="ov-action-title">14-Day Plan</span>
+          <span class="ov-action-sub" id="ovSchedSub">0 / 14 days done</span>
+        </span>
+        <span class="ov-action-arrow">&#x203A;</span>
+      </button>
+    </div>
+
+    <!-- Danger zone -->
+    <div class="ov-section-label" style="margin-top:12px">Settings</div>
+    <div class="ov-danger">
+      <button class="ov-danger-btn" onclick="resetProgress()">
+        <span style="font-size:1.2rem">&#x1F5D1;</span>
+        Reset All Progress
+      </button>
+      <p class="ov-danger-hint">Clears all saved data: flashcard progress, quiz scores, practice counter, schedule checkmarks, and intro fields.</p>
+    </div>
+
+    <div class="attribution">
+      Vocabulary data based on the <a href="https://www.goethe.de/de/spr/kup/prf/prf/sd1/ue9.html" target="_blank" rel="noopener">Goethe-Zertifikat A1: Start Deutsch 1 Wortliste</a>.<br>
+      &copy; Goethe-Institut. Used here for personal, non-commercial study purposes.
+    </div>
+  </div>
+
+  <!-- ===== SELF INTRO ===== -->
+  <div id="intro" class="section">
+    <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <h2>Self-Introduction</h2>
+    <div class="desc">Memorize your 5-sentence intro. Fill in your details. Practice 20 times!</div>
+
+    <div class="intro-card">
+      <div class="intro-row">
+        <div class="intro-num">1</div>
+        <div class="intro-content">
+          <div class="intro-de">Mein Name ist <input class="intro-input" id="iName" placeholder="Your Name" oninput="saveIntro()">.</div>
+          <div class="intro-en">My name is ___.</div>
+        </div>
+      </div>
+      <div class="intro-row">
+        <div class="intro-num">2</div>
+        <div class="intro-content">
+          <div class="intro-de">Ich bin <input class="intro-input" id="iAge" placeholder="age" style="max-width:60px" oninput="saveIntro()"> Jahre alt.</div>
+          <div class="intro-en">I am ___ years old.</div>
+        </div>
+      </div>
+      <div class="intro-row">
+        <div class="intro-num">3</div>
+        <div class="intro-content">
+          <div class="intro-de">Ich komme aus <input class="intro-input" id="iCountry" placeholder="Country" oninput="saveIntro()">.</div>
+          <div class="intro-en">I come from ___.</div>
+        </div>
+      </div>
+      <div class="intro-row">
+        <div class="intro-num">4</div>
+        <div class="intro-content">
+          <div class="intro-de">Ich bin <input class="intro-input" id="iJob" placeholder="Job/Student" oninput="saveIntro()"> von Beruf.</div>
+          <div class="intro-en">I am a ___ by profession.</div>
+        </div>
+      </div>
+      <div class="intro-row">
+        <div class="intro-num">5</div>
+        <div class="intro-content">
+          <div class="intro-de">Ich spreche <input class="intro-input" id="iLangs" placeholder="Englisch" style="max-width:200px" oninput="saveIntro()"> und ein bisschen Deutsch.</div>
+          <div class="intro-en">I speak ___ and a little German.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g-card">
+      <h4>Your Script</h4>
+      <div id="introPreview" style="font-size:1.05rem;line-height:2"></div>
+    </div>
+
+    <div class="g-card">
+      <h4>Practice Counter</h4>
+      <div class="practice-row">
+        <span class="practice-num" id="pCount">0</span>
+        <span style="color:var(--muted)">/ 20</span>
+        <button class="practice-btn" onclick="incPractice()">+1 Done</button>
+      </div>
+      <div class="progress-bar"><div class="fill" id="pProg"></div></div>
+    </div>
+
+    <div class="g-card">
+      <h4>Spell Your Name (German Alphabet)</h4>
+      <div class="alpha-grid">
+        <div class="alpha-cell"><strong>A</strong>ah</div>
+        <div class="alpha-cell"><strong>B</strong>beh</div>
+        <div class="alpha-cell"><strong>C</strong>tseh</div>
+        <div class="alpha-cell"><strong>D</strong>deh</div>
+        <div class="alpha-cell"><strong>E</strong>eh</div>
+        <div class="alpha-cell"><strong>F</strong>eff</div>
+        <div class="alpha-cell"><strong>G</strong>geh</div>
+        <div class="alpha-cell"><strong>H</strong>hah</div>
+        <div class="alpha-cell"><strong>I</strong>ih</div>
+        <div class="alpha-cell"><strong>J</strong>yot</div>
+        <div class="alpha-cell"><strong>K</strong>kah</div>
+        <div class="alpha-cell"><strong>L</strong>ell</div>
+        <div class="alpha-cell"><strong>M</strong>emm</div>
+        <div class="alpha-cell"><strong>N</strong>enn</div>
+        <div class="alpha-cell"><strong>O</strong>oh</div>
+        <div class="alpha-cell"><strong>P</strong>peh</div>
+        <div class="alpha-cell"><strong>Q</strong>kuh</div>
+        <div class="alpha-cell"><strong>R</strong>err</div>
+        <div class="alpha-cell"><strong>S</strong>ess</div>
+        <div class="alpha-cell"><strong>T</strong>teh</div>
+        <div class="alpha-cell"><strong>U</strong>uh</div>
+        <div class="alpha-cell"><strong>V</strong>fau</div>
+        <div class="alpha-cell"><strong>W</strong>veh</div>
+        <div class="alpha-cell"><strong>X</strong>iks</div>
+        <div class="alpha-cell"><strong>Y</strong>yps</div>
+        <div class="alpha-cell"><strong>Z</strong>tsett</div>
+        <div class="alpha-cell"><strong>&Auml;</strong>eh</div>
+        <div class="alpha-cell"><strong>&Ouml;</strong>&ouml;h</div>
+        <div class="alpha-cell"><strong>&Uuml;</strong>&uuml;h</div>
+        <div class="alpha-cell"><strong>&szlig;</strong>ess-tsett</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== W-FRAGEN ===== -->
+  <div id="wfragen" class="section">
+    <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <h2>W-Fragen Quiz</h2>
+    <div class="desc">Master the question words. No question = no answer!</div>
+    <div class="wf-stats">
+      <div class="wf-stat"><div class="n" id="wfS" style="color:var(--green)">0</div><div class="l">Correct</div></div>
+      <div class="wf-stat"><div class="n" id="wfT">0</div><div class="l">Total</div></div>
+    </div>
+    <div id="wfQuiz"></div>
+    <button class="btn-full" onclick="newWF()" style="margin-top:12px">Next Question &#x2192;</button>
+
+    <div class="g-card" style="margin-top:20px">
+      <h4>W-Words Reference</h4>
+      <div class="g-scroll"><table>
+        <tr><th>DE</th><th>EN</th><th>Example</th></tr>
+        <tr><td class="hl">Wer</td><td>Who</td><td>Wer ist das?</td></tr>
+        <tr><td class="hl">Was</td><td>What</td><td>Was machst du?</td></tr>
+        <tr><td class="hl">Wo</td><td>Where</td><td>Wo wohnst du?</td></tr>
+        <tr><td class="hl">Woher</td><td>From where</td><td>Woher kommen Sie?</td></tr>
+        <tr><td class="hl">Wohin</td><td>Where to</td><td>Wohin fährst du?</td></tr>
+        <tr><td class="hl">Wann</td><td>When</td><td>Wann beginnt der Kurs?</td></tr>
+        <tr><td class="hl">Warum</td><td>Why</td><td>Warum lernst du Deutsch?</td></tr>
+        <tr><td class="hl">Wie</td><td>How</td><td>Wie heißen Sie?</td></tr>
+        <tr><td class="hl">Wie viel</td><td>How much</td><td>Wie viel kostet das?</td></tr>
+        <tr><td class="hl">Welch-</td><td>Which</td><td>Welches Buch?</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ===== SCHEDULE ===== -->
+  <div id="schedule" class="section">
+    <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <h2>14-Day Blitz</h2>
+    <div class="desc">90 min/day. Tap to mark complete.</div>
+    <div id="schedCards"></div>
+  </div>
+</main>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
