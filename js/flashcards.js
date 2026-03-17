@@ -41,6 +41,7 @@ export function showCard() {
   document.getElementById('fcWord').textContent = w.w;
   document.getElementById('fcCat').textContent = w.c;
   document.getElementById('fcWordB').textContent = (w.a ? w.a + ' ' : '') + w.w;
+  document.getElementById('fcTrans').textContent = w.t || '';
   document.getElementById('fcEx').textContent = w.e;
   document.getElementById('flashcard').classList.remove('flipped');
   S.flipped = false;
