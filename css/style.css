@@ -199,12 +199,13 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
 .quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .quiz-opt{
   padding:14px;background:var(--surface);border:1.5px solid var(--border);
-  border-radius:12px;text-align:center;font-weight:600;font-size:1rem;
+  color:var(--text);border-radius:12px;text-align:center;font-weight:600;font-size:1rem;
 }
 .quiz-opt:active{transform:scale(.97)}
 .quiz-opt.correct{background:#1a3a2a;border-color:var(--green);color:var(--green)}
 .quiz-opt.wrong{background:#3a1a1a;border-color:var(--red);color:var(--red)}
-.quiz-opt.disabled{pointer-events:none;opacity:.6}
+.quiz-opt.disabled{pointer-events:none}
+.quiz-opt.disabled:not(.correct):not(.wrong){opacity:.45}
 
 /* === SCHEDULE === */
 .day-card{
