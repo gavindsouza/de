@@ -9,9 +9,12 @@ export function cats() {
 
 export function buildFilters() {
   const c = cats();
-  document.getElementById('catFilters').innerHTML = c.map(x =>
-    `<button class="chip ${S.filter === x ? 'active' : ''}" onclick="setF('${x}')">${x}</button>`
-  ).join('');
+  const lc = S.unknown.size;
+  document.getElementById('catFilters').innerHTML =
+    `<button class="chip chip-learning ${S.filter === 'Learning' ? 'active' : ''}" onclick="setF('Learning')">🔴 Learning${lc ? ' ' + lc : ''}</button>` +
+    c.map(x =>
+      `<button class="chip ${S.filter === x ? 'active' : ''}" onclick="setF('${x}')">${x}</button>`
+    ).join('');
   document.getElementById('wlFilters').innerHTML = c.map(x =>
     `<button class="chip ${S.wlFilter === x ? 'active' : ''}" onclick="setWF('${x}')">${x}</button>`
   ).join('');
@@ -27,7 +30,11 @@ export function setF(c) {
 }
 
 export function buildDeck() {
-  S.deck = S.filter === 'Alle' ? [...words] : words.filter(w => w.c === S.filter);
+  if (S.filter === 'Learning') {
+    S.deck = words.filter(w => S.unknown.has(w.w));
+  } else {
+    S.deck = S.filter === 'Alle' ? [...words] : words.filter(w => w.c === S.filter);
+  }
   for (let i = S.deck.length - 1; i > 0; i--) {
     const j = Math.random() * i | 0;
     [S.deck[i], S.deck[j]] = [S.deck[j], S.deck[i]];
@@ -35,7 +42,18 @@ export function buildDeck() {
 }
 
 export function showCard() {
-  if (!S.deck.length) return;
+  if (!S.deck.length) {
+    document.getElementById('fcArt').textContent = S.filter === 'Learning' ? '🎉' : '';
+    document.getElementById('fcWord').textContent = S.filter === 'Learning' ? 'All clear!' : '—';
+    document.getElementById('fcCat').textContent = '';
+    document.getElementById('fcWordB').textContent = '';
+    document.getElementById('fcTrans').textContent = S.filter === 'Learning' ? `Mark words "Don't Know" to add them here.` : '';
+    document.getElementById('fcEx').textContent = '';
+    document.getElementById('flashcard').classList.remove('flipped');
+    S.flipped = false;
+    updStats();
+    return;
+  }
   const w = S.deck[S.idx % S.deck.length];
   document.getElementById('fcArt').textContent = w.a || '';
   document.getElementById('fcWord').textContent = w.w;
@@ -59,6 +77,8 @@ export function mark(k) {
   else { S.unknown.add(w.w); S.known.delete(w.w); }
   S.idx++;
   save();
+  if (S.filter === 'Learning') buildDeck();
+  buildFilters();
   showCard();
 }
 
@@ -70,8 +90,8 @@ function updStats() {
     <div class="fc-stat green"><div class="n">${k}</div><div class="l">Known</div></div>
     <div class="fc-stat red"><div class="n">${u}</div><div class="l">Learning</div></div>
     <div class="fc-stat"><div class="n">${t - k - u}</div><div class="l">Unseen</div></div>`;
-  document.getElementById('fcProg').style.width = `${k / t * 100}%`;
-  document.getElementById('fcCounter').textContent = `${S.idx % t + 1} / ${t}`;
+  document.getElementById('fcProg').style.width = t ? `${k / t * 100}%` : '0%';
+  document.getElementById('fcCounter').textContent = t ? `${S.idx % t + 1} / ${t}` : '0 / 0';
 }
 
 export function initSwipe() {
