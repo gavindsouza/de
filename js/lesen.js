@@ -119,7 +119,6 @@ function renderL2() {
 }
 
 let l2Score = { c: 0, t: 0 };
-export function switchLPart_reset() { l2Score = { c: 0, t: 0 }; }
 
 export function l2Ans(idx, chosen, correct, el) {
   const row = document.getElementById(`lstmt${idx}`);
