@@ -15,6 +15,7 @@ export const S = {
   pCount: 0,
   days: new Set(),
   intro: {},
+  examDone: 0,
 };
 
 // Load from localStorage
@@ -27,6 +28,7 @@ try {
   if (d.pc) S.pCount = d.pc;
   if (d.ds) S.days = new Set(d.ds);
   if (d.i) S.intro = d.i;
+  if (d.ed) S.examDone = d.ed;
 } catch (e) { /* ignore corrupt data */ }
 
 export function save() {
@@ -38,5 +40,6 @@ export function save() {
     pc: S.pCount,
     ds: [...S.days],
     i: S.intro,
+    ed: S.examDone,
   }));
 }

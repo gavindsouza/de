@@ -3,8 +3,14 @@
 import { emailPrompts } from './data.js';
 
 export function newPrompt() {
+  const p = emailPrompts[Math.random() * emailPrompts.length | 0];
   document.getElementById('emailPrompt').innerHTML =
-    `<strong>Prompt:</strong> ${emailPrompts[Math.random() * emailPrompts.length | 0]}<br><span style="font-size:.78rem;color:var(--muted)">Tap for new prompt</span>`;
+    `<div style="margin-bottom:8px">${p.scenario}</div>
+     <div style="font-weight:600;margin-bottom:6px">${p.instruction}</div>
+     <ul style="margin:0 0 8px;padding-left:20px">
+       ${p.points.map(pt => `<li>${pt}</li>`).join('')}
+     </ul>
+     <span style="font-size:.78rem;color:var(--muted)">Antippen für neue Aufgabe</span>`;
 }
 
 export function countWords() {
