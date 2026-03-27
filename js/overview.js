@@ -26,6 +26,9 @@ export function updOverview() {
   document.getElementById('ovIntroSub').textContent = `${S.pCount} / 20 practices`;
   document.getElementById('ovWlSub').textContent = `${words.length} words`;
   document.getElementById('ovSchedSub').textContent = `${S.days.size} / 14 days done`;
+  document.getElementById('ovExamSub').textContent = `${S.examDone} Prüfung${S.examDone === 1 ? '' : 'en'} gemacht`;
+  document.getElementById('ovHoerenSub').textContent = 'Hören & Aussagen üben';
+  document.getElementById('ovLesenSub').textContent = 'Texte & Formulare lesen';
 }
 
 export function resetProgress() {

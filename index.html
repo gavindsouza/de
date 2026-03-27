@@ -185,8 +185,49 @@
         <tr><th></th><th>Masc.</th><th>Fem.</th><th>Neut.</th><th>Pl.</th></tr>
         <tr><td>Nom.</td><td class="hl">der</td><td class="hl">die</td><td class="hl">das</td><td class="hl">die</td></tr>
         <tr><td>Acc.</td><td class="hl">den</td><td class="hl">die</td><td class="hl">das</td><td class="hl">die</td></tr>
+        <tr><td>Dat.</td><td class="hl">dem</td><td class="hl">der</td><td class="hl">dem</td><td class="hl">den</td></tr>
       </table></div>
       <p style="margin-top:6px;font-size:.82rem">Always use <span class="hl">Sie</span> (formal you) on the exam.</p>
+    </div>
+
+    <div class="g-card">
+      <h4>Modal Verbs — most-tested grammar at A1!</h4>
+      <div class="g-scroll"><table>
+        <tr><th>Pronoun</th><th class="hl">können</th><th class="hl">möchten</th><th class="hl">müssen</th><th class="hl">wollen</th></tr>
+        <tr><td>ich</td><td>kann</td><td>möchte</td><td>muss</td><td>will</td></tr>
+        <tr><td>du</td><td>kannst</td><td>möchtest</td><td>musst</td><td>willst</td></tr>
+        <tr><td>er/sie/es</td><td>kann</td><td>möchte</td><td>muss</td><td>will</td></tr>
+        <tr><td>wir</td><td>können</td><td>möchten</td><td>müssen</td><td>wollen</td></tr>
+        <tr><td>sie/Sie</td><td>können</td><td>möchten</td><td>müssen</td><td>wollen</td></tr>
+      </table></div>
+      <p style="color:var(--yellow);margin-top:8px;font-size:.82rem">Infinitive goes to the END: <em>Ich kann Deutsch sprechen.</em> · <em>Ich möchte einen Kaffee haben.</em></p>
+    </div>
+
+    <div class="g-card">
+      <h4>Dative Prepositions — always use Dat. case!</h4>
+      <div class="g-scroll"><table>
+        <tr><th>Prep.</th><th>Meaning</th><th>Example</th></tr>
+        <tr><td class="hl">mit</td><td>with</td><td>Ich fahre mit dem Zug.</td></tr>
+        <tr><td class="hl">bei</td><td>at / near</td><td>Er wohnt bei seiner Mutter.</td></tr>
+        <tr><td class="hl">nach</td><td>after / to (places)</td><td>Ich fahre nach Berlin.</td></tr>
+        <tr><td class="hl">von</td><td>from / of</td><td>Das ist ein Brief von Maria.</td></tr>
+        <tr><td class="hl">zu</td><td>to (people/places)</td><td>Ich gehe zum Arzt.</td></tr>
+        <tr><td class="hl">aus</td><td>from (origin)</td><td>Er kommt aus der Türkei.</td></tr>
+        <tr><td class="hl">seit</td><td>since / for</td><td>Ich lerne seit drei Monaten.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="g-card">
+      <h4>Negation: kein / nicht</h4>
+      <div class="g-scroll"><table>
+        <tr><th>Rule</th><th>Example</th></tr>
+        <tr><td class="hl">kein/keine</td><td>negates nouns: <em>Ich habe keine Zeit.</em></td></tr>
+        <tr><td class="hl">nicht</td><td>negates verbs/adj: <em>Ich komme heute nicht.</em></td></tr>
+      </table></div>
+      <div style="margin-top:8px;font-size:.85rem">
+        <strong>kein</strong> follows article gender: kein (m/n) · keine (f/pl)<br>
+        <span style="color:var(--muted)">Ich habe <span class="hl">keinen</span> Hunger. (masc.) · Sie hat <span class="hl">keine</span> Kinder. (pl.)</span>
+      </div>
     </div>
 
     <div class="g-card">
@@ -267,6 +308,28 @@
     </div>
   </div>
 
+  <!-- ===== HÖREN ===== -->
+  <div id="hoeren" class="section">
+    <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <h2>Hören — Listening</h2>
+    <div class="desc">Three exercise types matching the real A1 exam. Tap ▶ Hören to hear the text via browser TTS.</div>
+    <div id="hoerenContent"></div>
+  </div>
+
+  <!-- ===== LESEN ===== -->
+  <div id="lesen" class="section">
+    <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <h2>Lesen — Reading</h2>
+    <div class="desc">Match ads to people · answer Richtig/Falsch · fill in forms from texts.</div>
+    <div id="lesenContent"></div>
+  </div>
+
+  <!-- ===== MOCK EXAM ===== -->
+  <div id="mockexam" class="section">
+    <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Abbrechen</button>
+    <div id="examContent"></div>
+  </div>
+
   <!-- ===== SPEAKING ===== -->
   <div id="speaking" class="section">
     <h2>Speaking Sim</h2>
@@ -312,6 +375,18 @@
     </div>
 
     <!-- Quick actions -->
+    <div class="ov-section-label">Prüfung</div>
+    <div class="ov-actions">
+      <button class="ov-action ov-action-exam" onclick="go('mockexam');startExam()">
+        <span class="ov-action-ico">📋</span>
+        <span class="ov-action-info">
+          <span class="ov-action-title">Prüfungssimulation</span>
+          <span class="ov-action-sub" id="ovExamSub">0 Prüfungen gemacht</span>
+        </span>
+        <span class="ov-action-arrow">&#x203A;</span>
+      </button>
+    </div>
+
     <div class="ov-section-label">Continue Learning</div>
     <div class="ov-actions">
       <button class="ov-action" onclick="go('flashcards')">
@@ -319,6 +394,22 @@
         <span class="ov-action-info">
           <span class="ov-action-title">Flashcards</span>
           <span class="ov-action-sub" id="ovFcSub">0 words to review</span>
+        </span>
+        <span class="ov-action-arrow">&#x203A;</span>
+      </button>
+      <button class="ov-action" onclick="go('hoeren')">
+        <span class="ov-action-ico">🎧</span>
+        <span class="ov-action-info">
+          <span class="ov-action-title">Hören — Listening</span>
+          <span class="ov-action-sub" id="ovHoerenSub">Gespräche, Nachrichten, Durchsagen</span>
+        </span>
+        <span class="ov-action-arrow">&#x203A;</span>
+      </button>
+      <button class="ov-action" onclick="go('lesen')">
+        <span class="ov-action-ico">📖</span>
+        <span class="ov-action-info">
+          <span class="ov-action-title">Lesen — Reading</span>
+          <span class="ov-action-sub" id="ovLesenSub">Texte &amp; Formulare lesen</span>
         </span>
         <span class="ov-action-arrow">&#x203A;</span>
       </button>

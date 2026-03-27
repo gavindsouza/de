@@ -440,3 +440,360 @@ export const schedule = [
   { d: 13, f: "Production", t: "Final email. Self-Intro 10 times. Full speaking run-through." },
   { d: 14, f: "Rest", t: "Review Grammar cheat sheet & email templates only. You got this." },
 ];
+
+// ===== HÖREN DATA =====
+// Part 1: Short dialogues → multiple choice (which answer is correct?)
+// Part 2: Short messages → write the key info (number, time, name)
+// Part 3: Public announcements → Richtig oder Falsch?
+export const hoerenData = {
+  teil1: [
+    {
+      script: [
+        { s: 'Kunde', t: 'Guten Morgen! Ich möchte gerne einen Termin beim Zahnarzt.' },
+        { s: 'Rezeption', t: 'Natürlich. Wann passt Ihnen der Termin?' },
+        { s: 'Kunde', t: 'Am Dienstag, wenn möglich.' },
+        { s: 'Rezeption', t: 'Dienstag um zehn Uhr ist noch frei.' },
+      ],
+      question: 'Was möchte der Kunde?',
+      options: ['Einen Termin beim Zahnarzt', 'Eine Fahrkarte kaufen', 'Ein Hotelzimmer buchen'],
+      answer: 0,
+    },
+    {
+      script: [
+        { s: 'Anna', t: 'Entschuldigung, ich suche die Bibliothek. Können Sie mir helfen?' },
+        { s: 'Mann', t: 'Ja, gerne. Gehen Sie hier geradeaus und dann links.' },
+        { s: 'Anna', t: 'Und wie weit ist das?' },
+        { s: 'Mann', t: 'Ungefähr fünf Minuten zu Fuß.' },
+      ],
+      question: 'Wohin möchte Anna?',
+      options: ['Zum Supermarkt', 'Zur Bibliothek', 'Zum Bahnhof'],
+      answer: 1,
+    },
+    {
+      script: [
+        { s: 'Tom', t: 'Ich möchte ein Kilo Äpfel und zwei Liter Milch, bitte.' },
+        { s: 'Verkäuferin', t: 'Hier bitte. Das macht zusammen drei Euro fünfzig.' },
+        { s: 'Tom', t: 'Haben Sie auch Bananen heute?' },
+        { s: 'Verkäuferin', t: 'Nein, die haben wir heute leider nicht.' },
+      ],
+      question: 'Was kauft Tom?',
+      options: ['Äpfel und Bananen', 'Äpfel und Milch', 'Milch und Bananen'],
+      answer: 1,
+    },
+    {
+      script: [
+        { s: 'Mia', t: 'Wann fährt der nächste Zug nach Frankfurt?' },
+        { s: 'Information', t: 'Der nächste Zug fährt um vierzehn Uhr dreißig von Gleis drei.' },
+        { s: 'Mia', t: 'Und wie lange dauert die Fahrt?' },
+        { s: 'Information', t: 'Ungefähr zwei Stunden.' },
+      ],
+      question: 'Um wie viel Uhr fährt der Zug?',
+      options: ['13:30 Uhr', '14:30 Uhr', '15:30 Uhr'],
+      answer: 1,
+    },
+    {
+      script: [
+        { s: 'Lena', t: 'Ich suche einen Deutschkurs für Anfänger. Wann beginnt der nächste Kurs?' },
+        { s: 'Sekretärin', t: 'Der nächste Anfängerkurs beginnt am Montag, dem dritten März.' },
+        { s: 'Lena', t: 'Und wie viel kostet er?' },
+        { s: 'Sekretärin', t: 'Er kostet hundertfünfzig Euro für acht Wochen.' },
+      ],
+      question: 'Wann beginnt der Kurs?',
+      options: ['Am Montag, 3. März', 'Am Mittwoch, 3. März', 'Am Montag, 13. März'],
+      answer: 0,
+    },
+  ],
+  teil2: [
+    {
+      script: 'Hallo, hier ist Sandra Berger. Ich kann heute Abend leider nicht kommen — ich bin krank. Können wir den Termin auf Freitag verschieben? Ruf mich bitte zurück. Meine Nummer ist null-eins-sieben-sechs, drei-vier-fünf-sechs-sieben-acht.',
+      question: 'Auf welchen Tag möchte Sandra den Termin verschieben?',
+      answer: 'Freitag',
+      hint: 'Wochentag',
+    },
+    {
+      script: 'Guten Tag, hier ist das Kurszentrum Mitte. Ihr Deutschkurs beginnt am Montag um achtzehn Uhr dreißig in Raum zwölf. Bitte bringen Sie Ihren Ausweis und ein Heft mit.',
+      question: 'Um wie viel Uhr beginnt der Kurs?',
+      answer: '18:30',
+      hint: 'Uhrzeit',
+    },
+    {
+      script: 'Hier ist eine Nachricht für Herrn Müller. Ihr Termin beim Zahnarzt ist am Donnerstag, dem achten April um neun Uhr fünfzehn. Die Praxis ist in der Hauptstraße zweiundzwanzig.',
+      question: 'Wie lautet die Hausnummer der Praxis?',
+      answer: '22',
+      hint: 'Nummer',
+    },
+    {
+      script: 'Hallo Peter, hier ist deine Schwester Julia. Kannst du bitte fünf Kilogramm Mehl und drei Liter Öl kaufen? Ich koche heute Abend für die ganze Familie. Danke!',
+      question: 'Wie viel Mehl soll Peter kaufen?',
+      answer: '5 kg',
+      hint: 'Menge',
+    },
+    {
+      script: 'Achtung, liebe Fahrgäste! Der Intercity eins-sieben-null nach Hamburg hat heute eine Verspätung von zwanzig Minuten. Neue Abfahrtszeit ist elf Uhr fünfzehn von Gleis sechs.',
+      question: 'Wie viele Minuten Verspätung hat der Zug?',
+      answer: '20',
+      hint: 'Minuten',
+    },
+  ],
+  teil3: [
+    {
+      script: 'Sehr geehrte Kunden! Unser Supermarkt ist heute wegen Inventur um achtzehn Uhr geschlossen. Morgen öffnen wir wieder um acht Uhr. Wir bitten um Ihr Verständnis.',
+      statement: 'Der Supermarkt schließt heute früher als normal.',
+      answer: true,
+    },
+    {
+      script: 'Liebe Fahrgäste, die U-Bahn Linie U4 fährt heute zwischen Hauptbahnhof und Stadtmitte nicht. Bitte benutzen Sie den Ersatzbus. Wir entschuldigen uns für die Unannehmlichkeiten.',
+      statement: 'Die U4 fährt heute auf der ganzen Strecke normal.',
+      answer: false,
+    },
+    {
+      script: 'Herzlich willkommen im Schwimmbad Westpark! Das Hallenbad ist täglich von sieben bis zweiundzwanzig Uhr geöffnet. Der Eintritt kostet vier Euro für Erwachsene und zwei Euro für Kinder.',
+      statement: 'Kinder zahlen weniger Eintritt als Erwachsene.',
+      answer: true,
+    },
+    {
+      script: 'Achtung, wichtige Durchsage! Im dritten Stock des Kaufhauses gibt es heute ein Sonderangebot: Alle Winterjacken sind fünfzig Prozent günstiger. Das Angebot gilt nur heute!',
+      statement: 'Das Angebot für Winterjacken gilt eine ganze Woche.',
+      answer: false,
+    },
+    {
+      script: 'Guten Tag! Das Stadtmuseum ist ab nächster Woche mittwochs bis sonntags geöffnet. Montags und dienstags bleibt es geschlossen. Der Eintritt ist kostenlos. Wir freuen uns auf Ihren Besuch!',
+      statement: 'Der Eintritt ins Stadtmuseum ist gratis.',
+      answer: true,
+    },
+  ],
+};
+
+// ===== LESEN DATA =====
+// Part 1: Match people (with needs) to the correct ad/notice
+// Part 2: Read a text → Richtig oder Falsch?
+// Part 3: Read an info text → fill in a form
+export const lesenData = [
+  {
+    teil1: {
+      people: [
+        { name: 'Herr Berger', need: 'Er sucht einen Sprachkurs für Anfänger am Abend.' },
+        { name: 'Frau Schmidt', need: 'Sie möchte ihr altes Fahrrad verkaufen.' },
+        { name: 'Yuki', need: 'Sie sucht eine Mitbewohnerin für ihre Wohnung.' },
+        { name: 'Marco', need: 'Er möchte am Wochenende Fußball spielen.' },
+        { name: 'Fatima', need: 'Sie sucht günstige Nachhilfe in Mathe.' },
+      ],
+      ads: [
+        { label: 'A', title: 'Spanischkurs Anfänger', text: 'Montag & Mittwoch, 18–20 Uhr. VHS Weststadt. 80 € / Monat.' },
+        { label: 'B', title: 'WG-Zimmer zu vergeben', text: 'Suche Mitbewohnerin ab 1. März. Zimmer 15 m², 450 € warm. Nichtraucher.' },
+        { label: 'C', title: 'Fahrrad zu verkaufen', text: 'Damenrad, blau, 7 Gang, guter Zustand. Preis: 80 €. Tel: 0176-123456.' },
+        { label: 'D', title: 'Fußball am Wochenende', text: 'Hobby-Team sucht Spieler! Samstags 10 Uhr im Stadtpark. Anfänger willkommen.' },
+        { label: 'E', title: 'Mathenachhilfe', text: 'Studentin gibt Nachhilfe in Mathematik. 10 € / Stunde. Alle Klassenstufen.' },
+        { label: 'F', title: 'Deutschkurs für Anfänger', text: 'Dienstag & Donnerstag, 19–21 Uhr. Nur 60 € im Monat. Kleine Gruppen!' },
+        { label: 'G', title: 'Fahrrad kaufen', text: 'Suche gebrauchtes Herrenrad, max. 100 €. Tel: 0170-555666.' },
+      ],
+      answers: { 'Herr Berger': 'F', 'Frau Schmidt': 'C', 'Yuki': 'B', 'Marco': 'D', 'Fatima': 'E' },
+    },
+    teil2: {
+      text: 'Liebe Frau Hoffmann,\n\nvielen Dank für Ihre E-Mail. Ich freue mich, dass Sie an unserem Deutschkurs interessiert sind.\n\nDer Kurs A1.1 beginnt am Montag, dem 5. März und endet am 30. April. Er findet montags und mittwochs von 9 bis 11 Uhr statt. Der Kursraum ist im zweiten Stock, Zimmer 204.\n\nDie Kursgebühr beträgt 120 Euro. Bitte überweisen Sie den Betrag bis zum 1. März. Sie brauchen das Lernbuch „Schritte Plus Neu A1".\n\nBei Fragen stehe ich gerne zur Verfügung.\n\nMit freundlichen Grüßen\nM. Weber, Kursleitung',
+      statements: [
+        { text: 'Der Kurs beginnt im Februar.', answer: false },
+        { text: 'Der Kurs findet zweimal pro Woche statt.', answer: true },
+        { text: 'Der Kursraum ist im dritten Stock.', answer: false },
+        { text: 'Der Kurs kostet 120 Euro.', answer: true },
+        { text: 'Man braucht ein Lernbuch für den Kurs.', answer: true },
+      ],
+    },
+    teil3: {
+      text: 'Vorname: Maria\nFamilienname: Santos\nGeburtsdatum: 14.06.1995\nGeburtsort: Lissabon\nNationalität: portugiesisch\nBeruf: Krankenpflegerin\nAdresse: Gartenstraße 8, 80333 München\nTelefon: 0176-223344\nGewünschter Kurs: Deutsch A1',
+      instruction: 'Lesen Sie die Information und füllen Sie das Formular aus.',
+      fields: [
+        { label: 'Familienname', answer: 'Santos' },
+        { label: 'Geburtsdatum', answer: '14.06.1995' },
+        { label: 'Nationalität', answer: 'portugiesisch' },
+        { label: 'Beruf', answer: 'Krankenpflegerin' },
+        { label: 'Telefon', answer: '0176-223344' },
+      ],
+    },
+  },
+  {
+    teil1: {
+      people: [
+        { name: 'Frau Klein', need: 'Sie sucht eine günstige Wohnung zur Miete.' },
+        { name: 'Ali', need: 'Er sucht Arbeit als Koch.' },
+        { name: 'Suna', need: 'Sie braucht abends einen Babysitter.' },
+        { name: 'Herr Vogel', need: 'Er möchte seinen Computer reparieren lassen.' },
+        { name: 'Lara', need: 'Sie sucht einen Yogakurs für Anfänger.' },
+      ],
+      ads: [
+        { label: 'A', title: 'Yoga für Anfänger', text: 'Jeden Dienstag, 17–18:30 Uhr. Gemeinschaftszentrum Nord. 30 € / Monat.' },
+        { label: 'B', title: '2-Zimmer-Wohnung', text: '55 m², ruhige Lage, ab 1.4. frei. 650 € warm. Kontakt: 089-334455.' },
+        { label: 'C', title: 'Koch gesucht', text: 'Restaurant „Zum Löwen" sucht erfahrenen Koch. Vollzeit, sofort. Bewerbung: info@zumloewen.de.' },
+        { label: 'D', title: 'PC-Reparatur', text: 'Schnell und günstig! Laptop, PC, Drucker reparieren. Hausbesuch möglich. Tel: 0178-112233.' },
+        { label: 'E', title: 'Babysitter angeboten', text: 'Biete Babysitting für Kleinkinder, auch abends. Erfahrung vorhanden. 10 € / Stunde.' },
+        { label: 'F', title: 'Pilates-Kurs', text: 'Mittwochs 18 Uhr. Fitness Center Mitte. 40 € monatlich.' },
+        { label: 'G', title: 'Büro zu vermieten', text: '30 m², Erdgeschoss, gute Anbindung. 500 € netto.' },
+      ],
+      answers: { 'Frau Klein': 'B', 'Ali': 'C', 'Suna': 'E', 'Herr Vogel': 'D', 'Lara': 'A' },
+    },
+    teil2: {
+      text: 'Hallo Tomás!\n\nWie geht es dir? Ich bin jetzt seit drei Monaten in Berlin und es gefällt mir sehr gut. Ich wohne in Mitte — das ist das Zentrum der Stadt. Meine Wohnung hat zwei Zimmer. Sie ist nicht sehr groß, aber ich habe alles, was ich brauche.\n\nIch arbeite in einem Café. Die Arbeit macht mir Spaß, aber manchmal ist es sehr stressig. Meine Kollegen sind sehr nett.\n\nAm Wochenende gehe ich oft in den Park oder ins Museum. Berlin hat so viele interessante Museen! Und du? Was machst du gerade?\n\nViele Grüße\nAnna',
+      statements: [
+        { text: 'Anna wohnt seit einem Jahr in Berlin.', answer: false },
+        { text: 'Anna wohnt im Zentrum von Berlin.', answer: true },
+        { text: 'Ihre Wohnung hat drei Zimmer.', answer: false },
+        { text: 'Anna arbeitet in einem Café.', answer: true },
+        { text: 'Am Wochenende geht Anna manchmal ins Museum.', answer: true },
+      ],
+    },
+    teil3: {
+      text: 'Kursleiter: Thomas Bauer\nKursname: Gitarre für Anfänger\nKursnummer: MU-401\nBeginn: 10. September\nEnde: 15. Dezember\nTag: Donnerstag\nUhrzeit: 16:00–17:30 Uhr\nKursraum: Raum 15\nMaximale Teilnehmerzahl: 8 Personen\nGebühr: 95 Euro pro Kurshalbjahr',
+      instruction: 'Lesen Sie die Kursinformation und füllen Sie das Formular aus.',
+      fields: [
+        { label: 'Kursleiter', answer: 'Thomas Bauer' },
+        { label: 'Beginn des Kurses', answer: '10. September' },
+        { label: 'Wochentag', answer: 'Donnerstag' },
+        { label: 'Uhrzeit', answer: '16:00–17:30 Uhr' },
+        { label: 'Gebühr', answer: '95 Euro' },
+      ],
+    },
+  },
+  {
+    teil1: {
+      people: [
+        { name: 'Herr Park', need: 'Er sucht einen Arzt für seine kranke Katze.' },
+        { name: 'Lisa', need: 'Sie möchte ein Zimmer in einer WG mieten.' },
+        { name: 'Omar', need: 'Er sucht einen Nebenjob am Wochenende.' },
+        { name: 'Frau Torres', need: 'Sie sucht einen Kochkurs für Anfänger.' },
+        { name: 'Ben', need: 'Er möchte seinen Fernseher verkaufen.' },
+      ],
+      ads: [
+        { label: 'A', title: 'Tierarzt Dr. Neumann', text: 'Kleintierpraxis. Hunde, Katzen, Vögel. Mo–Fr 8–18 Uhr. Notdienst: 0800-TIER.' },
+        { label: 'B', title: 'WG-Zimmer gesucht', text: 'Suche Zimmer in WG, max. 400 € warm. Nichtraucher, ordentlich. Tel: 0157-998877.' },
+        { label: 'C', title: 'WG-Zimmer frei', text: 'Zimmer in 3er-WG, 12 m², 380 € warm. Zentrumsnähe. Frei ab sofort. Kontakt per E-Mail.' },
+        { label: 'D', title: 'Kellner/in gesucht', text: 'Restaurant im Zentrum sucht Aushilfe am Wochenende. Gute Bezahlung. Bitte melden: 089-224466.' },
+        { label: 'E', title: 'Kochen für Einsteiger', text: 'VHS-Kurs: Grundlagen der Küche. Samstags 10–13 Uhr. 5 Termine, 55 Euro.' },
+        { label: 'F', title: 'Fernseher zu verkaufen', text: '55 Zoll, Full HD, guter Zustand. 150 €. Selbstabholung. Tel: 0176-667788.' },
+        { label: 'G', title: 'Babysitter gesucht', text: 'Familie sucht Babysitter für 2 Kinder, freitags 18–22 Uhr. 12 € / Stunde.' },
+      ],
+      answers: { 'Herr Park': 'A', 'Lisa': 'C', 'Omar': 'D', 'Frau Torres': 'E', 'Ben': 'F' },
+    },
+    teil2: {
+      text: 'Liebe Eltern und Erziehungsberechtigte,\n\nwir möchten Sie darüber informieren, dass unsere Schule am Freitag, dem 22. März, wegen eines Lehrerfortbildungstages geschlossen ist. Der Unterricht beginnt wieder am Montag, dem 25. März, wie gewohnt um 8 Uhr.\n\nAm 10. April findet unser Schulfest statt. Alle Familien sind herzlich eingeladen! Das Fest beginnt um 14 Uhr auf dem Schulhof. Bei schlechtem Wetter findet es in der Turnhalle statt.\n\nBei Fragen wenden Sie sich bitte an das Sekretariat.\n\nMit freundlichen Grüßen\nDie Schulleitung',
+      statements: [
+        { text: 'Die Schule ist am Freitag geöffnet.', answer: false },
+        { text: 'Am Montag beginnt der Unterricht um 8 Uhr.', answer: true },
+        { text: 'Das Schulfest findet am 10. März statt.', answer: false },
+        { text: 'Das Schulfest beginnt um 14 Uhr.', answer: true },
+        { text: 'Bei Regen findet das Fest in der Turnhalle statt.', answer: true },
+      ],
+    },
+    teil3: {
+      text: 'Mitgliedsantrag Sportverein Blau-Weiß München\nVorname: Kenji\nFamilienname: Tanaka\nGeburtsdatum: 03.11.2000\nNationalität: japanisch\nAdresse: Rosenweg 14, 81234 München\nTelefon: 0179-445566\nE-Mail: k.tanaka@mail.de\nGewünschte Sportart: Tennis\nMitgliedsbeitrag: 25 Euro / Monat',
+      instruction: 'Lesen Sie den Mitgliedsantrag und füllen Sie das Formular aus.',
+      fields: [
+        { label: 'Vorname', answer: 'Kenji' },
+        { label: 'Geburtsdatum', answer: '03.11.2000' },
+        { label: 'Adresse', answer: 'Rosenweg 14, 81234 München' },
+        { label: 'Sportart', answer: 'Tennis' },
+        { label: 'Monatsbeitrag', answer: '25 Euro' },
+      ],
+    },
+  },
+];
+
+// ===== SCHREIBEN TEIL 2 — FORM DATA =====
+export const formData = [
+  {
+    title: 'Anmeldeformular — Sprachschule',
+    scenario: 'Sie möchten sich für einen Deutschkurs anmelden. Füllen Sie das Formular aus.',
+    fields: [
+      { label: 'Familienname', placeholder: 'Ihr Nachname' },
+      { label: 'Vorname', placeholder: 'Ihr Vorname' },
+      { label: 'Geburtsdatum', placeholder: 'TT.MM.JJJJ' },
+      { label: 'Geburtsland', placeholder: 'z. B. Indien' },
+      { label: 'Adresse', placeholder: 'Straße Nr., PLZ Ort' },
+      { label: 'Telefonnummer', placeholder: '0...' },
+    ],
+  },
+  {
+    title: 'Kontaktformular — Arztpraxis',
+    scenario: 'Sie möchten einen Termin beim Arzt. Füllen Sie die Kontaktdaten aus.',
+    fields: [
+      { label: 'Name', placeholder: 'Vor- und Nachname' },
+      { label: 'Geburtsdatum', placeholder: 'TT.MM.JJJJ' },
+      { label: 'Telefon', placeholder: '0...' },
+      { label: 'Krankenkasse', placeholder: 'z. B. AOK, TK, DAK' },
+      { label: 'Grund des Termins', placeholder: 'z. B. Erkältung, Rückenschmerzen' },
+    ],
+  },
+  {
+    title: 'Vereinsmitgliedschaft — Sportverein',
+    scenario: 'Sie möchten Mitglied in einem Sportverein werden. Füllen Sie das Formular aus.',
+    fields: [
+      { label: 'Familienname', placeholder: 'Ihr Nachname' },
+      { label: 'Vorname', placeholder: 'Ihr Vorname' },
+      { label: 'Geburtsdatum', placeholder: 'TT.MM.JJJJ' },
+      { label: 'E-Mail-Adresse', placeholder: 'ihre@email.de' },
+      { label: 'Gewünschte Sportart', placeholder: 'z. B. Fußball, Tennis, Schwimmen' },
+    ],
+  },
+];
+
+// ===== SPRECHEN DATA (Mock Exam Teil 2 & 3) =====
+export const sprechenData = {
+  // Teil 2: Name an object shown on a card
+  teil2: [
+    { w: 'Apfel', a: 'der', hint: 'Das ist ein Apfel. / Ich sehe einen Apfel.' },
+    { w: 'Buch', a: 'das', hint: 'Das ist ein Buch. / Ich sehe ein Buch.' },
+    { w: 'Stuhl', a: 'der', hint: 'Das ist ein Stuhl. / Ich sehe einen Stuhl.' },
+    { w: 'Tasche', a: 'die', hint: 'Das ist eine Tasche. / Ich sehe eine Tasche.' },
+    { w: 'Handy', a: 'das', hint: 'Das ist ein Handy. / Ich sehe ein Handy.' },
+  ],
+  // Teil 3: Make a request / ask for something based on a picture
+  teil3: [
+    {
+      picture: '🚌 Bushaltestelle',
+      situation: 'Sie sind an der Bushaltestelle. Fragen Sie nach dem Bus.',
+      templates: [
+        'Wann kommt der nächste Bus?',
+        'Fährt der Bus zum Hauptbahnhof?',
+        'Wie viel kostet die Fahrkarte?',
+      ],
+    },
+    {
+      picture: '🍽️ Restaurant',
+      situation: 'Sie sind im Restaurant. Bestellen Sie etwas.',
+      templates: [
+        'Ich möchte gerne [Gericht], bitte.',
+        'Haben Sie [Gericht]?',
+        'Was können Sie empfehlen?',
+        'Die Speisekarte, bitte.',
+      ],
+    },
+    {
+      picture: '🏪 Supermarkt',
+      situation: 'Sie sind im Supermarkt und suchen ein Produkt.',
+      templates: [
+        'Entschuldigung, wo finde ich [Produkt]?',
+        'Haben Sie [Produkt]?',
+        'Was kostet das?',
+      ],
+    },
+    {
+      picture: '🏥 Arztpraxis',
+      situation: 'Sie sind beim Arzt. Beschreiben Sie Ihr Problem.',
+      templates: [
+        'Ich habe Schmerzen im/in der [Körperteil].',
+        'Mir ist nicht gut.',
+        'Ich habe seit [Zeit] Fieber.',
+        'Ich brauche ein Rezept für [Medikament].',
+      ],
+    },
+    {
+      picture: '🏨 Hotel',
+      situation: 'Sie möchten ein Zimmer im Hotel buchen.',
+      templates: [
+        'Ich möchte ein Einzelzimmer für [Anzahl] Nächte.',
+        'Was kostet das Zimmer pro Nacht?',
+        'Ist das Frühstück inbegriffen?',
+        'Haben Sie ein Zimmer frei?',
+      ],
+    },
+  ],
+};

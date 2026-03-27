@@ -10,6 +10,9 @@ import { saveIntro, loadIntro, incPractice } from './intro.js';
 import { newWF, chkWF } from './wfragen.js';
 import { buildSched, togDay } from './schedule.js';
 import { updOverview, resetProgress, confirmReset } from './overview.js';
+import { initHoeren, buildHoeren, switchHPart, hPlayT1, hCheckT1, hNext1, hPlayT2, hCheckT2, hNext2, hPlayT3, hCheckT3, hNext3 } from './hoeren.js';
+import { initLesen, buildLesen, switchLPart, switchLSet, l1Pick, l1Check, l2Ans, l3Check } from './lesen.js';
+import { startExam, examNext, examSpeak, examH1Check, examH1Advance, examH2Check, examH2Advance, examH3Check, examH3Advance, examL1Pick, examL1Submit, examL2Ans, examL2Advance, examL3Submit, examS1Count, examS1Done, examS2Done, examSp2Next, examSp3Next, examFinish } from './mockexam.js';
 
 // Expose to window for onclick handlers in HTML
 Object.assign(window, {
@@ -18,6 +21,24 @@ Object.assign(window, {
   newSpeak, saveIntro, incPractice,
   newWF, chkWF, togDay,
   resetProgress, confirmReset,
+  // Hören
+  buildHoeren, switchHPart,
+  hPlayT1, hCheckT1, hNext1,
+  hPlayT2, hCheckT2, hNext2,
+  hPlayT3, hCheckT3, hNext3,
+  // Lesen
+  buildLesen, switchLPart, switchLSet,
+  l1Pick, l1Check, l2Ans, l3Check,
+  // Mock Exam
+  startExam, examNext, examSpeak,
+  examH1Check, examH1Advance,
+  examH2Check, examH2Advance,
+  examH3Check, examH3Advance,
+  examL1Pick, examL1Submit,
+  examL2Ans, examL2Advance,
+  examL3Submit,
+  examS1Count, examS1Done, examS2Done,
+  examSp2Next, examSp3Next, examFinish,
 });
 
 // Init
@@ -37,3 +58,5 @@ buildSched();
 updOverview();
 initSwipe();
 initKeyboard();
+initHoeren();
+initLesen();
