@@ -110,6 +110,36 @@ function getSentences(w) {
       { d: `Ich mag ${neg} ${w.w}.`, e: `I don't like ${w.w.toLowerCase()}.` },
       { d: `Mit ${dat} ${w.w} macht der Ausflug keinen Spaß.`, e: `An outing is no fun in ${w.w.toLowerCase()}.` },
     ],
+    Natur: [
+      { d: `Ich sehe ${acc} ${w.w}.`, e: `I see a ${w.w.toLowerCase()}.` },
+      { d: `${w.a} ${w.w} ist wunderschön.`, e: `The ${w.w.toLowerCase()} is beautiful.` },
+      { d: `Dort ist ${nom} ${w.w}.`, e: `There is a ${w.w.toLowerCase()} over there.` },
+      { d: `Wir gehen zum ${w.w}.`, e: `We are going to the ${w.w.toLowerCase()}.` },
+    ],
+    Freizeit: [
+      { d: `Ich mag ${acc} ${w.w} sehr.`, e: `I really like ${w.w.toLowerCase()}.` },
+      { d: `Am Wochenende gehe ich in ${acc} ${w.w}.`, e: `At the weekend I go to the ${w.w.toLowerCase()}.` },
+      { d: `${w.a} ${w.w} macht mir viel Spaß.`, e: `The ${w.w.toLowerCase()} is a lot of fun.` },
+      { d: `Mein Hobby ist ${w.w}.`, e: `My hobby is ${w.w.toLowerCase()}.` },
+    ],
+    Körper: [
+      { d: `Mein ${w.w} tut weh.`, e: `My ${w.w.toLowerCase()} hurts.` },
+      { d: `Bitte zeigen Sie mir ${w.a} ${w.w}.`, e: `Please show me the ${w.w.toLowerCase()}.` },
+      { d: `${w.a} ${w.w} ist verletzt.`, e: `The ${w.w.toLowerCase()} is injured.` },
+      { d: `Ich habe Probleme mit ${dat} ${w.w}.`, e: `I have trouble with my ${w.w.toLowerCase()}.` },
+    ],
+    Berufe: [
+      { d: `${poss} ${w.w} arbeitet in Berlin.`, e: `My ${w.w.toLowerCase()} works in Berlin.` },
+      { d: `Ich bin ${nom} ${w.w}.`, e: `I am a ${w.w.toLowerCase()}.` },
+      { d: `${w.a} ${w.w} verdient gut.`, e: `The ${w.w.toLowerCase()} earns well.` },
+      { d: `Ich möchte ${nom} ${w.w} werden.`, e: `I'd like to become a ${w.w.toLowerCase()}.` },
+    ],
+    Jahreszeiten: [
+      { d: `Im ${w.w} ist das Wetter schön.`, e: `The weather is nice in ${w.w.toLowerCase()}.` },
+      { d: `Im ${w.w} machen wir Urlaub.`, e: `We go on holiday in ${w.w.toLowerCase()}.` },
+      { d: `Ich mag ${acc} ${w.w} sehr.`, e: `I really like ${w.w.toLowerCase()}.` },
+      { d: `Was machst du im ${w.w}?`, e: `What do you do in ${w.w.toLowerCase()}?` },
+    ],
   };
   return cats[w.c] || [
     { d: `Wo ist ${w.a} ${w.w}?`, e: `Where is the ${w.w.toLowerCase()}?` },
