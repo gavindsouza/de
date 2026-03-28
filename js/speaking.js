@@ -21,6 +21,12 @@ function getSentences(w) {
         { d: `Wo kaufen Sie ${w.w}?`, e: `Where do you buy ${w.w.toLowerCase()}?` },
         { d: `Die ${w.w} gefallen mir sehr gut.`, e: `I really like the ${w.w.toLowerCase()}.` },
       ],
+      Gesundheit: [
+        { d: `Ich habe ${w.w}.`, e: `I have ${w.w.toLowerCase()}.` },
+        { d: `Wo haben Sie ${w.w}?`, e: `Where does it hurt?` },
+        { d: `Die ${w.w} sind sehr stark.`, e: `The ${w.w.toLowerCase()} is very bad.` },
+        { d: `Haben Sie ${w.w}?`, e: `Are you in pain?` },
+      ],
     };
     return pluralCats[w.c] || [
       { d: `Wo sind die ${w.w}?`, e: `Where are the ${w.w.toLowerCase()}?` },
@@ -31,10 +37,14 @@ function getSentences(w) {
   }
 
   const acc = w.a === 'der' ? 'einen' : w.a === 'die' ? 'eine' : 'ein';
+  const defAcc = w.a === 'der' ? 'den' : w.a;
   const nom = w.a === 'die' ? 'eine' : 'ein';
   const dat = w.a === 'die' ? 'der' : 'dem';
   const datIndef = w.a === 'die' ? 'einer' : 'einem';
   const poss = w.a === 'die' ? 'meine' : 'mein';
+  const Art = w.a[0].toUpperCase() + w.a.slice(1);
+  const Poss = poss[0].toUpperCase() + poss.slice(1);
+  const dein = w.a === 'die' ? 'deine' : 'dein';
   const possAcc = w.a === 'der' ? 'meinen' : w.a === 'die' ? 'meine' : 'mein';
   const neg = w.a === 'der' ? 'keinen' : w.a === 'die' ? 'keine' : 'kein';
   const toPlace = w.a === 'die' ? 'zur' : 'zum';
@@ -43,7 +53,7 @@ function getSentences(w) {
       { d: `Wie lange dauert ${nom} ${w.w}?`, e: `How long is one ${w.w.toLowerCase()}?` },
       { d: `Bitte warte ${acc} ${w.w}.`, e: `Please wait one ${w.w.toLowerCase()}.` },
       { d: `In ${datIndef} ${w.w} bin ich zurück.`, e: `I'll be back in one ${w.w.toLowerCase()}.` },
-      { d: `${w.a} ${w.w} vergeht sehr schnell.`, e: `A ${w.w.toLowerCase()} goes by very quickly.` },
+      { d: `${Art} ${w.w} vergeht sehr schnell.`, e: `A ${w.w.toLowerCase()} goes by very quickly.` },
     ],
     Wochentage: [
       { d: `Am ${w.w} habe ich Deutschkurs.`, e: `I have German class on ${w.w}.` },
@@ -53,19 +63,19 @@ function getSentences(w) {
     ],
     Monate: [
       { d: `Im ${w.w} fahre ich in den Urlaub.`, e: `I'm going on holiday in ${w.w}.` },
-      { d: `${poss} Geburtstag ist im ${w.w}.`, e: `My birthday is in ${w.w}.` },
+      { d: `${Poss} Geburtstag ist im ${w.w}.`, e: `My birthday is in ${w.w}.` },
       { d: `Im ${w.w} beginnt der neue Kurs.`, e: `The new course starts in ${w.w}.` },
       { d: `Im ${w.w} ist das Wetter sehr schön.`, e: `The weather is very nice in ${w.w}.` },
     ],
     Person: [
-      { d: `${poss} ${w.w} heißt Maria.`, e: `My ${w.w.toLowerCase()}'s name is Maria.` },
+      { d: `${Poss} ${w.w} heißt Maria.`, e: `My ${w.w.toLowerCase()}'s name is Maria.` },
       { d: `Ich besuche ${possAcc} ${w.w} am Wochenende.`, e: `I visit my ${w.w.toLowerCase()} on the weekend.` },
-      { d: `Wie alt ist dein ${w.w}?`, e: `How old is your ${w.w.toLowerCase()}?` },
-      { d: `${poss} ${w.w} wohnt in Berlin.`, e: `My ${w.w.toLowerCase()} lives in Berlin.` },
+      { d: `Wie alt ist ${dein} ${w.w}?`, e: `How old is your ${w.w.toLowerCase()}?` },
+      { d: `${Poss} ${w.w} wohnt in Berlin.`, e: `My ${w.w.toLowerCase()} lives in Berlin.` },
     ],
     Wohnen: [
       { d: `In meiner Wohnung gibt es ${acc} ${w.w}.`, e: `My apartment has a ${w.w.toLowerCase()}.` },
-      { d: `${w.a} ${w.w} ist sehr groß.`, e: `The ${w.w.toLowerCase()} is very big.` },
+      { d: `${Art} ${w.w} ist sehr groß.`, e: `The ${w.w.toLowerCase()} is very big.` },
       { d: `Ich suche eine Wohnung mit ${datIndef} ${w.w}.`, e: `I'm looking for a flat with a ${w.w.toLowerCase()}.` },
       { d: `Haben Sie ${acc} ${w.w} frei?`, e: `Do you have a ${w.w.toLowerCase()} available?` },
     ],
@@ -88,26 +98,26 @@ function getSentences(w) {
       { d: `Ich nehme ${acc} ${w.w}.`, e: `I'll take the ${w.w.toLowerCase()}.` },
     ],
     Arbeit: [
-      { d: `${poss} ${w.w} ist sehr nett.`, e: `My ${w.w.toLowerCase()} is very nice.` },
+      { d: `${Poss} ${w.w} ist sehr nett.`, e: `My ${w.w.toLowerCase()} is very nice.` },
       { d: `Ich habe heute ${acc} ${w.w}.`, e: `I have a ${w.w.toLowerCase()} today.` },
-      { d: `${w.a} ${w.w} gefällt mir sehr gut.`, e: `I really like the ${w.w.toLowerCase()}.` },
+      { d: `${Art} ${w.w} gefällt mir sehr gut.`, e: `I really like the ${w.w.toLowerCase()}.` },
       { d: `Ich mag ${possAcc} ${w.w} sehr.`, e: `I like my ${w.w.toLowerCase()} a lot.` },
     ],
     Lernen: [
-      { d: `${w.a} ${w.w} beginnt um neun Uhr.`, e: `The ${w.w.toLowerCase()} starts at nine o'clock.` },
+      { d: `${Art} ${w.w} beginnt um neun Uhr.`, e: `The ${w.w.toLowerCase()} starts at nine o'clock.` },
       { d: `Wie lange dauert ${w.a} ${w.w}?`, e: `How long does the ${w.w.toLowerCase()} last?` },
       { d: `Ich lerne für ${acc} ${w.w}.`, e: `I'm studying for the ${w.w.toLowerCase()}.` },
-      { d: `${w.a} ${w.w} macht mir viel Spaß.`, e: `The ${w.w.toLowerCase()} is a lot of fun.` },
+      { d: `${Art} ${w.w} macht mir viel Spaß.`, e: `The ${w.w.toLowerCase()} is a lot of fun.` },
     ],
     Gesundheit: [
-      { d: `Mein ${w.w} tut sehr weh.`, e: `My ${w.w.toLowerCase()} hurts a lot.` },
+      { d: `${Poss} ${w.w} tut sehr weh.`, e: `My ${w.w.toLowerCase()} hurts a lot.` },
       { d: `Ich habe Probleme mit ${dat} ${w.w}.`, e: `I have trouble with my ${w.w.toLowerCase()}.` },
       { d: `Seit wann tut ${w.a} ${w.w} weh?`, e: `Since when has your ${w.w.toLowerCase()} been hurting?` },
-      { d: `Bitte zeigen Sie mir ${w.a} ${w.w}.`, e: `Please show me the ${w.w.toLowerCase()}.` },
+      { d: `Bitte zeigen Sie mir ${defAcc} ${w.w}.`, e: `Please show me the ${w.w.toLowerCase()}.` },
     ],
     Orte: [
       { d: `Wo ist ${w.a} ${w.w} hier?`, e: `Where is the ${w.w.toLowerCase()} here?` },
-      { d: `${w.a} ${w.w} ist nicht weit von hier.`, e: `The ${w.w.toLowerCase()} is not far from here.` },
+      { d: `${Art} ${w.w} ist nicht weit von hier.`, e: `The ${w.w.toLowerCase()} is not far from here.` },
       { d: `Am Samstag gehe ich ${toPlace} ${w.w}.`, e: `I'm going to the ${w.w.toLowerCase()} on Saturday.` },
       { d: `Gibt es hier ${acc} ${w.w}?`, e: `Is there a ${w.w.toLowerCase()} nearby?` },
     ],
@@ -115,16 +125,16 @@ function getSentences(w) {
       { d: `Ich schreibe ${acc} ${w.w}.`, e: `I'm writing a ${w.w.toLowerCase()}.` },
       { d: `Hast du ${poss} ${w.w} bekommen?`, e: `Did you get my ${w.w.toLowerCase()}?` },
       { d: `Schick mir bitte ${acc} ${w.w}.`, e: `Please send me a ${w.w.toLowerCase()}.` },
-      { d: `${poss} ${w.w} funktioniert nicht.`, e: `My ${w.w.toLowerCase()} is not working.` },
+      { d: `${Poss} ${w.w} funktioniert nicht.`, e: `My ${w.w.toLowerCase()} is not working.` },
     ],
     Kleidung: [
       { d: `Ich suche ${acc} ${w.w}.`, e: `I'm looking for a ${w.w.toLowerCase()}.` },
       { d: `Wie viel kostet ${w.a} ${w.w}?`, e: `How much does the ${w.w.toLowerCase()} cost?` },
-      { d: `${w.a} ${w.w} ist sehr schön.`, e: `The ${w.w.toLowerCase()} is very nice.` },
+      { d: `${Art} ${w.w} ist sehr schön.`, e: `The ${w.w.toLowerCase()} is very nice.` },
       { d: `Haben Sie ${acc} ${w.w} in Größe 38?`, e: `Do you have the ${w.w.toLowerCase()} in size 38?` },
     ],
     Technik: [
-      { d: `${poss} ${w.w} funktioniert nicht.`, e: `My ${w.w.toLowerCase()} isn't working.` },
+      { d: `${Poss} ${w.w} funktioniert nicht.`, e: `My ${w.w.toLowerCase()} isn't working.` },
       { d: `Ich brauche ${acc} ${w.w}.`, e: `I need a ${w.w.toLowerCase()}.` },
       { d: `Wie viel kostet ${w.a} ${w.w}?`, e: `How much does the ${w.w.toLowerCase()} cost?` },
       { d: `Wo kann ich ${acc} ${w.w} kaufen?`, e: `Where can I buy a ${w.w.toLowerCase()}?` },
@@ -137,26 +147,26 @@ function getSentences(w) {
     ],
     Natur: [
       { d: `Ich sehe ${acc} ${w.w}.`, e: `I see a ${w.w.toLowerCase()}.` },
-      { d: `${w.a} ${w.w} ist wunderschön.`, e: `The ${w.w.toLowerCase()} is beautiful.` },
+      { d: `${Art} ${w.w} ist wunderschön.`, e: `The ${w.w.toLowerCase()} is beautiful.` },
       { d: `Dort ist ${nom} ${w.w}.`, e: `There is a ${w.w.toLowerCase()} over there.` },
-      { d: `Wir gehen zum ${w.w}.`, e: `We are going to the ${w.w.toLowerCase()}.` },
+      { d: `Wir gehen ${toPlace} ${w.w}.`, e: `We are going to the ${w.w.toLowerCase()}.` },
     ],
     Freizeit: [
       { d: `Ich mag ${acc} ${w.w} sehr.`, e: `I really like ${w.w.toLowerCase()}.` },
       { d: `Am Wochenende gehe ich in ${acc} ${w.w}.`, e: `At the weekend I go to the ${w.w.toLowerCase()}.` },
-      { d: `${w.a} ${w.w} macht mir viel Spaß.`, e: `The ${w.w.toLowerCase()} is a lot of fun.` },
+      { d: `${Art} ${w.w} macht mir viel Spaß.`, e: `The ${w.w.toLowerCase()} is a lot of fun.` },
       { d: `Mein Hobby ist ${w.w}.`, e: `My hobby is ${w.w.toLowerCase()}.` },
     ],
     Körper: [
-      { d: `Mein ${w.w} tut weh.`, e: `My ${w.w.toLowerCase()} hurts.` },
-      { d: `Bitte zeigen Sie mir ${w.a} ${w.w}.`, e: `Please show me the ${w.w.toLowerCase()}.` },
-      { d: `${w.a} ${w.w} ist verletzt.`, e: `The ${w.w.toLowerCase()} is injured.` },
+      { d: `${Poss} ${w.w} tut weh.`, e: `My ${w.w.toLowerCase()} hurts.` },
+      { d: `Bitte zeigen Sie mir ${defAcc} ${w.w}.`, e: `Please show me the ${w.w.toLowerCase()}.` },
+      { d: `${Art} ${w.w} ist verletzt.`, e: `The ${w.w.toLowerCase()} is injured.` },
       { d: `Ich habe Probleme mit ${dat} ${w.w}.`, e: `I have trouble with my ${w.w.toLowerCase()}.` },
     ],
     Berufe: [
-      { d: `${poss} ${w.w} arbeitet in Berlin.`, e: `My ${w.w.toLowerCase()} works in Berlin.` },
+      { d: `${Poss} ${w.w} arbeitet in Berlin.`, e: `My ${w.w.toLowerCase()} works in Berlin.` },
       { d: `Ich bin ${nom} ${w.w}.`, e: `I am a ${w.w.toLowerCase()}.` },
-      { d: `${w.a} ${w.w} verdient gut.`, e: `The ${w.w.toLowerCase()} earns well.` },
+      { d: `${Art} ${w.w} verdient gut.`, e: `The ${w.w.toLowerCase()} earns well.` },
       { d: `Ich möchte ${nom} ${w.w} werden.`, e: `I'd like to become a ${w.w.toLowerCase()}.` },
     ],
     Jahreszeiten: [

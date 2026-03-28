@@ -500,7 +500,7 @@ export const words = [
   { w: "Nase", a: "die", e: "Meine Nase ist groß.", t: "nose", c: "Gesundheit" },
   { w: "Ohr", a: "das", e: "Mein Ohr tut weh.", t: "ear", c: "Gesundheit" },
   { w: "Rücken", a: "der", e: "Mein Rücken tut weh.", t: "back", c: "Gesundheit" },
-  { w: "Schmerzen", a: "die", e: "Ich habe Schmerzen.", t: "pain", c: "Gesundheit" },
+  { w: "Schmerzen", a: "die", pl: true, e: "Ich habe Schmerzen.", t: "pain", c: "Gesundheit" },
   { w: "Schulter", a: "die", e: "Meine Schulter tut weh.", t: "shoulder", c: "Gesundheit" },
   { w: "Tablette", a: "die", e: "Ich nehme eine Tablette.", t: "tablet / pill", c: "Gesundheit" },
   { w: "Zahn", a: "der", e: "Mein Zahn tut weh.", t: "tooth", c: "Gesundheit" },
