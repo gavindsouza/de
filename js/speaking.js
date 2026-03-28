@@ -5,6 +5,31 @@ import { words } from './data/words.js';
 const nouns = words.filter(w => w.a);
 
 function getSentences(w) {
+  // Plural-only nouns (plurale tantum) need their own sentence set since indefinite
+  // articles and singular verb forms are grammatically wrong for them.
+  if (w.pl) {
+    const pluralCats = {
+      Person: [
+        { d: `Meine ${w.w} wohnen in Berlin.`, e: `My ${w.w.toLowerCase()} live in Berlin.` },
+        { d: `Ich besuche meine ${w.w} am Wochenende.`, e: `I visit my ${w.w.toLowerCase()} on the weekend.` },
+        { d: `Wie alt sind deine ${w.w}?`, e: `How old are your ${w.w.toLowerCase()}?` },
+        { d: `Meine ${w.w} kommen aus Polen.`, e: `My ${w.w.toLowerCase()} come from Poland.` },
+      ],
+      Wohnen: [
+        { d: `Die ${w.w} in der Wohnung sind neu.`, e: `The ${w.w.toLowerCase()} in the apartment are new.` },
+        { d: `Ich kaufe neue ${w.w} für mein Zimmer.`, e: `I'm buying new ${w.w.toLowerCase()} for my room.` },
+        { d: `Wo kaufen Sie ${w.w}?`, e: `Where do you buy ${w.w.toLowerCase()}?` },
+        { d: `Die ${w.w} gefallen mir sehr gut.`, e: `I really like the ${w.w.toLowerCase()}.` },
+      ],
+    };
+    return pluralCats[w.c] || [
+      { d: `Wo sind die ${w.w}?`, e: `Where are the ${w.w.toLowerCase()}?` },
+      { d: `Die ${w.w} sind sehr nett.`, e: `The ${w.w.toLowerCase()} are very nice.` },
+      { d: `Ich kenne viele ${w.w}.`, e: `I know many ${w.w.toLowerCase()}.` },
+      { d: `Wie viele ${w.w} sind hier?`, e: `How many ${w.w.toLowerCase()} are here?` },
+    ];
+  }
+
   const acc = w.a === 'der' ? 'einen' : w.a === 'die' ? 'eine' : 'ein';
   const nom = w.a === 'die' ? 'eine' : 'ein';
   const dat = w.a === 'die' ? 'der' : 'dem';
