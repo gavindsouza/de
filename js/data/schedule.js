@@ -1,0 +1,16 @@
+export const schedule = [
+  { d: 1, f: "Decoding", t: "Go through flashcards. Mark words you don't know." },
+  { d: 2, f: "Decoding", t: "Continue flashcards. Focus on 'Don't Know' words." },
+  { d: 3, f: "Decoding", t: "Final pass through unknown words. Use Word List to review." },
+  { d: 4, f: "Patterns", t: "Study Grammar tab. Watch A1 Speaking Exam videos on YouTube." },
+  { d: 5, f: "Patterns", t: "Practice Speaking Simulator. Note exact phrases." },
+  { d: 6, f: "Patterns", t: "Master W-Fragen quiz. Review email templates." },
+  { d: 7, f: "Simulations", t: "Do practice test set 1 (Goethe website). Time yourself." },
+  { d: 8, f: "Simulations", t: "Do practice test set 2. Review mistakes." },
+  { d: 9, f: "Simulations", t: "Do practice test set 3. Focus on listening (catch the nouns!)." },
+  { d: 10, f: "Simulations", t: "Review all wrong answers. Drill weak categories." },
+  { d: 11, f: "Production", t: "Write 2 practice emails. Self-Intro 5 times." },
+  { d: 12, f: "Production", t: "Write 2 more emails. Self-Intro 5 more times. Speaking cards." },
+  { d: 13, f: "Production", t: "Final email. Self-Intro 10 times. Full speaking run-through." },
+  { d: 14, f: "Rest", t: "Review Grammar cheat sheet & email templates only. You got this." },
+];

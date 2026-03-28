@@ -4,7 +4,7 @@
 //   Teil 2 — Read a text, answer Richtig/Falsch
 //   Teil 3 — Read an info text, fill in a form
 
-import { lesenData } from './data.js';
+import { lesenData } from './data/lesen.js';
 
 let lPart = 1;
 let lSet = 0;    // which data set (0, 1, 2)

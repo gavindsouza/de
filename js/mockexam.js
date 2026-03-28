@@ -2,7 +2,10 @@
 // Walks through all 4 Goethe A1 exam parts in the real sequence:
 //   Hören → Lesen → Schreiben → Sprechen
 
-import { hoerenData, lesenData, formData, sprechenData } from './data.js';
+import { hoerenData } from './data/hoeren.js';
+import { lesenData } from './data/lesen.js';
+import { formData } from './data/form.js';
+import { sprechenData } from './data/sprechen.js';
 import { S, save } from './state.js';
 
 const TOTAL_STEPS = 16;
