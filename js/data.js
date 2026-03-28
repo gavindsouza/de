@@ -70,7 +70,7 @@ export const words = [
   { w: "Name", a: "der", e: "Mein Name ist Anna.", t: "name", c: "Person" },
   { w: "Vorname", a: "der", e: "Mein Vorname ist Eva.", t: "first name", c: "Person" },
   { w: "Adresse", a: "die", e: "Meine Adresse ist Hauptstraße 5.", t: "address", c: "Person" },
-  { w: "Alter", a: "das", e: "Mein Alter ist 26.", t: "age", c: "Person" },
+  { w: "Alter", a: "das", e: "Ich bin 26 Jahre alt.", t: "age", c: "Person" },
   { w: "Geburtstag", a: "der", e: "Heute ist mein Geburtstag.", t: "birthday", c: "Person" },
   { w: "Frau", a: "die", e: "Guten Tag, Frau Müller!", t: "woman / Mrs.", c: "Person" },
   { w: "Mann", a: "der", e: "Das ist mein Mann.", t: "man / husband", c: "Person" },
@@ -339,7 +339,7 @@ export const words = [
   { w: "Einladung", a: "die", e: "Danke für die Einladung!", t: "invitation", c: "Sonstiges" },
 
   // Zahlen — missing numbers
-  { w: "null", a: "", e: "Null Probleme.", t: "zero", c: "Zahlen" },
+  { w: "null", a: "", e: "Es ist null Grad.", t: "zero", c: "Zahlen" },
   { w: "elf", a: "", e: "Um elf Uhr.", t: "eleven", c: "Zahlen" },
   { w: "zwölf", a: "", e: "Es ist zwölf Uhr.", t: "twelve", c: "Zahlen" },
   { w: "dreizehn", a: "", e: "Er ist dreizehn Jahre alt.", t: "thirteen", c: "Zahlen" },
@@ -678,7 +678,7 @@ export const words = [
   { w: "Idee", a: "die", e: "Das ist eine gute Idee!", t: "idea", c: "Sonstiges" },
   { w: "Land", a: "das", e: "In welchem Land wohnst du?", t: "country", c: "Sonstiges" },
   { w: "Leute", a: "die", e: "Die Leute sind nett.", t: "people", c: "Sonstiges" },
-  { w: "Mensch", a: "der", e: "Der Mensch lernt.", t: "person / human", c: "Sonstiges" },
+  { w: "Mensch", a: "der", e: "Viele Menschen lernen Deutsch.", t: "person / human", c: "Sonstiges" },
   { w: "Möglichkeit", a: "die", e: "Es gibt eine Möglichkeit.", t: "possibility / option", c: "Sonstiges" },
   { w: "Plan", a: "der", e: "Was ist dein Plan?", t: "plan", c: "Sonstiges" },
   { w: "Problem", a: "das", e: "Ich habe ein Problem.", t: "problem", c: "Sonstiges" },
@@ -695,8 +695,8 @@ export const words = [
   { w: "selten", a: "", e: "Ich esse selten Fleisch.", t: "rarely / seldom", c: "Sonstiges" },
   { w: "sofort", a: "", e: "Ich komme sofort.", t: "immediately", c: "Sonstiges" },
   { w: "vielleicht", a: "", e: "Vielleicht komme ich.", t: "perhaps / maybe", c: "Sonstiges" },
-  { w: "weil", a: "", e: "Ich komme, weil du fragst.", t: "because", c: "Sonstiges" },
-  { w: "wenn", a: "", e: "Wenn ja, dann komm.", t: "when / if", c: "Sonstiges" },
+  { w: "weil", a: "", e: "Ich lerne Deutsch, weil ich hier wohne.", t: "because", c: "Sonstiges" },
+  { w: "wenn", a: "", e: "Komm, wenn du Zeit hast.", t: "when / if", c: "Sonstiges" },
 
 
 ];
