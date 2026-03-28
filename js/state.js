@@ -1,6 +1,6 @@
 // App state and localStorage persistence
 
-import { words } from './data.js';
+import { words } from './data/words.js';
 
 export const S = {
   idx: 0,

@@ -1,6 +1,6 @@
 // Email practice module
 
-import { emailPrompts } from './data.js';
+import { emailPrompts } from './data/email-prompts.js';
 
 export function newPrompt() {
   const p = emailPrompts[Math.random() * emailPrompts.length | 0];

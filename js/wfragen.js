@@ -1,6 +1,6 @@
 // W-Fragen quiz module
 
-import { wfQuestions } from './data.js';
+import { wfQuestions } from './data/wf-questions.js';
 import { S, save } from './state.js';
 
 export function newWF() {

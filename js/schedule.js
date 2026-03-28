@@ -1,6 +1,6 @@
 // 14-day schedule module
 
-import { schedule } from './data.js';
+import { schedule } from './data/schedule.js';
 import { S, save } from './state.js';
 
 export function buildSched() {

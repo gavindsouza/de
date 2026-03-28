@@ -1,7 +1,7 @@
 // Hören (Listening) practice module
 // Uses Web Speech API (TTS) so users can hear authentic German pronunciation.
 
-import { hoerenData } from './data.js';
+import { hoerenData } from './data/hoeren.js';
 
 let hPart = 1;          // current Teil shown (1/2/3)
 let hIdx = 0;           // index within current Teil

@@ -1,6 +1,6 @@
 // Overview dashboard and reset
 
-import { words } from './data.js';
+import { words } from './data/words.js';
 import { S, save } from './state.js';
 import { buildDeck, showCard, buildFilters } from './flashcards.js';
 import { filterWL } from './wordlist.js';

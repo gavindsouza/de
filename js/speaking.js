@@ -1,6 +1,6 @@
 // Speaking simulator module
 
-import { words } from './data.js';
+import { words } from './data/words.js';
 
 const nouns = words.filter(w => w.a);
 

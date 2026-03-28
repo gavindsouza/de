@@ -1,6 +1,6 @@
 // Word list filtering and display
 
-import { words } from './data.js';
+import { words } from './data/words.js';
 import { S } from './state.js';
 import { buildFilters } from './flashcards.js';
 

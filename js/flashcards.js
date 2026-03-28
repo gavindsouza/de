@@ -1,6 +1,6 @@
 // Flashcard logic: deck building, display, swipe, keyboard
 
-import { words } from './data.js';
+import { words } from './data/words.js';
 import { S, save } from './state.js';
 
 export function cats() {
