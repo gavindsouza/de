@@ -8,6 +8,7 @@ import { newPrompt, countWords, checkEmail } from './email.js';
 import { newSpeak } from './speaking.js';
 import { saveIntro, loadIntro, incPractice } from './intro.js';
 import { newWF, chkWF } from './wfragen.js';
+import { newArt, chkArt } from './article.js';
 import { buildSched, togDay } from './schedule.js';
 import { updOverview, resetProgress, confirmReset } from './overview.js';
 import { initHoeren, buildHoeren, switchHPart, hPlayT1, hCheckT1, hNext1, hPlayT2, hCheckT2, hNext2, hPlayT3, hCheckT3, hNext3 } from './hoeren.js';
@@ -19,7 +20,7 @@ Object.assign(window, {
   go, setF, setWF, filterWL, flip, mark,
   newPrompt, countWords, checkEmail,
   newSpeak, saveIntro, incPractice,
-  newWF, chkWF, togDay,
+  newWF, chkWF, newArt, chkArt, togDay,
   resetProgress, confirmReset,
   // Hören
   buildHoeren, switchHPart,
@@ -54,6 +55,7 @@ document.getElementById('pProg').style.width = S.pCount / 20 * 100 + '%';
 document.getElementById('wfS').textContent = S.wfS;
 document.getElementById('wfT').textContent = S.wfT;
 newWF();
+newArt();
 buildSched();
 updOverview();
 initSwipe();

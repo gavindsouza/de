@@ -12,6 +12,8 @@ export const S = {
   wlFilter: 'Alle',
   wfS: 0,
   wfT: 0,
+  artS: 0,
+  artT: 0,
   pCount: 0,
   days: new Set(),
   intro: {},
@@ -25,6 +27,8 @@ try {
   if (d.u) S.unknown = new Set(d.u);
   if (d.ws) S.wfS = d.ws;
   if (d.wt) S.wfT = d.wt;
+  if (d.as) S.artS = d.as;
+  if (d.at) S.artT = d.at;
   if (d.pc) S.pCount = d.pc;
   if (d.ds) S.days = new Set(d.ds);
   if (d.i) S.intro = d.i;
@@ -37,6 +41,8 @@ export function save() {
     u: [...S.unknown],
     ws: S.wfS,
     wt: S.wfT,
+    as: S.artS,
+    at: S.artT,
     pc: S.pCount,
     ds: [...S.days],
     i: S.intro,

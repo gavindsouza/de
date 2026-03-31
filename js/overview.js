@@ -6,6 +6,7 @@ import { buildDeck, showCard, buildFilters } from './flashcards.js';
 import { filterWL } from './wordlist.js';
 import { updPreview } from './intro.js';
 import { newWF } from './wfragen.js';
+import { newArt } from './article.js';
 import { buildSched } from './schedule.js';
 
 export function updOverview() {
@@ -23,6 +24,7 @@ export function updOverview() {
   `;
   document.getElementById('ovFcSub').textContent = `${unknown + unseen} words to review`;
   document.getElementById('ovWfSub').textContent = `${S.wfS} / ${S.wfT} correct`;
+  document.getElementById('ovArtSub').textContent = `${S.artS} / ${S.artT} correct`;
   document.getElementById('ovIntroSub').textContent = `${S.pCount} / 20 practices`;
   document.getElementById('ovWlSub').textContent = `${words.length} words`;
   document.getElementById('ovSchedSub').textContent = `${S.days.size} / 14 days done`;
@@ -50,14 +52,16 @@ export function resetProgress() {
 
 export function confirmReset() {
   localStorage.removeItem('a1s');
-  S.known.clear(); S.unknown.clear(); S.wfS = 0; S.wfT = 0; S.pCount = 0; S.days.clear(); S.intro = {}; S.idx = 0;
+  S.known.clear(); S.unknown.clear(); S.wfS = 0; S.wfT = 0; S.artS = 0; S.artT = 0; S.pCount = 0; S.days.clear(); S.intro = {}; S.idx = 0;
   buildDeck(); showCard(); buildFilters(); filterWL('');
   document.getElementById('wfS').textContent = '0';
   document.getElementById('wfT').textContent = '0';
+  document.getElementById('artS').textContent = '0';
+  document.getElementById('artT').textContent = '0';
   document.getElementById('pCount').textContent = '0';
   document.getElementById('pProg').style.width = '0%';
   ['iName', 'iAge', 'iCountry', 'iJob', 'iLangs'].forEach(id => { document.getElementById(id).value = ''; });
-  updPreview(); newWF(); buildSched();
+  updPreview(); newWF(); newArt(); buildSched();
   document.querySelector('.ov-modal-overlay').remove();
   updOverview();
 }

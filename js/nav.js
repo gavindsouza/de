@@ -8,7 +8,8 @@ export function go(id) {
   document.querySelectorAll('#bottomNav button').forEach(b => {
     b.classList.toggle('active',
       b.dataset.s === id ||
-      (id === 'intro' || id === 'wfragen' || id === 'schedule' || id === 'hoeren' || id === 'lesen' || id === 'mockexam') && b.dataset.s === 'overview'
+      ((id === 'intro' || id === 'wfragen' || id === 'schedule' || id === 'hoeren' || id === 'lesen' || id === 'mockexam') && b.dataset.s === 'overview') ||
+      (id === 'derarticle' && b.dataset.s === 'grammar')
     );
   });
   if (id === 'overview') updOverview();

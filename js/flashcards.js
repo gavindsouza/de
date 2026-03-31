@@ -43,7 +43,9 @@ export function buildDeck() {
 
 export function showCard() {
   if (!S.deck.length) {
-    document.getElementById('fcArt').textContent = S.filter === 'Learning' ? '🎉' : '';
+    const artEl = document.getElementById('fcArt');
+    artEl.textContent = S.filter === 'Learning' ? '🎉' : '';
+    artEl.className = 'article';
     document.getElementById('fcWord').textContent = S.filter === 'Learning' ? 'All clear!' : '—';
     document.getElementById('fcCat').textContent = '';
     document.getElementById('fcWordB').textContent = '';
@@ -55,10 +57,17 @@ export function showCard() {
     return;
   }
   const w = S.deck[S.idx % S.deck.length];
-  document.getElementById('fcArt').textContent = w.a || '';
+  const artEl = document.getElementById('fcArt');
+  artEl.textContent = w.a || '';
+  artEl.className = 'article' + (w.a ? ' art-' + w.a : '');
   document.getElementById('fcWord').textContent = w.w;
   document.getElementById('fcCat').textContent = w.c;
-  document.getElementById('fcWordB').textContent = (w.a ? w.a + ' ' : '') + w.w;
+  const wbEl = document.getElementById('fcWordB');
+  if (w.a) {
+    wbEl.innerHTML = `<span class="art-${w.a}">${w.a}</span> ${w.w}`;
+  } else {
+    wbEl.textContent = w.w;
+  }
   document.getElementById('fcTrans').textContent = w.t || '';
   document.getElementById('fcEx').textContent = w.e;
   document.getElementById('flashcard').classList.remove('flipped');

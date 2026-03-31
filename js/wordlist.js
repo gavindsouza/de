@@ -16,6 +16,6 @@ export function filterWL(q) {
   if (q) f = f.filter(w => w.w.toLowerCase().includes(q) || w.e.toLowerCase().includes(q));
   document.getElementById('wlCount').textContent = f.length + ' words';
   document.getElementById('wlList').innerHTML = f.map(w =>
-    `<div class="wl-item"><div class="w">${w.a ? '<span class="art">' + w.a + '</span> ' : ''}${w.w}</div><div class="ex">${w.e}</div></div>`
+    `<div class="wl-item"><div class="w">${w.a ? `<span class="art art-${w.a}">${w.a}</span> ` : ''}${w.w}</div><div class="ex">${w.e}</div></div>`
   ).join('');
 }
