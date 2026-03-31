@@ -1,6 +1,7 @@
 // Speaking simulator module
 
 import { words } from './data/words.js';
+import { speak } from './audio.js';
 
 const nouns = words.filter(w => w.a);
 
@@ -189,6 +190,18 @@ export function newSpeak() {
   document.getElementById('spkArt').textContent = w.a;
   document.getElementById('spkWd').textContent = w.w;
   document.getElementById('spkSugs').innerHTML = getSentences(w)
-    .map(s => `<div class="spk-sug"><div class="de">${s.d}</div><div class="en">${s.e}</div></div>`)
+    .map(s =>
+      `<div class="spk-sug">
+        <div class="spk-sug-main">
+          <div class="de">${s.d}</div>
+          <div class="en">${s.e}</div>
+        </div>
+        <button class="spk-play-btn" data-de="${s.d.replace(/"/g, '&quot;')}" onclick="spkPlay(this.dataset.de)" title="Hear sentence">▶</button>
+      </div>`
+    )
     .join('');
+}
+
+export function spkPlay(text) {
+  speak(text);
 }

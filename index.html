@@ -94,10 +94,16 @@
         </div>
       </div>
     </div>
-    <div class="fc-actions">
-      <button class="btn-dunno" onclick="mark(false)">Don't Know</button>
-      <button class="btn-know" onclick="mark(true)">Know It &#x2714;</button>
+    <div class="fc-audio-row">
+      <button class="fc-hear-btn" onclick="fcSpeak()">🔊 Hear</button>
+      <span class="fc-hear-hint">tap after flipping to hear example</span>
     </div>
+    <div class="fc-actions fc-actions-3">
+      <button class="btn-again" onclick="mark('again')">❌ Again</button>
+      <button class="btn-shaky" onclick="mark('shaky')">🤔 Shaky</button>
+      <button class="btn-know" onclick="mark('got')">✅ Got It</button>
+    </div>
+    <p class="fc-key-hint">Keyboard: ← Again · S Shaky · → Got It · Space flip</p>
   </div>
 
   <!-- ===== WORD LIST ===== -->
@@ -116,7 +122,12 @@
   <div id="grammar" class="section">
     <h2>Grammar Cheat Sheet</h2>
 
-    <button class="btn-full" onclick="go('derarticle')" style="margin-bottom:16px">🎯 Practice: der / die / das Quiz</button>
+    <div class="grammar-drills">
+      <button class="grammar-drill-btn" onclick="go('derarticle')">🎯 der/die/das Quiz</button>
+      <button class="grammar-drill-btn" onclick="go('conjugation')">🔤 Conjugation Drill</button>
+      <button class="grammar-drill-btn" onclick="go('cases')">📐 Case Quiz</button>
+      <button class="grammar-drill-btn" onclick="go('scramble')">🔀 Word Order</button>
+    </div>
 
     <div class="g-card">
       <h4>sein (to be)</h4>
@@ -302,6 +313,68 @@
       <div class="art-stat"><div class="n" id="artT">0</div><div class="l">Total</div></div>
     </div>
     <div id="artQuiz"></div>
+  </div>
+
+  <!-- ===== CONJUGATION DRILL ===== -->
+  <div id="conjugation" class="section">
+    <button onclick="go('grammar')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <h2>Conjugation Drill</h2>
+    <p class="desc">See the pronoun + infinitive. Pick the correct conjugated form. Irregular verbs included!</p>
+    <div class="art-stats">
+      <div class="art-stat"><div class="n" id="conjS">0</div><div class="l">Correct</div></div>
+      <div class="art-stat"><div class="n" id="conjT">0</div><div class="l">Total</div></div>
+    </div>
+    <div id="conjQuiz"></div>
+    <div class="g-card" style="margin-top:16px">
+      <h4>💡 Key irregular verbs to memorise</h4>
+      <div class="g-scroll"><table>
+        <tr><th>Verb</th><th>du</th><th>er/sie/es</th></tr>
+        <tr><td>sein</td><td class="hl">bist</td><td class="hl">ist</td></tr>
+        <tr><td>haben</td><td class="hl">hast</td><td class="hl">hat</td></tr>
+        <tr><td>fahren</td><td class="hl">fährst</td><td class="hl">fährt</td></tr>
+        <tr><td>schlafen</td><td class="hl">schläfst</td><td class="hl">schläft</td></tr>
+        <tr><td>sprechen</td><td class="hl">sprichst</td><td class="hl">spricht</td></tr>
+        <tr><td>essen</td><td class="hl">isst</td><td class="hl">isst</td></tr>
+        <tr><td>lesen</td><td class="hl">liest</td><td class="hl">liest</td></tr>
+        <tr><td>nehmen</td><td class="hl">nimmst</td><td class="hl">nimmt</td></tr>
+        <tr><td>geben</td><td class="hl">gibst</td><td class="hl">gibt</td></tr>
+      </table></div>
+      <p style="color:var(--yellow);margin-top:6px;font-size:.82rem">⚠️ Modals (können, müssen, wollen): ich = er/sie/es form!</p>
+    </div>
+  </div>
+
+  <!-- ===== CASE QUIZ ===== -->
+  <div id="cases" class="section">
+    <button onclick="go('grammar')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <h2>Case Quiz</h2>
+    <p class="desc">Fill in the blank with the correct article form. Tests accusative, dative, possessives, and kein/keine.</p>
+    <div class="art-stats">
+      <div class="art-stat"><div class="n" id="casS">0</div><div class="l">Correct</div></div>
+      <div class="art-stat"><div class="n" id="casT">0</div><div class="l">Total</div></div>
+    </div>
+    <div id="casesQuiz"></div>
+    <div class="g-card" style="margin-top:16px">
+      <h4>📐 Case summary</h4>
+      <div class="g-scroll"><table>
+        <tr><th></th><th>Masc.</th><th>Fem.</th><th>Neut.</th><th>Pl.</th></tr>
+        <tr><td><strong>Nom.</strong></td><td class="hl">der / ein</td><td class="hl">die / eine</td><td class="hl">das / ein</td><td class="hl">die / —</td></tr>
+        <tr><td><strong>Acc.</strong></td><td class="hl">den / einen</td><td class="hl">die / eine</td><td class="hl">das / ein</td><td class="hl">die / —</td></tr>
+        <tr><td><strong>Dat.</strong></td><td class="hl">dem / einem</td><td class="hl">der / einer</td><td class="hl">dem / einem</td><td class="hl">den / —</td></tr>
+      </table></div>
+      <p style="margin-top:6px;font-size:.82rem;color:var(--muted)"><span class="hl">zu + dem = zum</span> · <span class="hl">zu + der = zur</span> · <span class="hl">in + dem = im</span> · <span class="hl">an + dem = am</span></p>
+    </div>
+  </div>
+
+  <!-- ===== SENTENCE SCRAMBLE ===== -->
+  <div id="scramble" class="section">
+    <button onclick="go('grammar')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <h2>Word Order</h2>
+    <p class="desc">Tap the words in the correct order to form a German sentence. The V2 rule: verb is always the 2nd element!</p>
+    <div class="art-stats">
+      <div class="art-stat"><div class="n" id="scrS">0</div><div class="l">Correct</div></div>
+      <div class="art-stat"><div class="n" id="scrT">0</div><div class="l">Total</div></div>
+    </div>
+    <div id="scrambleQuiz"></div>
   </div>
 
   <!-- ===== EMAIL ===== -->

@@ -2,13 +2,16 @@
 
 import { S } from './state.js';
 import { go } from './nav.js';
-import { buildFilters, buildDeck, showCard, flip, mark, setF, initSwipe, initKeyboard } from './flashcards.js';
-import { setWF, filterWL } from './wordlist.js';
+import { buildFilters, buildDeck, showCard, flip, mark, setF, initSwipe, initKeyboard, fcSpeak } from './flashcards.js';
+import { setWF, filterWL, wlSpeak } from './wordlist.js';
 import { newPrompt, countWords, checkEmail } from './email.js';
-import { newSpeak } from './speaking.js';
+import { newSpeak, spkPlay } from './speaking.js';
 import { saveIntro, loadIntro, incPractice } from './intro.js';
 import { newWF, chkWF } from './wfragen.js';
 import { newArt, chkArt } from './article.js';
+import { newConj, chkConj } from './conjugation.js';
+import { newCase, chkCase } from './cases.js';
+import { newScramble, scrPlace, scrRemove, scrUndo, scrCheck } from './scramble.js';
 import { buildSched, togDay } from './schedule.js';
 import { updOverview, resetProgress, confirmReset } from './overview.js';
 import { initHoeren, buildHoeren, switchHPart, hPlayT1, hCheckT1, hNext1, hPlayT2, hCheckT2, hNext2, hPlayT3, hCheckT3, hNext3 } from './hoeren.js';
@@ -17,10 +20,14 @@ import { startExam, examNext, examSpeak, examH1Check, examH1Advance, examH2Check
 
 // Expose to window for onclick handlers in HTML
 Object.assign(window, {
-  go, setF, setWF, filterWL, flip, mark,
+  go, setF, setWF, filterWL, flip, mark, fcSpeak,
+  wlSpeak,
   newPrompt, countWords, checkEmail,
-  newSpeak, saveIntro, incPractice,
+  newSpeak, spkPlay, saveIntro, incPractice,
   newWF, chkWF, newArt, chkArt, togDay,
+  newConj, chkConj,
+  newCase, chkCase,
+  newScramble, scrPlace, scrRemove, scrUndo, scrCheck,
   resetProgress, confirmReset,
   // Hören
   buildHoeren, switchHPart,
@@ -56,6 +63,9 @@ document.getElementById('wfS').textContent = S.wfS;
 document.getElementById('wfT').textContent = S.wfT;
 newWF();
 newArt();
+newConj();
+newCase();
+newScramble();
 buildSched();
 updOverview();
 initSwipe();

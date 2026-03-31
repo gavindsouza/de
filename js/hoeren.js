@@ -2,23 +2,11 @@
 // Uses Web Speech API (TTS) so users can hear authentic German pronunciation.
 
 import { hoerenData } from './data/hoeren.js';
+import { speak } from './audio.js';
 
 let hPart = 1;          // current Teil shown (1/2/3)
 let hIdx = 0;           // index within current Teil
 let hScore = { p1c: 0, p1t: 0, p2t: 0, p3c: 0, p3t: 0 };
-
-// Speak German text using the browser TTS
-function speak(text) {
-  if (!window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const voices = speechSynthesis.getVoices();
-  const deVoice = voices.find(v => v.lang.startsWith('de')) || null;
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'de-DE';
-  u.rate = 0.82;
-  if (deVoice) u.voice = deVoice;
-  speechSynthesis.speak(u);
-}
 
 // Build the full Hören section UI
 export function buildHoeren() {
