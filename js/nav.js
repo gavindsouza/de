@@ -28,7 +28,7 @@ export function go(id) {
 }
 
 export function initNav() {
-  window.addEventListener('popstate', () => {
+  window.addEventListener('hashchange', () => {
     go(location.hash.slice(1) || 'flashcards');
   });
 }
