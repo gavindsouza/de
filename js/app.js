@@ -1,7 +1,7 @@
 // Main entry point - wires up modules and exposes handlers to window
 
 import { S } from './state.js';
-import { go } from './nav.js';
+import { go, initNav } from './nav.js';
 import { buildFilters, buildDeck, showCard, flip, mark, setF, initSwipe, initKeyboard, fcSpeak } from './flashcards.js';
 import { setWF, filterWL, wlSpeak } from './wordlist.js';
 import { newPrompt, countWords, checkEmail } from './email.js';
@@ -72,3 +72,5 @@ initSwipe();
 initKeyboard();
 initHoeren();
 initLesen();
+initNav();
+go(location.hash.slice(1) || 'flashcards');

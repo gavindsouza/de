@@ -2,7 +2,13 @@
 
 import { updOverview } from './overview.js';
 
+const VALID_SECTIONS = new Set([
+  'flashcards', 'wordlist', 'grammar', 'derarticle', 'conjugation', 'cases', 'scramble',
+  'speaking', 'email', 'overview', 'intro', 'wfragen', 'schedule', 'hoeren', 'lesen', 'mockexam',
+]);
+
 export function go(id) {
+  if (!VALID_SECTIONS.has(id)) id = 'flashcards';
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   const grammarSubs = ['derarticle', 'conjugation', 'cases', 'scramble'];
@@ -18,4 +24,11 @@ export function go(id) {
   if (id === 'hoeren') window.buildHoeren && window.buildHoeren();
   if (id === 'lesen') window.buildLesen && window.buildLesen();
   window.scrollTo(0, 0);
+  if (location.hash.slice(1) !== id) history.replaceState(null, '', '#' + id);
+}
+
+export function initNav() {
+  window.addEventListener('popstate', () => {
+    go(location.hash.slice(1) || 'flashcards');
+  });
 }
