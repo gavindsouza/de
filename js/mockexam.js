@@ -7,6 +7,9 @@ import { lesenData } from './data/lesen.js';
 import { formData } from './data/form.js';
 import { sprechenData } from './data/sprechen.js';
 import { S, save } from './state.js';
+import { speak } from './audio.js';
+
+const SPEAKER_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
 
 const TOTAL_STEPS = 16;
 // step 0  = welcome
@@ -83,7 +86,7 @@ function renderWelcome(el) {
       <div class="exam-part-item"><span class="exam-part-ico">✍️</span><div><strong>Schreiben</strong><br><span style="color:var(--muted);font-size:.82rem">E-Mail · Formular</span></div></div>
       <div class="exam-part-item"><span class="exam-part-ico">🗣️</span><div><strong>Sprechen</strong><br><span style="color:var(--muted);font-size:.82rem">Vorstellung · Karten · Bitten</span></div></div>
     </div>
-    <div class="g-card" style="margin:16px 0"><p style="color:var(--muted);font-size:.85rem;line-height:1.6">💡 Tipp: Tippe auf <strong>▶ Hören</strong>, um den Text mit der Browser-Stimme vorzulesen. Bei der echten Prüfung hörst du eine Aufnahme — hier siehst du den Text zusätzlich als Lernhilfe.</p></div>
+    <div class="g-card" style="margin:16px 0"><p style="color:var(--muted);font-size:.85rem;line-height:1.6">💡 Tipp: Tippe auf den Hören-Button, um den Text mit der Browser-Stimme vorzulesen. Bei der echten Prüfung hörst du eine Aufnahme — hier siehst du den Text zusätzlich als Lernhilfe.</p></div>
     ${nextBtn('Prüfung starten →', 'examNext()')}`;
 }
 
@@ -99,7 +102,9 @@ function renderH1(el) {
     <div class="exam-part-label">🎧 Hören — Teil 1 &nbsp;<span style="color:var(--muted)">Gespräche</span></div>
     <div class="exam-q-counter">Frage ${q + 1} / ${data.length}</div>
     <div class="h-script">${dlg}</div>
-    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script.map(l => l.s + ': ' + l.t).join('  '))})">▶ Hören</button>
+    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script.map(l => l.s + ': ' + l.t).join('  '))}, this)">
+      ${SPEAKER_SVG} Hören
+    </button>
     <div class="h-question">${item.question}</div>
     <div class="quiz-opts" id="examH1Opts">
       ${item.options.map((o, i) => `<button class="quiz-opt" onclick="examH1Check(this,${i},${item.answer})">${o}</button>`).join('')}
@@ -138,7 +143,7 @@ function renderH2(el) {
     <div class="exam-part-label">🎧 Hören — Teil 2 &nbsp;<span style="color:var(--muted)">Kurze Nachrichten</span></div>
     <div class="exam-q-counter">Frage ${q + 1} / ${data.length}</div>
     <div class="h-script">${item.script}</div>
-    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)})">▶ Hören</button>
+    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)}, this)">${SPEAKER_SVG} Hören</button>
     <div class="h-question">${item.question}</div>
     <p style="font-size:.8rem;color:var(--muted);margin-bottom:8px">Hinweis: ${item.hint}</p>
     <input id="examH2Ans" class="h-input" placeholder="Ihre Antwort..." type="text">
@@ -181,7 +186,7 @@ function renderH3(el) {
     <div class="exam-part-label">🎧 Hören — Teil 3 &nbsp;<span style="color:var(--muted)">Durchsagen</span></div>
     <div class="exam-q-counter">Frage ${q + 1} / ${data.length}</div>
     <div class="h-script">${item.script}</div>
-    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)})">▶ Hören</button>
+    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)}, this)">${SPEAKER_SVG} Hören</button>
     <div class="h-question">Aussage: <em>${item.statement}</em></div>
     <div style="display:flex;gap:10px;margin-top:8px">
       <button class="quiz-opt" style="flex:1" id="examH3R" onclick="examH3Check(this,true,${item.answer})">✓ Richtig</button>
@@ -429,7 +434,7 @@ function renderSp(el) {
       <h4>Teil 1 — Vorstellung</h4>
       <p style="color:var(--muted);font-size:.82rem;margin-bottom:10px">Stelle dich vor. Sprich die Sätze laut.</p>
       ${introLines.map(l => `<div class="sp-intro-line">${l}</div>`).join('')}
-      <button class="h-play-btn" style="margin-top:10px" onclick="examSpeak(${JSON.stringify(introLines.join(' '))})">▶ Vorlesen (TTS)</button>
+      <button class="h-play-btn" style="margin-top:10px" onclick="examSpeak(${JSON.stringify(introLines.join(' '))}, this)">${SPEAKER_SVG} Vorlesen</button>
       ${intro.n ? '' : '<p style="color:var(--yellow);font-size:.8rem;margin-top:8px">⚠️ Fülle zuerst die Vorstellung unter "Sprechen" aus!</p>'}
     </div>
 
@@ -525,16 +530,8 @@ function renderResults(el) {
 }
 
 // Shared TTS helper exposed to window
-export function examSpeak(text) {
-  if (!window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const voices = speechSynthesis.getVoices();
-  const deVoice = voices.find(v => v.lang.startsWith('de')) || null;
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'de-DE';
-  u.rate = 0.82;
-  if (deVoice) u.voice = deVoice;
-  speechSynthesis.speak(u);
+export function examSpeak(text, btn) {
+  speak(text, btn);
 }
 
 export function examNext() {

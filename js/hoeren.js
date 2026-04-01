@@ -2,23 +2,13 @@
 // Uses Web Speech API (TTS) so users can hear authentic German pronunciation.
 
 import { hoerenData } from './data/hoeren.js';
+import { speak } from './audio.js';
+
+const SPEAKER_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
 
 let hPart = 1;          // current Teil shown (1/2/3)
 let hIdx = 0;           // index within current Teil
 let hScore = { p1c: 0, p1t: 0, p2t: 0, p3c: 0, p3t: 0 };
-
-// Speak German text using the browser TTS
-function speak(text) {
-  if (!window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const voices = speechSynthesis.getVoices();
-  const deVoice = voices.find(v => v.lang.startsWith('de')) || null;
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'de-DE';
-  u.rate = 0.82;
-  if (deVoice) u.voice = deVoice;
-  speechSynthesis.speak(u);
-}
 
 // Build the full Hören section UI
 export function buildHoeren() {
@@ -54,7 +44,7 @@ function renderH1() {
     <div class="h-counter">Frage ${(hIdx % data.length) + 1} / ${data.length}</div>
     <div class="h-score-row">Richtig: <strong>${hScore.p1c}</strong> / ${hScore.p1t}</div>
     <div class="h-script" id="hScript1">${dialogText}</div>
-    <button class="h-play-btn" onclick="hPlayT1()">▶ Hören (TTS)</button>
+    <button class="h-play-btn" onclick="hPlayT1(this)">${SPEAKER_SVG} Hören</button>
     <div class="h-question">${item.question}</div>
     <div class="quiz-opts" id="h1Opts">
       ${item.options.map((o, i) => `<button class="quiz-opt" onclick="hCheckT1(this,${i},${item.answer})">${o}</button>`).join('')}
@@ -62,10 +52,10 @@ function renderH1() {
     <button class="btn-full" onclick="hNext1()" style="margin-top:12px">Nächste Frage →</button>`;
 }
 
-export function hPlayT1() {
+export function hPlayT1(btn) {
   const item = hoerenData.teil1[hIdx % hoerenData.teil1.length];
   const fullText = item.script.map(l => `${l.s}: ${l.t}`).join('  ');
-  speak(fullText);
+  speak(fullText, btn);
 }
 
 export function hCheckT1(el, chosen, correct) {
@@ -89,22 +79,22 @@ export function hNext1() {
 function renderH2() {
   const data = hoerenData.teil2;
   const item = data[hIdx % data.length];
+  const scriptHtml = item.script.map(l => `<div class="h-line"><span class="h-speaker">${l.s}:</span> ${l.t}</div>`).join('');
   document.getElementById('hoerenExercise').innerHTML = `
     <div class="h-counter">Frage ${(hIdx % data.length) + 1} / ${data.length}</div>
     <div class="h-score-row">Beantwortet: ${hScore.p2t} / ${hoerenData.teil2.length}</div>
-    <div class="h-script" id="hScript2">${item.script}</div>
-    <button class="h-play-btn" onclick="hPlayT2()">▶ Hören (TTS)</button>
+    <div class="h-script" id="hScript2">${scriptHtml}</div>
+    <button class="h-play-btn" onclick="hPlayT2(this)">${SPEAKER_SVG} Hören</button>
     <div class="h-question">${item.question}</div>
-    <p style="font-size:.8rem;color:var(--muted);margin-bottom:8px">Hinweis: ${item.hint}</p>
     <input id="h2Ans" class="h-input" placeholder="Ihre Antwort..." type="text">
     <button class="btn-full" onclick="hCheckT2()" style="margin-top:8px">Überprüfen</button>
     <div id="h2FB" style="margin-top:10px"></div>
     <button class="btn-full" onclick="hNext2()" style="margin-top:10px">Nächste Frage →</button>`;
 }
 
-export function hPlayT2() {
+export function hPlayT2(btn) {
   const item = hoerenData.teil2[hIdx % hoerenData.teil2.length];
-  speak(item.script);
+  speak(item.script.map(l => l.t).join(' '), btn);
 }
 
 export function hCheckT2() {
@@ -132,11 +122,12 @@ export function hNext2() {
 function renderH3() {
   const data = hoerenData.teil3;
   const item = data[hIdx % data.length];
+  const scriptHtml = item.script.map(l => `<div class="h-line"><span class="h-speaker">${l.s}:</span> ${l.t}</div>`).join('');
   document.getElementById('hoerenExercise').innerHTML = `
     <div class="h-counter">Frage ${(hIdx % data.length) + 1} / ${data.length}</div>
     <div class="h-score-row">Richtig: <strong>${hScore.p3c}</strong> / ${hScore.p3t}</div>
-    <div class="h-script">${item.script}</div>
-    <button class="h-play-btn" onclick="hPlayT3()">▶ Hören (TTS)</button>
+    <div class="h-script">${scriptHtml}</div>
+    <button class="h-play-btn" onclick="hPlayT3(this)">${SPEAKER_SVG} Hören</button>
     <div class="h-question">Aussage: <em>${item.statement}</em></div>
     <div style="display:flex;gap:10px;margin-top:8px">
       <button class="quiz-opt" style="flex:1" onclick="hCheckT3(this,true,${item.answer})">✓ Richtig</button>
@@ -145,9 +136,9 @@ function renderH3() {
     <button class="btn-full" onclick="hNext3()" style="margin-top:12px">Nächste Frage →</button>`;
 }
 
-export function hPlayT3() {
+export function hPlayT3(btn) {
   const item = hoerenData.teil3[hIdx % hoerenData.teil3.length];
-  speak(item.script);
+  speak(item.script.map(l => l.t).join(' '), btn);
 }
 
 export function hCheckT3(el, chosen, correct) {

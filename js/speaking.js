@@ -1,6 +1,9 @@
 // Speaking simulator module
 
 import { words } from './data/words.js';
+import { speak } from './audio.js';
+
+const SPEAKER_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
 
 const nouns = words.filter(w => w.a);
 
@@ -189,6 +192,18 @@ export function newSpeak() {
   document.getElementById('spkArt').textContent = w.a;
   document.getElementById('spkWd').textContent = w.w;
   document.getElementById('spkSugs').innerHTML = getSentences(w)
-    .map(s => `<div class="spk-sug"><div class="de">${s.d}</div><div class="en">${s.e}</div></div>`)
+    .map(s =>
+      `<div class="spk-sug">
+        <div class="spk-sug-main">
+          <div class="de">${s.d}</div>
+          <div class="en">${s.e}</div>
+        </div>
+        <button class="spk-play-btn" data-de="${s.d.replace(/"/g, '&quot;')}" onclick="spkPlay(this.dataset.de, this)" title="Hear sentence">${SPEAKER_SVG}</button>
+      </div>`
+    )
     .join('');
+}
+
+export function spkPlay(text, btn) {
+  speak(text, btn);
 }

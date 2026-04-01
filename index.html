@@ -76,12 +76,17 @@
   <div id="flashcards" class="section active">
     <h2>Flashcards</h2>
     <div class="filter-scroll" id="catFilters"></div>
-    <div class="fc-stats" id="fcStats"></div>
+    <div class="fc-topbar">
+      <div class="fc-stats" id="fcStats"></div>
+      <div class="fc-counter" id="fcCounter"></div>
+    </div>
     <div class="progress-bar"><div class="fill" id="fcProg"></div></div>
-    <div class="fc-counter" id="fcCounter"></div>
     <div class="card-area" id="cardArea">
-      <div class="flashcard" id="flashcard">
+      <div class="flashcard" id="flashcard" onclick="flip()">
         <div class="face front">
+          <button class="fc-hear-btn" onclick="event.stopPropagation();fcSpeak(this)" title="Hear pronunciation">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
           <div class="cat-badge" id="fcCat"></div>
           <div class="article" id="fcArt"></div>
           <div class="word" id="fcWord"></div>
@@ -95,8 +100,11 @@
       </div>
     </div>
     <div class="fc-actions">
-      <button class="btn-dunno" onclick="mark(false)">Don't Know</button>
-      <button class="btn-know" onclick="mark(true)">Know It &#x2714;</button>
+      <button class="btn-again" onclick="mark('again')">Don't know it</button>
+      <button class="btn-know" onclick="mark('got')">Know it ✓</button>
+    </div>
+    <div class="fc-shaky-row" id="fcShakyRow">
+      <button class="btn-shaky" onclick="mark('shaky')">Shaky — I kind of know it</button>
     </div>
   </div>
 
@@ -115,6 +123,13 @@
   <!-- ===== GRAMMAR ===== -->
   <div id="grammar" class="section">
     <h2>Grammar Cheat Sheet</h2>
+
+    <div class="grammar-drills">
+      <button class="grammar-drill-btn" onclick="go('derarticle')">🎯 der/die/das Quiz</button>
+      <button class="grammar-drill-btn" onclick="go('conjugation')">🔤 Conjugation Drill</button>
+      <button class="grammar-drill-btn" onclick="go('cases')">📐 Case Quiz</button>
+      <button class="grammar-drill-btn" onclick="go('scramble')">🔀 Word Order</button>
+    </div>
 
     <div class="g-card">
       <h4>sein (to be)</h4>
@@ -177,6 +192,51 @@
         <tr><td class="hl">Schreiben Sie Ihren Namen.</td><td>Write your name.</td></tr>
         <tr><td class="hl">Kreuzen Sie an.</td><td>Mark with a cross.</td></tr>
       </table></div>
+    </div>
+
+    <div class="g-card" style="border-left-color:#5b9cf6">
+      <h4>🔵 <span class="art-der">der</span> — Masculine patterns</h4>
+      <div class="g-scroll"><table>
+        <tr><th>Pattern</th><th>Examples</th></tr>
+        <tr><td class="art-der">-er</td><td>der Lehrer, der Computer, der Drucker</td></tr>
+        <tr><td class="art-der">-ling</td><td>der Frühling, der Lehrling</td></tr>
+        <tr><td class="art-der">-ig</td><td>der Honig, der König</td></tr>
+        <tr><td class="art-der">-ismus</td><td>der Tourismus, der Kapitalismus</td></tr>
+        <tr><td class="art-der">-or</td><td>der Motor, der Doktor</td></tr>
+        <tr><td class="art-der">Days / Months / Seasons</td><td>der Montag, der Januar, der Winter</td></tr>
+        <tr><td class="art-der">Male people &amp; jobs</td><td>der Mann, der Vater, der Arzt</td></tr>
+      </table></div>
+    </div>
+
+    <div class="g-card" style="border-left-color:var(--red)">
+      <h4>🔴 <span class="art-die">die</span> — Feminine patterns</h4>
+      <div class="g-scroll"><table>
+        <tr><th>Pattern</th><th>Examples</th></tr>
+        <tr><td class="art-die">-ung</td><td>die Zeitung, die Wohnung, die Übung</td></tr>
+        <tr><td class="art-die">-heit / -keit</td><td>die Freiheit, die Möglichkeit</td></tr>
+        <tr><td class="art-die">-schaft</td><td>die Freundschaft, die Mannschaft</td></tr>
+        <tr><td class="art-die">-tion / -sion</td><td>die Station, die Adresse</td></tr>
+        <tr><td class="art-die">-ie</td><td>die Biologie, die Energie</td></tr>
+        <tr><td class="art-die">-ik</td><td>die Musik, die Grammatik, die Klinik</td></tr>
+        <tr><td class="art-die">-in (female job)</td><td>die Lehrerin, die Ärztin</td></tr>
+        <tr><td class="art-die">-e</td><td>die Schule, die Straße, die Küche</td></tr>
+        <tr><td class="art-die">Female people</td><td>die Frau, die Mutter, die Tochter</td></tr>
+      </table></div>
+    </div>
+
+    <div class="g-card" style="border-left-color:var(--green)">
+      <h4>🟢 <span class="art-das">das</span> — Neuter patterns</h4>
+      <div class="g-scroll"><table>
+        <tr><th>Pattern</th><th>Examples</th></tr>
+        <tr><td class="art-das">-chen / -lein</td><td>das Mädchen, das Brötchen, das Fräulein</td></tr>
+        <tr><td class="art-das">-ment</td><td>das Instrument, das Medikament</td></tr>
+        <tr><td class="art-das">-um</td><td>das Museum, das Datum, das Album</td></tr>
+        <tr><td class="art-das">-nis</td><td>das Ergebnis, das Zeugnis</td></tr>
+        <tr><td class="art-das">Infinitive as noun</td><td>das Essen, das Lernen, das Schreiben</td></tr>
+        <tr><td class="art-das">Young &amp; children</td><td>das Kind, das Baby, das Lamm</td></tr>
+        <tr><td class="art-das">Metals / materials</td><td>das Gold, das Holz, das Glas</td></tr>
+      </table></div>
+      <p style="margin-top:6px;font-size:.82rem;color:var(--yellow)">⚠️ Exceptions exist — always try to learn articles with the word!</p>
     </div>
 
     <div class="g-card">
@@ -243,6 +303,80 @@
         <tr><td class="hl">Ordnen Sie zu</td><td>Match</td></tr>
       </table></div>
     </div>
+  </div>
+
+  <!-- ===== DER/DIE/DAS QUIZ ===== -->
+  <div id="derarticle" class="section">
+    <button onclick="go('grammar')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <h2>der / die / das Quiz</h2>
+    <p class="desc">Pick the correct article for each noun. Colors = genders: <span class="art-der">der</span> · <span class="art-die">die</span> · <span class="art-das">das</span></p>
+    <div class="art-stats">
+      <div class="art-stat"><div class="n" id="artS">0</div><div class="l">Correct</div></div>
+      <div class="art-stat"><div class="n" id="artT">0</div><div class="l">Total</div></div>
+    </div>
+    <div id="artQuiz"></div>
+  </div>
+
+  <!-- ===== CONJUGATION DRILL ===== -->
+  <div id="conjugation" class="section">
+    <button onclick="go('grammar')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <h2>Conjugation Drill</h2>
+    <p class="desc">See the pronoun + infinitive. Pick the correct conjugated form. Irregular verbs included!</p>
+    <div class="art-stats">
+      <div class="art-stat"><div class="n" id="conjS">0</div><div class="l">Correct</div></div>
+      <div class="art-stat"><div class="n" id="conjT">0</div><div class="l">Total</div></div>
+    </div>
+    <div id="conjQuiz"></div>
+    <div class="g-card" style="margin-top:16px">
+      <h4>💡 Key irregular verbs to memorise</h4>
+      <div class="g-scroll"><table>
+        <tr><th>Verb</th><th>du</th><th>er/sie/es</th></tr>
+        <tr><td>sein</td><td class="hl">bist</td><td class="hl">ist</td></tr>
+        <tr><td>haben</td><td class="hl">hast</td><td class="hl">hat</td></tr>
+        <tr><td>fahren</td><td class="hl">fährst</td><td class="hl">fährt</td></tr>
+        <tr><td>schlafen</td><td class="hl">schläfst</td><td class="hl">schläft</td></tr>
+        <tr><td>sprechen</td><td class="hl">sprichst</td><td class="hl">spricht</td></tr>
+        <tr><td>essen</td><td class="hl">isst</td><td class="hl">isst</td></tr>
+        <tr><td>lesen</td><td class="hl">liest</td><td class="hl">liest</td></tr>
+        <tr><td>nehmen</td><td class="hl">nimmst</td><td class="hl">nimmt</td></tr>
+        <tr><td>geben</td><td class="hl">gibst</td><td class="hl">gibt</td></tr>
+      </table></div>
+      <p style="color:var(--yellow);margin-top:6px;font-size:.82rem">⚠️ Modals (können, müssen, wollen): ich = er/sie/es form!</p>
+    </div>
+  </div>
+
+  <!-- ===== CASE QUIZ ===== -->
+  <div id="cases" class="section">
+    <button onclick="go('grammar')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <h2>Case Quiz</h2>
+    <p class="desc">Fill in the blank with the correct article form. Tests accusative, dative, possessives, and kein/keine.</p>
+    <div class="art-stats">
+      <div class="art-stat"><div class="n" id="casS">0</div><div class="l">Correct</div></div>
+      <div class="art-stat"><div class="n" id="casT">0</div><div class="l">Total</div></div>
+    </div>
+    <div id="casesQuiz"></div>
+    <div class="g-card" style="margin-top:16px">
+      <h4>📐 Case summary</h4>
+      <div class="g-scroll"><table>
+        <tr><th></th><th>Masc.</th><th>Fem.</th><th>Neut.</th><th>Pl.</th></tr>
+        <tr><td><strong>Nom.</strong></td><td class="hl">der / ein</td><td class="hl">die / eine</td><td class="hl">das / ein</td><td class="hl">die / —</td></tr>
+        <tr><td><strong>Acc.</strong></td><td class="hl">den / einen</td><td class="hl">die / eine</td><td class="hl">das / ein</td><td class="hl">die / —</td></tr>
+        <tr><td><strong>Dat.</strong></td><td class="hl">dem / einem</td><td class="hl">der / einer</td><td class="hl">dem / einem</td><td class="hl">den / —</td></tr>
+      </table></div>
+      <p style="margin-top:6px;font-size:.82rem;color:var(--muted)"><span class="hl">zu + dem = zum</span> · <span class="hl">zu + der = zur</span> · <span class="hl">in + dem = im</span> · <span class="hl">an + dem = am</span></p>
+    </div>
+  </div>
+
+  <!-- ===== SENTENCE SCRAMBLE ===== -->
+  <div id="scramble" class="section">
+    <button onclick="go('grammar')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <h2>Word Order</h2>
+    <p class="desc">Tap the words in the correct order to form a German sentence. The V2 rule: verb is always the 2nd element!</p>
+    <div class="art-stats">
+      <div class="art-stat"><div class="n" id="scrS">0</div><div class="l">Correct</div></div>
+      <div class="art-stat"><div class="n" id="scrT">0</div><div class="l">Total</div></div>
+    </div>
+    <div id="scrambleQuiz"></div>
   </div>
 
   <!-- ===== EMAIL ===== -->
@@ -312,7 +446,7 @@
   <div id="hoeren" class="section">
     <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
     <h2>Hören — Listening</h2>
-    <div class="desc">Three exercise types matching the real A1 exam. Tap ▶ Hören to hear the text via browser TTS.</div>
+    <div class="desc">Three exercise types matching the real A1 exam. Tap Hören to hear the text via browser TTS.</div>
     <div id="hoerenContent"></div>
   </div>
 
@@ -418,6 +552,14 @@
         <span class="ov-action-info">
           <span class="ov-action-title">W-Fragen Quiz</span>
           <span class="ov-action-sub" id="ovWfSub">0 / 0 correct</span>
+        </span>
+        <span class="ov-action-arrow">&#x203A;</span>
+      </button>
+      <button class="ov-action" onclick="go('derarticle')">
+        <span class="ov-action-ico">🎯</span>
+        <span class="ov-action-info">
+          <span class="ov-action-title">der / die / das Quiz</span>
+          <span class="ov-action-sub" id="ovArtSub">0 / 0 correct</span>
         </span>
         <span class="ov-action-arrow">&#x203A;</span>
       </button>
