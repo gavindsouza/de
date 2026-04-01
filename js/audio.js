@@ -19,8 +19,18 @@ function pickVoice(voices) {
   );
 }
 
-export function speak(text) {
+let _activeBtn = null;
+
+function clearActiveBtn() {
+  if (_activeBtn) {
+    _activeBtn.classList.remove('speaking');
+    _activeBtn = null;
+  }
+}
+
+export function speak(text, btn = null) {
   if (!window.speechSynthesis) return;
+  clearActiveBtn();
   speechSynthesis.cancel();
   const trySpeak = () => {
     const u = new SpeechSynthesisUtterance(text);
@@ -29,6 +39,12 @@ export function speak(text) {
     u.pitch = 1.0;  // neutral, no artificial inflection
     const voice = pickVoice(speechSynthesis.getVoices());
     if (voice) u.voice = voice;
+    if (btn) {
+      btn.classList.add('speaking');
+      _activeBtn = btn;
+    }
+    u.onend = clearActiveBtn;
+    u.onerror = clearActiveBtn;
     speechSynthesis.speak(u);
   };
   if (speechSynthesis.getVoices().length) trySpeak();

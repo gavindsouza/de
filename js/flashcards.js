@@ -107,10 +107,10 @@ export function mark(tier) {
 }
 
 // Speak current word (front) or example (back)
-export function fcSpeak() {
+export function fcSpeak(btn) {
   const w = S.deck[S.idx % S.deck.length];
   if (!w) return;
-  speak(S.flipped ? w.e : w.w);
+  speak(S.flipped ? w.e : w.w, btn);
 }
 
 function updStats() {
