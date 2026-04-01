@@ -76,11 +76,13 @@
   <div id="flashcards" class="section active">
     <h2>Flashcards</h2>
     <div class="filter-scroll" id="catFilters"></div>
-    <div class="fc-stats" id="fcStats"></div>
+    <div class="fc-topbar">
+      <div class="fc-stats" id="fcStats"></div>
+      <div class="fc-counter" id="fcCounter"></div>
+    </div>
     <div class="progress-bar"><div class="fill" id="fcProg"></div></div>
-    <div class="fc-counter" id="fcCounter"></div>
     <div class="card-area" id="cardArea">
-      <div class="flashcard" id="flashcard">
+      <div class="flashcard" id="flashcard" onclick="flip()">
         <div class="face front">
           <div class="cat-badge" id="fcCat"></div>
           <div class="article" id="fcArt"></div>
@@ -88,17 +90,23 @@
           <div class="tap-hint">tap to flip</div>
         </div>
         <div class="face back">
-          <button class="fc-hear-inline" onclick="fcSpeak()" title="Hear example">🔊</button>
           <div class="word" id="fcWordB"></div>
           <div class="translation" id="fcTrans"></div>
           <div class="example" id="fcEx"></div>
         </div>
       </div>
     </div>
+    <div class="fc-hear-row">
+      <button class="fc-hear-btn" onclick="fcSpeak()">
+        <span class="fc-hear-ico">🔊</span><span class="fc-hear-label">Hear</span>
+      </button>
+    </div>
     <div class="fc-actions">
       <button class="btn-again" onclick="mark('again')">❌ Again</button>
-      <button class="btn-shaky" id="btnShaky" onclick="mark('shaky')">🤔 Shaky</button>
       <button class="btn-know" onclick="mark('got')">✅ Got It</button>
+    </div>
+    <div class="fc-shaky-row" id="fcShakyRow">
+      <button class="btn-shaky" onclick="mark('shaky')">🤔 Shaky — I kind of know it</button>
     </div>
   </div>
 

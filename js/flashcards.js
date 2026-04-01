@@ -58,7 +58,7 @@ export function showCard() {
     document.getElementById('fcEx').textContent = '';
     document.getElementById('flashcard').classList.remove('flipped');
     S.flipped = false;
-    document.getElementById('btnShaky').classList.remove('fc-shaky-visible');
+    document.getElementById('fcShakyRow').classList.remove('fc-shaky-visible');
     updStats();
     return;
   }
@@ -78,14 +78,14 @@ export function showCard() {
   document.getElementById('fcEx').textContent = w.e;
   document.getElementById('flashcard').classList.remove('flipped');
   S.flipped = false;
-  document.getElementById('btnShaky').classList.remove('fc-shaky-visible');
+  document.getElementById('fcShakyRow').classList.remove('fc-shaky-visible');
   updStats();
 }
 
 export function flip() {
   S.flipped = !S.flipped;
   document.getElementById('flashcard').classList.toggle('flipped');
-  document.getElementById('btnShaky').classList.toggle('fc-shaky-visible', S.flipped);
+  document.getElementById('fcShakyRow').classList.toggle('fc-shaky-visible', S.flipped);
 }
 
 // 3-tier SRS: 'again' | 'shaky' | 'got'
@@ -119,25 +119,35 @@ function updStats() {
   const u = uniq.filter(w => S.unknown.has(w)).length;
   const sh = uniq.filter(w => S.shaky.has(w)).length;
   const t = uniq.length;
-  document.getElementById('fcStats').innerHTML = `
-    <div class="fc-stat green"><div class="n">${k}</div><div class="l">Known</div></div>
-    <div class="fc-stat shaky"><div class="n">${sh}</div><div class="l">Shaky</div></div>
-    <div class="fc-stat red"><div class="n">${u}</div><div class="l">Again</div></div>
-    <div class="fc-stat"><div class="n">${t - k - u - sh}</div><div class="l">Unseen</div></div>`;
+  const unseen = t - k - u - sh;
+  document.getElementById('fcStats').innerHTML =
+    `<span class="fcs-item fcs-green">✅ <b>${k}</b></span>` +
+    `<span class="fcs-sep">·</span>` +
+    `<span class="fcs-item fcs-yellow">🤔 <b>${sh}</b></span>` +
+    `<span class="fcs-sep">·</span>` +
+    `<span class="fcs-item fcs-red">❌ <b>${u}</b></span>` +
+    `<span class="fcs-sep">·</span>` +
+    `<span class="fcs-item fcs-muted">· <b>${unseen}</b> unseen</span>`;
   document.getElementById('fcProg').style.width = t ? `${k / t * 100}%` : '0%';
   document.getElementById('fcCounter').textContent = S.deck.length
-    ? `${S.idx % S.deck.length + 1} / ${S.deck.length}` : '0 / 0';
+    ? `${S.idx % S.deck.length + 1} / ${S.deck.length}` : '';
 }
 
 export function initSwipe() {
-  let tx = 0, swiping = false;
+  let tx = 0, ty = 0, swiping = false;
   const ca = document.getElementById('cardArea');
-  ca.addEventListener('touchstart', e => { tx = e.touches[0].clientX; swiping = false; }, { passive: true });
-  ca.addEventListener('touchmove', e => { if (Math.abs(e.touches[0].clientX - tx) > 15) swiping = true; }, { passive: true });
+  ca.addEventListener('touchstart', e => {
+    tx = e.touches[0].clientX;
+    ty = e.touches[0].clientY;
+    swiping = false;
+  }, { passive: true });
+  ca.addEventListener('touchmove', e => {
+    if (Math.abs(e.touches[0].clientX - tx) > 15) swiping = true;
+  }, { passive: true });
   ca.addEventListener('touchend', e => {
     const dx = e.changedTouches[0].clientX - tx;
+    // Only handle horizontal swipes — taps are handled by onclick on .flashcard
     if (swiping && Math.abs(dx) > 60) { dx > 0 ? mark('got') : mark('again'); }
-    else if (!swiping) flip();
   });
 }
 
