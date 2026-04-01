@@ -7,6 +7,7 @@ import { lesenData } from './data/lesen.js';
 import { formData } from './data/form.js';
 import { sprechenData } from './data/sprechen.js';
 import { S, save } from './state.js';
+import { speak } from './audio.js';
 
 const SPEAKER_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
 
@@ -530,15 +531,7 @@ function renderResults(el) {
 
 // Shared TTS helper exposed to window
 export function examSpeak(text) {
-  if (!window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const voices = speechSynthesis.getVoices();
-  const deVoice = voices.find(v => v.lang.startsWith('de')) || null;
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'de-DE';
-  u.rate = 0.82;
-  if (deVoice) u.voice = deVoice;
-  speechSynthesis.speak(u);
+  speak(text);
 }
 
 export function examNext() {
