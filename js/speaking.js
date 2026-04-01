@@ -198,12 +198,12 @@ export function newSpeak() {
           <div class="de">${s.d}</div>
           <div class="en">${s.e}</div>
         </div>
-        <button class="spk-play-btn" data-de="${s.d.replace(/"/g, '&quot;')}" onclick="spkPlay(this.dataset.de)" title="Hear sentence">${SPEAKER_SVG}</button>
+        <button class="spk-play-btn" data-de="${s.d.replace(/"/g, '&quot;')}" onclick="spkPlay(this.dataset.de, this)" title="Hear sentence">${SPEAKER_SVG}</button>
       </div>`
     )
     .join('');
 }
 
-export function spkPlay(text) {
-  speak(text);
+export function spkPlay(text, btn) {
+  speak(text, btn);
 }

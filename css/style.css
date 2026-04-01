@@ -110,6 +110,7 @@ h2{font-size:1.35rem;margin-bottom:12px;color:var(--accent2);font-weight:800}
 }
 .fc-hear-btn svg{display:block;flex-shrink:0}
 .fc-hear-label{font-size:.85rem}
+.fc-hear-btn.speaking{box-shadow:0 0 0 3px rgba(124,92,252,.5),0 2px 12px rgba(124,92,252,.5);opacity:.85}
 
 /* Action buttons */
 .fc-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
@@ -161,6 +162,7 @@ h2{font-size:1.35rem;margin-bottom:12px;color:var(--accent2);font-weight:800}
 }
 .wl-speak-btn:hover{background:rgba(255,255,255,.08);border-color:var(--accent2)}
 .wl-speak-btn svg{display:block}
+.wl-speak-btn.speaking{background:var(--accent2);border-color:var(--accent2);color:#fff}
 
 /* === GRAMMAR === */
 .g-card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px;border-left:3px solid var(--accent)}
@@ -237,6 +239,7 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
 }
 .spk-play-btn:hover{background:rgba(255,255,255,.08);border-color:var(--accent2)}
 .spk-play-btn svg{display:block}
+.spk-play-btn.speaking{background:var(--accent2);border-color:var(--accent2);color:#fff}
 
 /* === SELF INTRO === */
 .intro-card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px}
@@ -389,6 +392,7 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
   margin-bottom:14px;
 }
 .h-play-btn svg{display:block;flex-shrink:0}
+.h-play-btn.speaking{background:var(--accent);color:#fff}
 .h-question{font-size:1rem;font-weight:700;margin-bottom:12px;line-height:1.4}
 .h-input{
   width:100%;padding:12px 14px;background:var(--card);border:1.5px solid var(--border);

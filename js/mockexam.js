@@ -102,7 +102,7 @@ function renderH1(el) {
     <div class="exam-part-label">🎧 Hören — Teil 1 &nbsp;<span style="color:var(--muted)">Gespräche</span></div>
     <div class="exam-q-counter">Frage ${q + 1} / ${data.length}</div>
     <div class="h-script">${dlg}</div>
-    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script.map(l => l.s + ': ' + l.t).join('  '))})">
+    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script.map(l => l.s + ': ' + l.t).join('  '))}, this)">
       ${SPEAKER_SVG} Hören
     </button>
     <div class="h-question">${item.question}</div>
@@ -143,7 +143,7 @@ function renderH2(el) {
     <div class="exam-part-label">🎧 Hören — Teil 2 &nbsp;<span style="color:var(--muted)">Kurze Nachrichten</span></div>
     <div class="exam-q-counter">Frage ${q + 1} / ${data.length}</div>
     <div class="h-script">${item.script}</div>
-    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)})">${SPEAKER_SVG} Hören</button>
+    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)}, this)">${SPEAKER_SVG} Hören</button>
     <div class="h-question">${item.question}</div>
     <p style="font-size:.8rem;color:var(--muted);margin-bottom:8px">Hinweis: ${item.hint}</p>
     <input id="examH2Ans" class="h-input" placeholder="Ihre Antwort..." type="text">
@@ -186,7 +186,7 @@ function renderH3(el) {
     <div class="exam-part-label">🎧 Hören — Teil 3 &nbsp;<span style="color:var(--muted)">Durchsagen</span></div>
     <div class="exam-q-counter">Frage ${q + 1} / ${data.length}</div>
     <div class="h-script">${item.script}</div>
-    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)})">${SPEAKER_SVG} Hören</button>
+    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)}, this)">${SPEAKER_SVG} Hören</button>
     <div class="h-question">Aussage: <em>${item.statement}</em></div>
     <div style="display:flex;gap:10px;margin-top:8px">
       <button class="quiz-opt" style="flex:1" id="examH3R" onclick="examH3Check(this,true,${item.answer})">✓ Richtig</button>
@@ -434,7 +434,7 @@ function renderSp(el) {
       <h4>Teil 1 — Vorstellung</h4>
       <p style="color:var(--muted);font-size:.82rem;margin-bottom:10px">Stelle dich vor. Sprich die Sätze laut.</p>
       ${introLines.map(l => `<div class="sp-intro-line">${l}</div>`).join('')}
-      <button class="h-play-btn" style="margin-top:10px" onclick="examSpeak(${JSON.stringify(introLines.join(' '))})">${SPEAKER_SVG} Vorlesen</button>
+      <button class="h-play-btn" style="margin-top:10px" onclick="examSpeak(${JSON.stringify(introLines.join(' '))}, this)">${SPEAKER_SVG} Vorlesen</button>
       ${intro.n ? '' : '<p style="color:var(--yellow);font-size:.8rem;margin-top:8px">⚠️ Fülle zuerst die Vorstellung unter "Sprechen" aus!</p>'}
     </div>
 
@@ -530,8 +530,8 @@ function renderResults(el) {
 }
 
 // Shared TTS helper exposed to window
-export function examSpeak(text) {
-  speak(text);
+export function examSpeak(text, btn) {
+  speak(text, btn);
 }
 
 export function examNext() {

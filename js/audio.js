@@ -30,6 +30,12 @@ function clearActiveBtn() {
 
 export function speak(text, btn = null) {
   if (!window.speechSynthesis) return;
+  // Toggle: tapping the already-playing button again stops playback
+  if (btn && btn === _activeBtn) {
+    clearActiveBtn();
+    speechSynthesis.cancel();
+    return;
+  }
   clearActiveBtn();
   speechSynthesis.cancel();
   const trySpeak = () => {

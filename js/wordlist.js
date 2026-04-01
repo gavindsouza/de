@@ -24,7 +24,7 @@ export function filterWL(q) {
     return `<div class="wl-item">
       <div class="wl-item-top">
         <div class="w">${w.a ? `<span class="art art-${w.a}">${w.a}</span> ` : ''}<span class="wl-dot wl-dot-${status}" title="${status}"></span>${w.w}</div>
-        <button class="wl-speak-btn" data-de="${w.w}" onclick="wlSpeak(this.dataset.de)" title="Hear pronunciation">${SPEAKER_SVG}</button>
+        <button class="wl-speak-btn" data-de="${w.w}" onclick="wlSpeak(this.dataset.de, this)" title="Hear pronunciation">${SPEAKER_SVG}</button>
       </div>
       <div class="ex">${w.e}</div>
       <div class="wl-trans">${w.t}</div>
@@ -32,6 +32,6 @@ export function filterWL(q) {
   }).join('');
 }
 
-export function wlSpeak(text) {
-  speak(text);
+export function wlSpeak(text, btn) {
+  speak(text, btn);
 }
