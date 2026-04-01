@@ -79,13 +79,13 @@ export function hNext1() {
 function renderH2() {
   const data = hoerenData.teil2;
   const item = data[hIdx % data.length];
+  const scriptHtml = item.script.map(l => `<div class="h-line"><span class="h-speaker">${l.s}:</span> ${l.t}</div>`).join('');
   document.getElementById('hoerenExercise').innerHTML = `
     <div class="h-counter">Frage ${(hIdx % data.length) + 1} / ${data.length}</div>
     <div class="h-score-row">Beantwortet: ${hScore.p2t} / ${hoerenData.teil2.length}</div>
-    <div class="h-script" id="hScript2">${item.script}</div>
+    <div class="h-script" id="hScript2">${scriptHtml}</div>
     <button class="h-play-btn" onclick="hPlayT2(this)">${SPEAKER_SVG} Hören</button>
     <div class="h-question">${item.question}</div>
-    <p style="font-size:.8rem;color:var(--muted);margin-bottom:8px">Hinweis: ${item.hint}</p>
     <input id="h2Ans" class="h-input" placeholder="Ihre Antwort..." type="text">
     <button class="btn-full" onclick="hCheckT2()" style="margin-top:8px">Überprüfen</button>
     <div id="h2FB" style="margin-top:10px"></div>
@@ -94,7 +94,7 @@ function renderH2() {
 
 export function hPlayT2(btn) {
   const item = hoerenData.teil2[hIdx % hoerenData.teil2.length];
-  speak(item.script, btn);
+  speak(item.script.map(l => l.t).join(' '), btn);
 }
 
 export function hCheckT2() {
@@ -122,10 +122,11 @@ export function hNext2() {
 function renderH3() {
   const data = hoerenData.teil3;
   const item = data[hIdx % data.length];
+  const scriptHtml = item.script.map(l => `<div class="h-line"><span class="h-speaker">${l.s}:</span> ${l.t}</div>`).join('');
   document.getElementById('hoerenExercise').innerHTML = `
     <div class="h-counter">Frage ${(hIdx % data.length) + 1} / ${data.length}</div>
     <div class="h-score-row">Richtig: <strong>${hScore.p3c}</strong> / ${hScore.p3t}</div>
-    <div class="h-script">${item.script}</div>
+    <div class="h-script">${scriptHtml}</div>
     <button class="h-play-btn" onclick="hPlayT3(this)">${SPEAKER_SVG} Hören</button>
     <div class="h-question">Aussage: <em>${item.statement}</em></div>
     <div style="display:flex;gap:10px;margin-top:8px">
@@ -137,7 +138,7 @@ function renderH3() {
 
 export function hPlayT3(btn) {
   const item = hoerenData.teil3[hIdx % hoerenData.teil3.length];
-  speak(item.script, btn);
+  speak(item.script.map(l => l.t).join(' '), btn);
 }
 
 export function hCheckT3(el, chosen, correct) {
