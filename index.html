@@ -88,22 +88,18 @@
           <div class="tap-hint">tap to flip</div>
         </div>
         <div class="face back">
+          <button class="fc-hear-inline" onclick="fcSpeak()" title="Hear example">🔊</button>
           <div class="word" id="fcWordB"></div>
           <div class="translation" id="fcTrans"></div>
           <div class="example" id="fcEx"></div>
         </div>
       </div>
     </div>
-    <div class="fc-audio-row">
-      <button class="fc-hear-btn" onclick="fcSpeak()">🔊 Hear</button>
-      <span class="fc-hear-hint">tap after flipping to hear example</span>
-    </div>
-    <div class="fc-actions fc-actions-3">
+    <div class="fc-actions">
       <button class="btn-again" onclick="mark('again')">❌ Again</button>
-      <button class="btn-shaky" onclick="mark('shaky')">🤔 Shaky</button>
+      <button class="btn-shaky" id="btnShaky" onclick="mark('shaky')">🤔 Shaky</button>
       <button class="btn-know" onclick="mark('got')">✅ Got It</button>
     </div>
-    <p class="fc-key-hint">Keyboard: ← Again · S Shaky · → Got It · Space flip</p>
   </div>
 
   <!-- ===== WORD LIST ===== -->

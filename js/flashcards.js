@@ -58,6 +58,7 @@ export function showCard() {
     document.getElementById('fcEx').textContent = '';
     document.getElementById('flashcard').classList.remove('flipped');
     S.flipped = false;
+    document.getElementById('btnShaky').classList.remove('fc-shaky-visible');
     updStats();
     return;
   }
@@ -77,12 +78,14 @@ export function showCard() {
   document.getElementById('fcEx').textContent = w.e;
   document.getElementById('flashcard').classList.remove('flipped');
   S.flipped = false;
+  document.getElementById('btnShaky').classList.remove('fc-shaky-visible');
   updStats();
 }
 
 export function flip() {
   S.flipped = !S.flipped;
   document.getElementById('flashcard').classList.toggle('flipped');
+  document.getElementById('btnShaky').classList.toggle('fc-shaky-visible', S.flipped);
 }
 
 // 3-tier SRS: 'again' | 'shaky' | 'got'

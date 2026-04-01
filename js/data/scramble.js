@@ -26,7 +26,7 @@ export const scrambleData = [
     t: 'I come from Spain.',
   },
   {
-    words: ['ein', 'Deutsch', 'bisschen', 'spreche', 'ich'],
+    words: ['ein', 'Deutsch', 'bisschen', 'spreche', 'Ich'],
     answer: ['Ich', 'spreche', 'ein', 'bisschen', 'Deutsch'],
     t: 'I speak a little German.',
   },
