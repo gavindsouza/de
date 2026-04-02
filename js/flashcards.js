@@ -10,7 +10,7 @@ export function cats() {
 
 export function buildFilters() {
   const c = cats();
-  const lc = S.unknown.size + S.shaky.size;
+  const lc = words.length - S.known.size;
   document.getElementById('catFilters').innerHTML =
     `<button class="chip chip-learning ${S.filter === 'Learning' ? 'active' : ''}" onclick="setF('Learning')">🔴 Review${lc ? ' ' + lc : ''}</button>` +
     c.map(x =>
@@ -33,7 +33,7 @@ export function setF(c) {
 export function buildDeck() {
   let base;
   if (S.filter === 'Learning') {
-    base = words.filter(w => S.unknown.has(w.w) || S.shaky.has(w.w));
+    base = words.filter(w => !S.known.has(w.w));
   } else {
     base = S.filter === 'Alle' ? [...words] : words.filter(w => w.c === S.filter);
   }
@@ -54,7 +54,7 @@ export function showCard() {
     document.getElementById('fcWord').textContent = S.filter === 'Learning' ? 'All clear!' : '—';
     document.getElementById('fcCat').textContent = '';
     document.getElementById('fcWordB').textContent = '';
-    document.getElementById('fcTrans').textContent = S.filter === 'Learning' ? `Mark words "Again" to add them here.` : '';
+    document.getElementById('fcTrans').textContent = S.filter === 'Learning' ? `All words mastered! Mark any word "Again" or "Shaky" to resurface it.` : '';
     document.getElementById('fcEx').textContent = '';
     document.getElementById('flashcard').classList.remove('flipped');
     S.flipped = false;
