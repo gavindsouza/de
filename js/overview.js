@@ -32,9 +32,6 @@ export function updOverview() {
   document.getElementById('ovFcSub').textContent = `${unknown + shaky + unseen} / ${total} words to review`;
   document.getElementById('ovWfSub').textContent = `${S.wfS} / ${S.wfT} correct`;
   document.getElementById('ovArtSub').textContent = `${S.artS} / ${S.artT} correct`;
-  document.getElementById('ovConjSub').textContent = `${S.conjS} / ${S.conjT} correct`;
-  document.getElementById('ovCasSub').textContent = `${S.casS} / ${S.casT} correct`;
-  document.getElementById('ovScrSub').textContent = `${S.scrS} / ${S.scrT} correct`;
   document.getElementById('ovIntroSub').textContent = `${S.pCount} / 20 practices`;
   document.getElementById('ovWlSub').textContent = `${total} words`;
   document.getElementById('ovSchedSub').textContent = `${S.days.size} / 14 days done`;
@@ -68,8 +65,9 @@ export function confirmReset() {
   S.conjS = 0; S.conjT = 0;
   S.casS = 0; S.casT = 0;
   S.scrS = 0; S.scrT = 0;
-  S.pCount = 0; S.days.clear(); S.intro = {}; S.idx = 0;
+  S.pCount = 0; S.days.clear(); S.intro = {}; S.idx = 0; S.examDone = 0;
   buildDeck(); showCard(); buildFilters(); filterWL('');
+  document.getElementById('wlSearch').value = '';
   document.getElementById('wfS').textContent = '0';
   document.getElementById('wfT').textContent = '0';
   document.getElementById('artS').textContent = '0';
