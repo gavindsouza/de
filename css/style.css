@@ -299,10 +299,11 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
 .day-card.done .day-check{background:var(--green);border-color:var(--green);color:#000}
 
 /* === OVERVIEW === */
-.ov-hero{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
-.ov-hero-card{background:var(--card);border-radius:14px;padding:14px;text-align:center;border:1px solid var(--border)}
-.ov-hero-card .n{font-size:1.8rem;font-weight:800;line-height:1.1}
-.ov-hero-card .l{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:4px}
+.ov-hero{display:flex;justify-content:space-around;margin-bottom:16px;background:var(--card);border-radius:14px;padding:10px 4px;border:1px solid var(--border)}
+.ov-hero-card{text-align:center;flex:1}
+.ov-hero-card+.ov-hero-card{border-left:1px solid var(--border)}
+.ov-hero-card .n{font-size:1.3rem;font-weight:800;line-height:1.1}
+.ov-hero-card .l{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
 .ov-ring-wrap{display:flex;justify-content:center;margin-bottom:20px}
 .ov-ring{width:140px;height:140px}
 .ov-section-label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:8px;padding-left:4px}
