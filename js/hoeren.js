@@ -2,7 +2,7 @@
 // Uses Web Speech API (TTS) so users can hear authentic German pronunciation.
 
 import { hoerenData } from './data/hoeren.js';
-import { speak } from './audio.js';
+import { speak, playAudio } from './audio.js';
 
 const SPEAKER_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
 
@@ -54,6 +54,7 @@ function renderH1() {
 
 export function hPlayT1(btn) {
   const item = hoerenData.teil1[hIdx % hoerenData.teil1.length];
+  if (item.audioUrl) { playAudio(item.audioUrl, btn); return; }
   const fullText = item.script.map(l => `${l.s}: ${l.t}`).join('  ');
   speak(fullText, btn);
 }
@@ -94,6 +95,7 @@ function renderH2() {
 
 export function hPlayT2(btn) {
   const item = hoerenData.teil2[hIdx % hoerenData.teil2.length];
+  if (item.audioUrl) { playAudio(item.audioUrl, btn); return; }
   speak(item.script.map(l => l.t).join(' '), btn);
 }
 
@@ -138,6 +140,7 @@ function renderH3() {
 
 export function hPlayT3(btn) {
   const item = hoerenData.teil3[hIdx % hoerenData.teil3.length];
+  if (item.audioUrl) { playAudio(item.audioUrl, btn); return; }
   speak(item.script.map(l => l.t).join(' '), btn);
 }
 
