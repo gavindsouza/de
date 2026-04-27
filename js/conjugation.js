@@ -3,11 +3,12 @@
 
 import { conjugationData } from './data/conjugation.js';
 import { S, save } from './state.js';
+import { rand, markOpts, updStatPair } from './utils.js';
 
 export function newConj() {
-  const entry = conjugationData[Math.random() * conjugationData.length | 0];
+  const entry = rand(conjugationData);
   const pronouns = Object.keys(entry.forms);
-  const pronoun = pronouns[Math.random() * pronouns.length | 0];
+  const pronoun = rand(pronouns);
   const correct = entry.forms[pronoun];
 
   // Distractors: other unique forms of the same verb, excluding the correct one
@@ -34,20 +35,14 @@ export function newConj() {
 export function chkConj(el) {
   const box = el.closest('.quiz-box');
   const correct = box.dataset.ans;
-  const chosen = el.textContent.trim();
-  box.querySelectorAll('.quiz-opt').forEach(o => {
-    o.classList.add('disabled');
-    if (o.textContent.trim() === correct) o.classList.add('correct');
-    if (o === el && chosen !== correct) o.classList.add('wrong');
-  });
+  markOpts(box, el, o => o.textContent.trim() === correct);
   S.conjT++;
-  if (chosen === correct) S.conjS++;
+  if (el.textContent.trim() === correct) S.conjS++;
   save();
-  updConjStats();
+  updStatPair('conjS', 'conjT', S.conjS, S.conjT);
   setTimeout(newConj, 1200);
 }
 
 function updConjStats() {
-  document.getElementById('conjS').textContent = S.conjS;
-  document.getElementById('conjT').textContent = S.conjT;
+  updStatPair('conjS', 'conjT', S.conjS, S.conjT);
 }

@@ -5,6 +5,7 @@
 //   Teil 3 — Read an info text, fill in a form
 
 import { lesenData } from './data/lesen.js';
+import { markOpts } from './utils.js';
 
 let lPart = 1;
 let lSet = 0;    // which data set (0, 1, 2)
@@ -68,7 +69,7 @@ function renderL1() {
   document.getElementById('lesenExercise').innerHTML = `
     <div class="ls-intro">Lesen Sie die Anzeigen A–${ads[ads.length - 1].label}. Welche Anzeige passt zu welcher Person? Zwei Anzeigen passen nicht.</div>
     <div class="ls-ads">${adsHtml}</div>
-    <h4 style="margin:16px 0 8px;color:var(--accent2)">Personen</h4>
+    <h4 class="sub-heading">Personen</h4>
     ${peopleHtml}
     <button class="btn-full" onclick="l1Check()" style="margin-top:14px">Auswerten</button>
     <div id="l1FB" style="margin-top:12px"></div>`;
@@ -103,7 +104,7 @@ function renderL2() {
   const stmHtml = statements.map((s, i) => `
     <div class="ls-stmt" id="lstmt${i}">
       <div style="font-size:.95rem;margin-bottom:6px">${i + 1}. ${s.text}</div>
-      <div style="display:flex;gap:8px">
+      <div class="quiz-tf">
         <button class="quiz-opt" onclick="l2Ans(${i}, true, ${s.answer}, this)">✓ Richtig</button>
         <button class="quiz-opt" onclick="l2Ans(${i}, false, ${s.answer}, this)">✗ Falsch</button>
       </div>
@@ -112,7 +113,7 @@ function renderL2() {
   document.getElementById('lesenExercise').innerHTML = `
     <div class="ls-intro">Lesen Sie den Text und kreuzen Sie an: Richtig oder Falsch?</div>
     <div class="ls-text">${text.replace(/\n/g, '<br>')}</div>
-    <h4 style="margin:14px 0 8px;color:var(--accent2)">Aussagen</h4>
+    <h4 class="sub-heading">Aussagen</h4>
     ${stmHtml}
     <div id="l2Score" style="margin-top:14px;font-weight:700"></div>
     <button class="btn-full" onclick="switchLSet(${(lSet + 1) % lesenData.length});switchLPart(2)" style="margin-top:10px">Nächster Text →</button>`;
@@ -142,7 +143,7 @@ function renderL3() {
   document.getElementById('lesenExercise').innerHTML = `
     <div class="ls-intro">${instruction}</div>
     <div class="ls-text">${text.replace(/\n/g, '<br>')}</div>
-    <h4 style="margin:14px 0 8px;color:var(--accent2)">Formular</h4>
+    <h4 class="sub-heading">Formular</h4>
     ${fieldsHtml}
     <button class="btn-full" onclick="l3Check()" style="margin-top:14px">Auswerten</button>
     <div id="l3FB" style="margin-top:12px"></div>`;

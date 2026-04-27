@@ -3,8 +3,7 @@
 
 import { hoerenData } from './data/hoeren.js';
 import { speak, playAudio } from './audio.js';
-
-const SPEAKER_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
+import { markOpts, SPEAKER_SVG } from './utils.js';
 
 let hPart = 1;          // current Teil shown (1/2/3)
 let hIdx = 0;           // index within current Teil
@@ -60,11 +59,7 @@ export function hPlayT1(btn) {
 }
 
 export function hCheckT1(el, chosen, correct) {
-  el.closest('.quiz-opts').querySelectorAll('.quiz-opt').forEach((o, i) => {
-    o.classList.add('disabled');
-    if (i === correct) o.classList.add('correct');
-    if (o === el && chosen !== correct) o.classList.add('wrong');
-  });
+  markOpts(el.closest('.quiz-opts'), el, (_, i) => i === correct);
   hScore.p1t++;
   if (chosen === correct) hScore.p1c++;
   document.querySelector('.h-score-row').innerHTML = `Richtig: <strong>${hScore.p1c}</strong> / ${hScore.p1t}`;
@@ -108,8 +103,8 @@ export function hCheckT2() {
   const ok = tokens.some(tok => userAns.includes(tok));
   hScore.p2t++;
   document.getElementById('h2FB').innerHTML = ok
-    ? `<span style="color:var(--green)">✓ Gut! Richtige Antwort: <strong>${item.answer}</strong></span>`
-    : `<span style="color:var(--red)">✗ Richtige Antwort: <strong>${item.answer}</strong></span>`;
+    ? `<span class="txt-ok">✓ Gut! Richtige Antwort: <strong>${item.answer}</strong></span>`
+    : `<span class="txt-err">✗ Richtige Antwort: <strong>${item.answer}</strong></span>`;
   document.getElementById('h2Ans').disabled = true;
   document.querySelector('.h-score-row').innerHTML = `Beantwortet: ${hScore.p2t} / ${hoerenData.teil2.length}`;
 }
@@ -131,9 +126,9 @@ function renderH3() {
     <div class="h-script">${scriptHtml}</div>
     <button class="h-play-btn" onclick="hPlayT3(this)">${SPEAKER_SVG} Hören</button>
     <div class="h-question">Aussage: <em>${item.statement}</em></div>
-    <div style="display:flex;gap:10px;margin-top:8px">
-      <button class="quiz-opt" style="flex:1" onclick="hCheckT3(this,true,${item.answer})">✓ Richtig</button>
-      <button class="quiz-opt" style="flex:1" onclick="hCheckT3(this,false,${item.answer})">✗ Falsch</button>
+    <div class="quiz-tf">
+      <button class="quiz-opt" onclick="hCheckT3(this,true,${item.answer})">✓ Richtig</button>
+      <button class="quiz-opt" onclick="hCheckT3(this,false,${item.answer})">✗ Falsch</button>
     </div>
     <button class="btn-full" onclick="hNext3()" style="margin-top:12px">Nächste Frage →</button>`;
 }
@@ -145,13 +140,7 @@ export function hPlayT3(btn) {
 }
 
 export function hCheckT3(el, chosen, correct) {
-  el.parentElement.querySelectorAll('.quiz-opt').forEach(o => {
-    o.classList.add('disabled');
-  });
-  // Highlight the correct answer button
-  const btns = el.parentElement.querySelectorAll('.quiz-opt');
-  btns[correct ? 0 : 1].classList.add('correct');
-  if ((chosen && !correct) || (!chosen && correct)) el.classList.add('wrong');
+  markOpts(el.parentElement, el, (_, i) => correct ? i === 0 : i === 1);
   hScore.p3t++;
   if (chosen === correct) hScore.p3c++;
   document.querySelector('.h-score-row').innerHTML = `Richtig: <strong>${hScore.p3c}</strong> / ${hScore.p3t}`;
