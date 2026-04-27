@@ -476,6 +476,71 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
 }
 
 
+/* === WORD ORDER (SCRAMBLE) === */
+.scr-prompt{
+  font-size:1rem;color:var(--muted);margin-bottom:16px;
+  line-height:1.5;text-align:center;
+}
+.scr-built{
+  min-height:56px;background:var(--surface);
+  border:1.5px dashed var(--border);border-radius:14px;
+  padding:10px 12px;margin-bottom:14px;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  transition:border-color .2s;
+}
+.scr-built:has(.scr-placed){border-color:var(--accent);border-style:solid}
+.scr-empty{color:var(--muted);font-size:.88rem;font-style:italic;margin:auto}
+.scr-chips{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-bottom:16px;
+}
+.scr-chip{
+  padding:9px 16px;background:var(--card);
+  border:1.5px solid var(--border);border-radius:20px;
+  color:var(--text);font-size:.95rem;font-weight:600;
+  cursor:pointer;transition:background .15s,border-color .15s,transform .1s;
+  -webkit-user-select:none;user-select:none;
+}
+.scr-chip:active{transform:scale(.93)}
+.scr-chip:not(.scr-placed):hover{border-color:var(--accent2);color:var(--accent2)}
+.scr-placed{
+  background:rgba(124,92,252,.18);border-color:var(--accent);color:var(--accent2);
+}
+.scr-placed:active{border-color:var(--red)}
+.scr-correct{background:rgba(52,211,153,.18)!important;border-color:var(--green)!important;color:var(--green)!important}
+.scr-wrong{background:rgba(248,113,113,.18)!important;border-color:var(--red)!important;color:var(--red)!important}
+.scr-feedback{min-height:24px;margin-bottom:8px;text-align:center}
+.scr-fb-ok{color:var(--green);font-weight:700;font-size:.95rem}
+.scr-fb-ok em{font-style:normal;color:var(--text)}
+.scr-fb-no{color:var(--red);font-weight:700;font-size:.95rem}
+.scr-fb-no strong{color:var(--yellow)}
+.scr-actions{display:flex;flex-direction:column;gap:8px}
+.scr-undo-btn{
+  padding:11px 20px;background:transparent;
+  border:1.5px solid var(--border);border-radius:20px;
+  color:var(--muted);font-size:.88rem;font-weight:600;
+  align-self:flex-start;
+}
+.scr-undo-btn:active{border-color:var(--accent2);color:var(--accent2)}
+.scr-check-btn{opacity:1;transition:opacity .15s}
+.scr-check-btn:disabled{opacity:.38;cursor:not-allowed;transform:none}
+
+/* === CONJUGATION DRILL === */
+.conj-card{
+  background:linear-gradient(145deg,var(--card) 0%,#2a1e50 100%);
+  border-radius:20px;padding:28px 20px 22px;text-align:center;
+  border:1.5px solid var(--accent);margin-bottom:16px;
+}
+.conj-pronoun{
+  font-size:2.2rem;font-weight:800;color:var(--accent2);
+  line-height:1.1;margin-bottom:8px;
+}
+.conj-verb{
+  font-size:1.1rem;font-weight:600;color:var(--text);
+  margin-bottom:4px;
+}
+.conj-meaning{color:var(--muted);font-size:.9rem;font-weight:400}
+
 /* === STANDALONE FORM FIELDS (for mock exam) === */
 .field{margin-bottom:14px}
 .field label{display:block;font-size:.72rem;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}

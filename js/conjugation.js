@@ -19,9 +19,11 @@ export function newConj() {
   const opts = [...distractors, correct].sort(() => Math.random() - .5);
 
   document.getElementById('conjQuiz').innerHTML =
-    `<div class="quiz-box" data-ans="${correct}">
+    `<div class="conj-card">
       <div class="conj-pronoun">${pronoun}</div>
       <div class="conj-verb">${entry.verb} <span class="conj-meaning">(${entry.meaning})</span></div>
+    </div>
+    <div class="quiz-box" data-ans="${correct}">
       <div class="quiz-opts">
         ${opts.map(o => `<button class="quiz-opt" onclick="chkConj(this)">${o}</button>`).join('')}
       </div>
