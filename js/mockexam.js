@@ -7,7 +7,7 @@ import { lesenData } from './data/lesen.js';
 import { formData } from './data/form.js';
 import { sprechenData } from './data/sprechen.js';
 import { S, save } from './state.js';
-import { speak } from './audio.js';
+import { speak, playAudio } from './audio.js';
 
 const SPEAKER_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
 
@@ -102,7 +102,7 @@ function renderH1(el) {
     <div class="exam-part-label">🎧 Hören — Teil 1 &nbsp;<span style="color:var(--muted)">Gespräche</span></div>
     <div class="exam-q-counter">Frage ${q + 1} / ${data.length}</div>
     <div class="h-script">${dlg}</div>
-    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script.map(l => l.s + ': ' + l.t).join('  '))}, this)">
+    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script.map(l => l.s + ': ' + l.t).join('  '))}, this, ${JSON.stringify(item.audioUrl || null)})">
       ${SPEAKER_SVG} Hören
     </button>
     <div class="h-question">${item.question}</div>
@@ -143,7 +143,7 @@ function renderH2(el) {
     <div class="exam-part-label">🎧 Hören — Teil 2 &nbsp;<span style="color:var(--muted)">Kurze Nachrichten</span></div>
     <div class="exam-q-counter">Frage ${q + 1} / ${data.length}</div>
     <div class="h-script">${item.script}</div>
-    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)}, this)">${SPEAKER_SVG} Hören</button>
+    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)}, this, ${JSON.stringify(item.audioUrl || null)})">${SPEAKER_SVG} Hören</button>
     <div class="h-question">${item.question}</div>
     <p style="font-size:.8rem;color:var(--muted);margin-bottom:8px">Hinweis: ${item.hint}</p>
     <input id="examH2Ans" class="h-input" placeholder="Ihre Antwort..." type="text">
@@ -186,7 +186,7 @@ function renderH3(el) {
     <div class="exam-part-label">🎧 Hören — Teil 3 &nbsp;<span style="color:var(--muted)">Durchsagen</span></div>
     <div class="exam-q-counter">Frage ${q + 1} / ${data.length}</div>
     <div class="h-script">${item.script}</div>
-    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)}, this)">${SPEAKER_SVG} Hören</button>
+    <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)}, this, ${JSON.stringify(item.audioUrl || null)})">${SPEAKER_SVG} Hören</button>
     <div class="h-question">Aussage: <em>${item.statement}</em></div>
     <div style="display:flex;gap:10px;margin-top:8px">
       <button class="quiz-opt" style="flex:1" id="examH3R" onclick="examH3Check(this,true,${item.answer})">✓ Richtig</button>
@@ -529,8 +529,9 @@ function renderResults(el) {
     <button class="btn-full" style="margin-top:10px;background:var(--card);color:var(--text)" onclick="go('overview')">Zurück zur Übersicht</button>`;
 }
 
-// Shared TTS helper exposed to window
-export function examSpeak(text, btn) {
+// Shared audio helper exposed to window
+export function examSpeak(text, btn, audioUrl = null) {
+  if (audioUrl) { playAudio(audioUrl, btn); return; }
   speak(text, btn);
 }
 

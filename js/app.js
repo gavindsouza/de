@@ -3,6 +3,7 @@
 import { S } from './state.js';
 import { go, initNav } from './nav.js';
 import { buildFilters, buildDeck, showCard, flip, mark, setF, initSwipe, initKeyboard, fcSpeak } from './flashcards.js';
+import { prewarmTTS } from './audio.js';
 import { setWF, filterWL, wlSpeak } from './wordlist.js';
 import { newPrompt, countWords, checkEmail } from './email.js';
 import { newSpeak, spkPlay } from './speaking.js';
@@ -74,3 +75,4 @@ initHoeren();
 initLesen();
 initNav();
 go(location.hash.slice(1) || 'flashcards');
+prewarmTTS();
