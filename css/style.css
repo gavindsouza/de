@@ -163,6 +163,15 @@ h2{font-size:1.35rem;margin-bottom:12px;color:var(--accent2);font-weight:800}
 .wl-speak-btn:hover{background:rgba(255,255,255,.08);border-color:var(--accent2)}
 .wl-speak-btn svg{display:block}
 .wl-speak-btn.speaking{background:var(--accent2);border-color:var(--accent2);color:#fff}
+.wl-trans{font-size:.82rem;color:var(--accent2);font-style:italic}
+.wl-dot{
+  display:inline-block;width:8px;height:8px;border-radius:50%;
+  margin-right:5px;vertical-align:middle;flex-shrink:0;
+}
+.wl-dot-known{background:var(--green)}
+.wl-dot-shaky{background:var(--yellow)}
+.wl-dot-again{background:var(--red)}
+.wl-dot-unseen{background:var(--border)}
 
 /* === GRAMMAR === */
 .g-card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px;border-left:3px solid var(--accent)}
