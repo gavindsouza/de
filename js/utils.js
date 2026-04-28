@@ -9,9 +9,10 @@ export function rand(arr) {
 // correctFn(option, index) returns true if the option is the correct answer.
 export function markOpts(container, chosen, correctFn) {
   container.querySelectorAll('.quiz-opt').forEach((o, i) => {
+    const isCorrect = correctFn(o, i);
     o.classList.add('disabled');
-    if (correctFn(o, i)) o.classList.add('correct');
-    if (o === chosen && !correctFn(o, i)) o.classList.add('wrong');
+    if (isCorrect) o.classList.add('correct');
+    if (o === chosen && !isCorrect) o.classList.add('wrong');
   });
 }
 

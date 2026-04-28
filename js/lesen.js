@@ -122,10 +122,7 @@ function renderL2() {
 let l2Score = { c: 0, t: 0 };
 
 export function l2Ans(idx, chosen, correct, el) {
-  const row = document.getElementById(`lstmt${idx}`);
-  row.querySelectorAll('.quiz-opt').forEach(o => o.classList.add('disabled'));
-  row.querySelectorAll('.quiz-opt')[correct ? 0 : 1].classList.add('correct');
-  if (chosen !== correct) el.classList.add('wrong');
+  markOpts(el.parentElement, el, (_, i) => correct ? i === 0 : i === 1);
   l2Score.t++;
   if (chosen === correct) l2Score.c++;
   document.getElementById('l2Score').textContent = `${l2Score.c} / ${l2Score.t} richtig`;

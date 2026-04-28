@@ -24,10 +24,10 @@ export function updOverview() {
   document.getElementById('ovRingPct').textContent = pct + '%';
 
   document.getElementById('ovHero').innerHTML = `
-    <div class="ov-hero-card"><div class="n" style="color:var(--green)">${known}</div><div class="l">Known</div></div>
-    <div class="ov-hero-card"><div class="n" style="color:var(--yellow)">${shaky}</div><div class="l">Shaky</div></div>
-    <div class="ov-hero-card"><div class="n" style="color:var(--red)">${unknown}</div><div class="l">Again</div></div>
-    <div class="ov-hero-card"><div class="n" style="color:var(--muted)">${unseen}</div><div class="l">Unseen</div></div>
+    <div class="ov-hero-card"><div class="n n-green">${known}</div><div class="l">Known</div></div>
+    <div class="ov-hero-card"><div class="n n-yellow">${shaky}</div><div class="l">Shaky</div></div>
+    <div class="ov-hero-card"><div class="n n-red">${unknown}</div><div class="l">Again</div></div>
+    <div class="ov-hero-card"><div class="n n-muted">${unseen}</div><div class="l">Unseen</div></div>
   `;
   document.getElementById('ovFcSub').textContent = `${unknown + shaky + unseen} / ${total} words to review`;
   document.getElementById('ovWfSub').textContent = `${S.wfS} / ${S.wfT} correct`;
