@@ -18,7 +18,7 @@ export function newCase() {
         ${opts.map(o => `<button class="quiz-opt" onclick="chkCase(this)">${o}</button>`).join('')}
       </div>
     </div>`;
-  updCaseStats();
+  updStatPair('casS', 'casT', S.casS, S.casT);
 }
 
 export function chkCase(el) {
@@ -30,8 +30,4 @@ export function chkCase(el) {
   save();
   updStatPair('casS', 'casT', S.casS, S.casT);
   setTimeout(newCase, 1200);
-}
-
-function updCaseStats() {
-  updStatPair('casS', 'casT', S.casS, S.casT);
 }

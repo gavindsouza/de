@@ -17,7 +17,7 @@ export function newArt() {
         ).join('')}
       </div>
     </div>`;
-  updArtStats();
+  updStatPair('artS', 'artT', S.artS, S.artT);
 }
 
 export function chkArt(el, ch, ans) {
@@ -27,8 +27,4 @@ export function chkArt(el, ch, ans) {
   save();
   updStatPair('artS', 'artT', S.artS, S.artT);
   setTimeout(newArt, 1200);
-}
-
-function updArtStats() {
-  updStatPair('artS', 'artT', S.artS, S.artT);
 }

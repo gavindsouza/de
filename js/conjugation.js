@@ -29,7 +29,7 @@ export function newConj() {
         ${opts.map(o => `<button class="quiz-opt" onclick="chkConj(this)">${o}</button>`).join('')}
       </div>
     </div>`;
-  updConjStats();
+  updStatPair('conjS', 'conjT', S.conjS, S.conjT);
 }
 
 export function chkConj(el) {
@@ -41,8 +41,4 @@ export function chkConj(el) {
   save();
   updStatPair('conjS', 'conjT', S.conjS, S.conjT);
   setTimeout(newConj, 1200);
-}
-
-function updConjStats() {
-  updStatPair('conjS', 'conjT', S.conjS, S.conjT);
 }
