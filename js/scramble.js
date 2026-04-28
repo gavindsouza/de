@@ -2,11 +2,12 @@
 
 import { scrambleData } from './data/scramble.js';
 import { S, save } from './state.js';
+import { rand, updStatPair } from './utils.js';
 
 let current = null; // { item, shuffled, placed }
 
 export function newScramble() {
-  const item = scrambleData[Math.random() * scrambleData.length | 0];
+  const item = rand(scrambleData);
   // Shuffle the words array
   const shuffled = [...item.words].sort(() => Math.random() - .5);
   // If after shuffle the answer accidentally matches, re-shuffle once
@@ -96,6 +97,5 @@ export function scrCheck() {
 }
 
 function updScrStats() {
-  document.getElementById('scrS').textContent = S.scrS;
-  document.getElementById('scrT').textContent = S.scrT;
+  updStatPair('scrS', 'scrT', S.scrS, S.scrT);
 }

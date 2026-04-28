@@ -4,9 +4,10 @@
 
 import { casesData } from './data/cases.js';
 import { S, save } from './state.js';
+import { rand, markOpts, updStatPair } from './utils.js';
 
 export function newCase() {
-  const item = casesData[Math.random() * casesData.length | 0];
+  const item = rand(casesData);
   const opts = [...item.opts].sort(() => Math.random() - .5);
 
   document.getElementById('casesQuiz').innerHTML =
@@ -17,26 +18,16 @@ export function newCase() {
         ${opts.map(o => `<button class="quiz-opt" onclick="chkCase(this)">${o}</button>`).join('')}
       </div>
     </div>`;
-  updCaseStats();
+  updStatPair('casS', 'casT', S.casS, S.casT);
 }
 
 export function chkCase(el) {
   const box = el.closest('.quiz-box');
   const correct = box.dataset.ans;
-  const chosen = el.textContent.trim();
-  box.querySelectorAll('.quiz-opt').forEach(o => {
-    o.classList.add('disabled');
-    if (o.textContent.trim() === correct) o.classList.add('correct');
-    if (o === el && chosen !== correct) o.classList.add('wrong');
-  });
+  markOpts(box, el, o => o.textContent.trim() === correct);
   S.casT++;
-  if (chosen === correct) S.casS++;
+  if (el.textContent.trim() === correct) S.casS++;
   save();
-  updCaseStats();
+  updStatPair('casS', 'casT', S.casS, S.casT);
   setTimeout(newCase, 1200);
-}
-
-function updCaseStats() {
-  document.getElementById('casS').textContent = S.casS;
-  document.getElementById('casT').textContent = S.casT;
 }

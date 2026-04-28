@@ -163,6 +163,15 @@ h2{font-size:1.35rem;margin-bottom:12px;color:var(--accent2);font-weight:800}
 .wl-speak-btn:hover{background:rgba(255,255,255,.08);border-color:var(--accent2)}
 .wl-speak-btn svg{display:block}
 .wl-speak-btn.speaking{background:var(--accent2);border-color:var(--accent2);color:#fff}
+.wl-trans{font-size:.82rem;color:var(--accent2);font-style:italic}
+.wl-dot{
+  display:inline-block;width:8px;height:8px;border-radius:50%;
+  margin-right:5px;vertical-align:middle;flex-shrink:0;
+}
+.wl-dot-known{background:var(--green)}
+.wl-dot-shaky{background:var(--yellow)}
+.wl-dot-again{background:var(--red)}
+.wl-dot-unseen{background:var(--border)}
 
 /* === GRAMMAR === */
 .g-card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px;border-left:3px solid var(--accent)}
@@ -263,10 +272,6 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
 .practice-btn{background:var(--green);color:#000;padding:14px 28px;font-weight:700;font-size:1rem}
 
 /* === W-FRAGEN === */
-.wf-stats{display:flex;gap:10px;justify-content:center;margin-bottom:16px}
-.wf-stat{text-align:center;padding:10px 20px;background:var(--card);border-radius:12px}
-.wf-stat .n{font-size:1.4rem;font-weight:800}
-.wf-stat .l{font-size:.65rem;color:var(--muted);text-transform:uppercase;margin-top:2px}
 .quiz-box{background:var(--card);border-radius:16px;padding:20px;margin-bottom:16px}
 .quiz-q{font-size:1.2rem;font-weight:600;margin-bottom:16px;line-height:1.4}
 .quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -476,6 +481,71 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
 }
 
 
+/* === WORD ORDER (SCRAMBLE) === */
+.scr-prompt{
+  font-size:1rem;color:var(--muted);margin-bottom:16px;
+  line-height:1.5;text-align:center;
+}
+.scr-built{
+  min-height:56px;background:var(--surface);
+  border:1.5px dashed var(--border);border-radius:14px;
+  padding:10px 12px;margin-bottom:14px;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  transition:border-color .2s;
+}
+.scr-built:has(.scr-placed){border-color:var(--accent);border-style:solid}
+.scr-empty{color:var(--muted);font-size:.88rem;font-style:italic;margin:auto}
+.scr-chips{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-bottom:16px;
+}
+.scr-chip{
+  padding:9px 16px;background:var(--card);
+  border:1.5px solid var(--border);border-radius:20px;
+  color:var(--text);font-size:.95rem;font-weight:600;
+  cursor:pointer;transition:background .15s,border-color .15s,transform .1s;
+  -webkit-user-select:none;user-select:none;
+}
+.scr-chip:active{transform:scale(.93)}
+.scr-chip:not(.scr-placed):hover{border-color:var(--accent2);color:var(--accent2)}
+.scr-placed{
+  background:rgba(124,92,252,.18);border-color:var(--accent);color:var(--accent2);
+}
+.scr-placed:active{border-color:var(--red)}
+.scr-correct{background:rgba(52,211,153,.18)!important;border-color:var(--green)!important;color:var(--green)!important}
+.scr-wrong{background:rgba(248,113,113,.18)!important;border-color:var(--red)!important;color:var(--red)!important}
+.scr-feedback{min-height:24px;margin-bottom:8px;text-align:center}
+.scr-fb-ok{color:var(--green);font-weight:700;font-size:.95rem}
+.scr-fb-ok em{font-style:normal;color:var(--text)}
+.scr-fb-no{color:var(--red);font-weight:700;font-size:.95rem}
+.scr-fb-no strong{color:var(--yellow)}
+.scr-actions{display:flex;flex-direction:column;gap:8px}
+.scr-undo-btn{
+  padding:11px 20px;background:transparent;
+  border:1.5px solid var(--border);border-radius:20px;
+  color:var(--muted);font-size:.88rem;font-weight:600;
+  align-self:flex-start;
+}
+.scr-undo-btn:active{border-color:var(--accent2);color:var(--accent2)}
+.scr-check-btn{opacity:1;transition:opacity .15s}
+.scr-check-btn:disabled{opacity:.38;cursor:not-allowed;transform:none}
+
+/* === CONJUGATION DRILL === */
+.conj-card{
+  background:linear-gradient(145deg,var(--card) 0%,#2a1e50 100%);
+  border-radius:20px;padding:28px 20px 22px;text-align:center;
+  border:1.5px solid var(--accent);margin-bottom:16px;
+}
+.conj-pronoun{
+  font-size:2.2rem;font-weight:800;color:var(--accent2);
+  line-height:1.1;margin-bottom:8px;
+}
+.conj-verb{
+  font-size:1.1rem;font-weight:600;color:var(--text);
+  margin-bottom:4px;
+}
+.conj-meaning{color:var(--muted);font-size:.9rem;font-weight:400}
+
 /* === STANDALONE FORM FIELDS (for mock exam) === */
 .field{margin-bottom:14px}
 .field label{display:block;font-size:.72rem;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
@@ -485,3 +555,41 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
 }
 .field textarea{min-height:120px;resize:vertical}
 .field select{-webkit-appearance:none;appearance:none}
+
+/* === UTILITY / SHARED CLASSES === */
+
+/* Back button */
+.btn-back{background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600;border-radius:0}
+
+/* Sub-section heading (h4 in quiz content areas) */
+.sub-heading{margin:14px 0 8px;color:var(--accent2)}
+
+/* True/False button row */
+.quiz-tf{display:flex;gap:10px;margin-top:8px}
+.quiz-tf .quiz-opt{flex:1}
+
+/* Feedback text colours */
+.txt-ok{color:var(--green)}
+.txt-warn{color:var(--yellow)}
+.txt-err{color:var(--red)}
+
+/* Overview hero stat colours */
+.n-green{color:var(--green)}
+.n-yellow{color:var(--yellow)}
+.n-red{color:var(--red)}
+.n-muted{color:var(--muted)}
+
+/* Email preview box */
+.email-preview-box{background:var(--surface);padding:12px;border-radius:12px;margin-top:8px;white-space:pre-line;font-size:.9rem}
+
+/* === CASES QUIZ === */
+.cases-sentence{font-size:1.1rem;font-weight:600;margin-bottom:12px;line-height:1.5}
+.cases-blank{color:var(--accent2);font-weight:800;border-bottom:2px solid var(--accent2)}
+.cases-hint{font-size:.8rem;color:var(--muted);margin-bottom:16px}
+
+/* === SCHEDULE === */
+.day-card-right{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
+.day-go-btn{padding:9px 18px;background:var(--accent);color:#fff;border-radius:12px;font-size:.85rem;font-weight:700}
+
+/* Resize speaker icon in speaking practice to match its original 18 px */
+.spk-play-btn svg{width:18px;height:18px}

@@ -308,7 +308,7 @@
 
   <!-- ===== DER/DIE/DAS QUIZ ===== -->
   <div id="derarticle" class="section">
-    <button onclick="go('grammar')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <button onclick="go('grammar')" class="btn-back">&larr; Back</button>
     <h2>der / die / das Quiz</h2>
     <p class="desc">Pick the correct article for each noun. Colors = genders: <span class="art-der">der</span> · <span class="art-die">die</span> · <span class="art-das">das</span></p>
     <div class="art-stats">
@@ -320,7 +320,7 @@
 
   <!-- ===== CONJUGATION DRILL ===== -->
   <div id="conjugation" class="section">
-    <button onclick="go('grammar')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <button onclick="go('grammar')" class="btn-back">&larr; Back</button>
     <h2>Conjugation Drill</h2>
     <p class="desc">See the pronoun + infinitive. Pick the correct conjugated form. Irregular verbs included!</p>
     <div class="art-stats">
@@ -348,7 +348,7 @@
 
   <!-- ===== CASE QUIZ ===== -->
   <div id="cases" class="section">
-    <button onclick="go('grammar')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <button onclick="go('grammar')" class="btn-back">&larr; Back</button>
     <h2>Case Quiz</h2>
     <p class="desc">Fill in the blank with the correct article form. Tests accusative, dative, possessives, and kein/keine.</p>
     <div class="art-stats">
@@ -370,7 +370,7 @@
 
   <!-- ===== SENTENCE SCRAMBLE ===== -->
   <div id="scramble" class="section">
-    <button onclick="go('grammar')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <button onclick="go('grammar')" class="btn-back">&larr; Back</button>
     <h2>Word Order</h2>
     <p class="desc">Tap the words in the correct order to form a German sentence. The V2 rule: verb is always the 2nd element!</p>
     <div class="art-stats">
@@ -445,7 +445,7 @@
 
   <!-- ===== HÖREN ===== -->
   <div id="hoeren" class="section">
-    <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <button onclick="go('overview')" class="btn-back">&larr; Back</button>
     <h2>Hören — Listening</h2>
     <div class="desc">Three exercise types matching the real A1 exam. Tap Hören to hear the text via browser TTS.</div>
     <div id="hoerenContent"></div>
@@ -453,7 +453,7 @@
 
   <!-- ===== LESEN ===== -->
   <div id="lesen" class="section">
-    <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <button onclick="go('overview')" class="btn-back">&larr; Back</button>
     <h2>Lesen — Reading</h2>
     <div class="desc">Match ads to people · answer Richtig/Falsch · fill in forms from texts.</div>
     <div id="lesenContent"></div>
@@ -461,7 +461,7 @@
 
   <!-- ===== MOCK EXAM ===== -->
   <div id="mockexam" class="section">
-    <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Abbrechen</button>
+    <button onclick="go('overview')" class="btn-back">&larr; Abbrechen</button>
     <div id="examContent"></div>
   </div>
 
@@ -636,7 +636,7 @@
 
   <!-- ===== SELF INTRO ===== -->
   <div id="intro" class="section">
-    <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <button onclick="go('overview')" class="btn-back">&larr; Back</button>
     <h2>Self-Introduction</h2>
     <div class="desc">Memorize your 5-sentence intro. Fill in your details. Practice 20 times!</div>
 
@@ -732,12 +732,12 @@
 
   <!-- ===== W-FRAGEN ===== -->
   <div id="wfragen" class="section">
-    <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <button onclick="go('overview')" class="btn-back">&larr; Back</button>
     <h2>W-Fragen Quiz</h2>
     <div class="desc">Master the question words. No question = no answer!</div>
-    <div class="wf-stats">
-      <div class="wf-stat"><div class="n" id="wfS" style="color:var(--green)">0</div><div class="l">Correct</div></div>
-      <div class="wf-stat"><div class="n" id="wfT">0</div><div class="l">Total</div></div>
+    <div class="art-stats">
+      <div class="art-stat"><div class="n n-green" id="wfS">0</div><div class="l">Correct</div></div>
+      <div class="art-stat"><div class="n" id="wfT">0</div><div class="l">Total</div></div>
     </div>
     <div id="wfQuiz"></div>
     <button class="btn-full" onclick="newWF()" style="margin-top:12px">Next Question &#x2192;</button>
@@ -762,7 +762,7 @@
 
   <!-- ===== SCHEDULE ===== -->
   <div id="schedule" class="section">
-    <button onclick="go('overview')" style="background:none;color:var(--accent2);padding:0 0 8px;font-size:.9rem;font-weight:600">&larr; Back</button>
+    <button onclick="go('overview')" class="btn-back">&larr; Back</button>
     <h2>14-Day Blitz</h2>
     <div class="desc">90 min/day. Tap to mark complete.</div>
     <div id="schedCards"></div>

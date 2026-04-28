@@ -8,8 +8,7 @@ import { formData } from './data/form.js';
 import { sprechenData } from './data/sprechen.js';
 import { S, save } from './state.js';
 import { speak, playAudio } from './audio.js';
-
-const SPEAKER_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
+import { markOpts, SPEAKER_SVG } from './utils.js';
 
 const TOTAL_STEPS = 16;
 // step 0  = welcome
@@ -115,11 +114,7 @@ function renderH1(el) {
 }
 
 export function examH1Check(el, chosen, correct) {
-  el.closest('.quiz-opts').querySelectorAll('.quiz-opt').forEach((o, i) => {
-    o.classList.add('disabled');
-    if (i === correct) o.classList.add('correct');
-    if (o === el && chosen !== correct) o.classList.add('wrong');
-  });
+  markOpts(el.closest('.quiz-opts'), el, (_, i) => i === correct);
   ex.h1.total++;
   if (chosen === correct) ex.h1.correct++;
   document.getElementById('examH1Next').style.display = 'block';
@@ -163,8 +158,8 @@ export function examH2Check() {
   ex.h2.answered++;
   document.getElementById('examH2Ans').disabled = true;
   document.getElementById('examH2FB').innerHTML = ok
-    ? `<span style="color:var(--green)">✓ Richtig! Antwort: <strong>${item.answer}</strong></span>`
-    : `<span style="color:var(--red)">✗ Richtige Antwort: <strong>${item.answer}</strong></span>`;
+    ? `<span class="txt-ok">✓ Richtig! Antwort: <strong>${item.answer}</strong></span>`
+    : `<span class="txt-err">✗ Richtige Antwort: <strong>${item.answer}</strong></span>`;
   document.getElementById('examH2Next').style.display = 'block';
 }
 
@@ -188,9 +183,9 @@ function renderH3(el) {
     <div class="h-script">${item.script}</div>
     <button class="h-play-btn" onclick="examSpeak(${JSON.stringify(item.script)}, this, ${JSON.stringify(item.audioUrl || null)})">${SPEAKER_SVG} Hören</button>
     <div class="h-question">Aussage: <em>${item.statement}</em></div>
-    <div style="display:flex;gap:10px;margin-top:8px">
-      <button class="quiz-opt" style="flex:1" id="examH3R" onclick="examH3Check(this,true,${item.answer})">✓ Richtig</button>
-      <button class="quiz-opt" style="flex:1" id="examH3F" onclick="examH3Check(this,false,${item.answer})">✗ Falsch</button>
+    <div class="quiz-tf">
+      <button class="quiz-opt" id="examH3R" onclick="examH3Check(this,true,${item.answer})">✓ Richtig</button>
+      <button class="quiz-opt" id="examH3F" onclick="examH3Check(this,false,${item.answer})">✗ Falsch</button>
     </div>
     <div id="examH3Next" style="display:none;margin-top:12px">
       ${q + 1 < data.length ? nextBtn('Nächste Frage →', 'examH3Advance()') : nextBtn('Weiter zu Lesen →', 'examH3Advance()')}
@@ -198,9 +193,7 @@ function renderH3(el) {
 }
 
 export function examH3Check(el, chosen, correct) {
-  el.parentElement.querySelectorAll('.quiz-opt').forEach(o => o.classList.add('disabled'));
-  document.getElementById(correct ? 'examH3R' : 'examH3F').classList.add('correct');
-  if (chosen !== correct) el.classList.add('wrong');
+  markOpts(el.parentElement, el, (_, i) => correct ? i === 0 : i === 1);
   ex.h3.total++;
   if (chosen === correct) ex.h3.correct++;
   document.getElementById('examH3Next').style.display = 'block';
@@ -235,7 +228,7 @@ function renderL1(el) {
     <div class="exam-part-label">📖 Lesen — Teil 1 &nbsp;<span style="color:var(--muted)">Anzeigen zuordnen</span></div>
     <div class="ls-intro">Lesen Sie die Anzeigen A–${ads[ads.length - 1].label}. Welche Anzeige passt zu welcher Person?</div>
     <div class="ls-ads">${adsHtml}</div>
-    <h4 style="margin:14px 0 8px;color:var(--accent2)">Personen</h4>
+    <h4 class="sub-heading">Personen</h4>
     ${peopleHtml}
     <button class="btn-full" onclick="examL1Submit()" style="margin-top:14px">Auswerten & Weiter →</button>
     <div id="examL1FB" style="margin-top:12px"></div>`;
@@ -266,7 +259,7 @@ function renderL2(el) {
   const stmHtml = statements.map((s, i) => `
     <div class="ls-stmt" id="exlstmt${i}">
       <div style="font-size:.9rem;margin-bottom:6px">${i + 1}. ${s.text}</div>
-      <div style="display:flex;gap:8px">
+      <div class="quiz-tf">
         <button class="quiz-opt" onclick="examL2Ans(${i},true,${s.answer},this)">✓ Richtig</button>
         <button class="quiz-opt" onclick="examL2Ans(${i},false,${s.answer},this)">✗ Falsch</button>
       </div>
@@ -276,17 +269,14 @@ function renderL2(el) {
     <div class="exam-part-label">📖 Lesen — Teil 2 &nbsp;<span style="color:var(--muted)">Richtig oder Falsch?</span></div>
     <div class="ls-intro">Lesen Sie den Text und kreuzen Sie an.</div>
     <div class="ls-text">${text.replace(/\n/g, '<br>')}</div>
-    <h4 style="margin:14px 0 8px;color:var(--accent2)">Aussagen</h4>
+    <h4 class="sub-heading">Aussagen</h4>
     ${stmHtml}
     <div id="examL2Score" style="margin-top:10px;font-weight:700"></div>
     <div id="examL2Next" style="display:none;margin-top:12px">${nextBtn('Weiter →', 'examL2Advance()')}</div>`;
 }
 
 export function examL2Ans(idx, chosen, correct, el) {
-  const row = document.getElementById(`exlstmt${idx}`);
-  row.querySelectorAll('.quiz-opt').forEach(o => o.classList.add('disabled'));
-  row.querySelectorAll('.quiz-opt')[correct ? 0 : 1].classList.add('correct');
-  if (chosen !== correct) el.classList.add('wrong');
+  markOpts(el.parentElement, el, (_, i) => correct ? i === 0 : i === 1);
   ex.l2.total++;
   if (chosen === correct) ex.l2.correct++;
   document.getElementById('examL2Score').textContent = `${ex.l2.correct} / ${ex.l2.total} richtig`;
@@ -313,7 +303,7 @@ function renderL3(el) {
     <div class="exam-part-label">📖 Lesen — Teil 3 &nbsp;<span style="color:var(--muted)">Formular ausfüllen</span></div>
     <div class="ls-intro">${instruction}</div>
     <div class="ls-text">${text.replace(/\n/g, '<br>')}</div>
-    <h4 style="margin:14px 0 8px;color:var(--accent2)">Formular</h4>
+    <h4 class="sub-heading">Formular</h4>
     ${fieldsHtml}
     <button class="btn-full" onclick="examL3Submit()" style="margin-top:14px">Auswerten & Weiter →</button>
     <div id="examL3FB" style="margin-top:12px"></div>`;

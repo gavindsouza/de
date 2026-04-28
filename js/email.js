@@ -1,9 +1,10 @@
 // Email practice module
 
 import { emailPrompts } from './data/email-prompts.js';
+import { rand } from './utils.js';
 
 export function newPrompt() {
-  const p = emailPrompts[Math.random() * emailPrompts.length | 0];
+  const p = rand(emailPrompts);
   document.getElementById('emailPrompt').innerHTML =
     `<div style="margin-bottom:8px">${p.scenario}</div>
      <div style="font-weight:600;margin-bottom:6px">${p.instruction}</div>
@@ -26,16 +27,16 @@ export function checkEmail() {
   const n = b ? b.split(/\s+/).length : 0;
   let fb = [];
   if (!b) {
-    fb.push('<span style="color:var(--red)">Write something first!</span>');
+    fb.push('<span class="txt-err">Write something first!</span>');
   } else {
-    if (n < 20) fb.push(`<span style="color:var(--yellow)">Too short (${n}). Aim for 20-30.</span>`);
-    else if (n > 35) fb.push(`<span style="color:var(--yellow)">A bit long (${n}). Keep to 20-30.</span>`);
-    else fb.push(`<span style="color:var(--green)">Good length (${n} words)!</span>`);
-    if (b.includes('weil') || b.includes('schreibe')) fb.push('<span style="color:var(--green)">Nice connecting phrase!</span>');
-    if (/[.!?]$/.test(b)) fb.push('<span style="color:var(--green)">Good punctuation.</span>');
-    else fb.push('<span style="color:var(--yellow)">Add punctuation at the end.</span>');
+    if (n < 20) fb.push(`<span class="txt-warn">Too short (${n}). Aim for 20-30.</span>`);
+    else if (n > 35) fb.push(`<span class="txt-warn">A bit long (${n}). Keep to 20-30.</span>`);
+    else fb.push(`<span class="txt-ok">Good length (${n} words)!</span>`);
+    if (b.includes('weil') || b.includes('schreibe')) fb.push('<span class="txt-ok">Nice connecting phrase!</span>');
+    if (/[.!?]$/.test(b)) fb.push('<span class="txt-ok">Good punctuation.</span>');
+    else fb.push('<span class="txt-warn">Add punctuation at the end.</span>');
   }
   const full = `${document.getElementById('emGreet').value}\n\n${b}\n\n${document.getElementById('emClose').value}`;
-  fb.push(`<div style="background:var(--surface);padding:12px;border-radius:12px;margin-top:8px;white-space:pre-line;font-size:.9rem">${full}</div>`);
+  fb.push(`<div class="email-preview-box">${full}</div>`);
   document.getElementById('emFB').innerHTML = fb.join('<br>');
 }
