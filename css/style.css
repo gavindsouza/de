@@ -593,3 +593,31 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
 
 /* Resize speaker icon in speaking practice to match its original 18 px */
 .spk-play-btn svg{width:18px;height:18px}
+
+/* === LEVEL SELECTOR === */
+.level-selector{display:flex;gap:8px;margin-bottom:16px}
+.level-pill{
+  flex:1;padding:10px 6px;background:var(--card);color:var(--muted);
+  border-radius:12px;font-size:.82rem;font-weight:700;text-align:center;
+  border:1.5px solid var(--border);transition:background .15s,color .15s,border-color .15s;
+}
+.level-pill.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.level-pill.soon{opacity:.5;cursor:default}
+.level-pill .lv-badge{
+  display:inline-block;font-size:1rem;font-weight:800;letter-spacing:.5px;
+}
+.level-pill .lv-sub{display:block;font-size:.68rem;font-weight:500;margin-top:2px;opacity:.8}
+
+/* === COMING SOON TOAST === */
+.level-toast{
+  position:fixed;bottom:calc(var(--nav-h) + var(--safe-b) + 16px);left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--card);color:var(--text);
+  padding:10px 20px;border-radius:20px;font-size:.9rem;font-weight:600;
+  border:1px solid var(--border);
+  opacity:0;pointer-events:none;
+  transition:opacity .25s,transform .25s;
+  z-index:200;white-space:nowrap;
+}
+.level-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+

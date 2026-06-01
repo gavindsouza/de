@@ -1,7 +1,5 @@
 // App state and localStorage persistence
 
-import { words } from './data/words.js';
-
 export const S = {
   idx: 0,
   known: new Set(),
@@ -25,6 +23,7 @@ export const S = {
   days: new Set(),
   intro: {},
   examDone: 0,
+  level: 'a1',   // target level: 'a1' | 'a2' | 'b1'
 };
 
 // Load from localStorage
@@ -47,6 +46,7 @@ try {
   if (d.ds) S.days = new Set(d.ds);
   if (d.i) S.intro = d.i;
   if (d.ed) S.examDone = d.ed;
+  if (d.lv) S.level = d.lv;
 } catch (e) { /* ignore corrupt data */ }
 
 export function save() {
@@ -68,5 +68,6 @@ export function save() {
     ds: [...S.days],
     i: S.intro,
     ed: S.examDone,
+    lv: S.level,
   }));
 }

@@ -1,6 +1,5 @@
 // Overview dashboard and reset
 
-import { words } from './data/words.js';
 import { S, save } from './state.js';
 import { buildDeck, showCard, buildFilters } from './flashcards.js';
 import { filterWL } from './wordlist.js';
@@ -11,8 +10,10 @@ import { newConj } from './conjugation.js';
 import { newCase } from './cases.js';
 import { newScramble } from './scramble.js';
 import { buildSched } from './schedule.js';
+import { getWords } from './level.js';
 
 export function updOverview() {
+  const words = getWords();
   const total = words.length;
   const known = S.known.size;
   const unknown = S.unknown.size;
@@ -58,6 +59,7 @@ export function resetProgress() {
 }
 
 export function confirmReset() {
+  const currentLevel = S.level;   // preserve level across reset
   localStorage.removeItem('a1s');
   S.known.clear(); S.unknown.clear(); S.shaky.clear();
   S.wfS = 0; S.wfT = 0;
@@ -66,6 +68,8 @@ export function confirmReset() {
   S.casS = 0; S.casT = 0;
   S.scrS = 0; S.scrT = 0;
   S.pCount = 0; S.days.clear(); S.intro = {}; S.idx = 0; S.examDone = 0;
+  S.level = currentLevel;
+  save();
   buildDeck(); showCard(); buildFilters(); filterWL('');
   document.getElementById('wlSearch').value = '';
   document.getElementById('wfS').textContent = '0';

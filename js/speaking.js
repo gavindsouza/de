@@ -1,10 +1,8 @@
 // Speaking simulator module
 
-import { words } from './data/words.js';
 import { speak } from './audio.js';
 import { SPEAKER_SVG } from './utils.js';
-
-const nouns = words.filter(w => w.a);
+import { getWords } from './level.js';
 
 function getSentences(w) {
   // Plural-only nouns (plurale tantum) need their own sentence set since indefinite
@@ -187,6 +185,7 @@ function getSentences(w) {
 }
 
 export function newSpeak() {
+  const nouns = getWords().filter(w => w.a);
   const w = nouns[Math.random() * nouns.length | 0];
   document.getElementById('spkArt').textContent = w.a;
   document.getElementById('spkWd').textContent = w.w;
