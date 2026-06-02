@@ -3,9 +3,9 @@ export const LEVEL_CONFIG = {
     label: 'A1',
     enabledSections: ['flashcards', 'grammar', 'email', 'speaking', 'overview', 'intro', 'wfragen', 'schedule', 'hoeren', 'lesen', 'mockexam', 'derarticle', 'conjugation', 'cases', 'scramble'],
     vocab: {
-      kicker: 'A1 vocabulary track',
-      title: 'Vocabulary',
-      desc: 'Train the Goethe A1 word bank with cards by default, then switch to the full list when you need it.',
+      kicker: '',
+      title: 'Vocab',
+      desc: '',
       searchPlaceholder: 'Search A1 words...',
     },
     grammar: {
@@ -93,9 +93,9 @@ export const LEVEL_CONFIG = {
     label: 'B1',
     enabledSections: ['flashcards', 'grammar', 'email', 'speaking', 'overview', 'derarticle', 'conjugation', 'cases', 'scramble'],
     vocab: {
-      kicker: 'B1 vocabulary bridge',
-      title: 'Vocabulary',
-      desc: 'B1 mode uses the current A1/A2 vocabulary bank as a bridge while the dedicated B1 list is being built.',
+      kicker: '',
+      title: 'Vocab',
+      desc: '',
       searchPlaceholder: 'Search the current B1 bridge vocabulary...',
     },
     grammar: {
