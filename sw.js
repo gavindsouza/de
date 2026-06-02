@@ -1,5 +1,5 @@
 // Service Worker — cache-first strategy for offline PWA support
-const CACHE = 'de-v1';
+const CACHE = 'de-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -16,7 +16,9 @@ const ASSETS = [
   '/js/wordlist.js',
   '/js/cases.js',
   '/js/lesen.js',
+  '/js/level.js',
   '/js/state.js',
+  '/js/level-config.js',
   '/js/intro.js',
   '/js/email.js',
   '/js/conjugation.js',
@@ -36,6 +38,7 @@ const ASSETS = [
   '/js/data/email-prompts.js',
   '/js/data/hoeren.js',
   '/js/data/scramble.js',
+  '/js/data/speaking-prompts.js',
   '/icons/icon-192.png',
   '/icons/icon-192-maskable.png',
   '/icons/icon-512.png',

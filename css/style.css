@@ -62,6 +62,15 @@ main{padding:0 0 16px}
 .section.active{display:block}
 h2{font-size:1.35rem;margin-bottom:12px;color:var(--accent2);font-weight:800}
 .desc{color:var(--muted);font-size:.85rem;margin-bottom:16px;line-height:1.45}
+.level-kicker{font-size:.72rem;color:var(--yellow);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:8px}
+.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.section-switch-btn{
+  flex-shrink:0;background:var(--card);border:1px solid var(--border);color:var(--accent2);
+  padding:10px 12px;border-radius:12px;font-size:.78rem;font-weight:700;
+}
+.vocab-view-switch{display:flex;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:12px}
+.seg-btn{flex:1;background:transparent;color:var(--muted);padding:10px 12px;border-radius:10px;font-size:.82rem;font-weight:700}
+.seg-btn.active{background:var(--accent);color:#fff}
 
 /* === FLASHCARDS === */
 .fc-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
@@ -236,6 +245,7 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
 }
 .spk-card .art{font-size:.9rem;color:var(--muted);font-weight:600}
 .spk-card .wd{font-size:2.6rem;font-weight:800;color:var(--accent2);margin:8px 0 20px;line-height:1.1}
+.spk-task{font-size:.92rem;color:var(--text);line-height:1.5}
 .spk-sug{background:var(--surface);border-radius:14px;padding:14px;margin:8px 0;border:1.5px solid var(--border);text-align:left;display:flex;align-items:center;gap:12px}
 .spk-sug:active{border-color:var(--accent);background:var(--card)}
 .spk-sug-main{flex:1;min-width:0}
@@ -620,4 +630,3 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
   z-index:200;white-space:nowrap;
 }
 .level-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-

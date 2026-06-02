@@ -1,6 +1,6 @@
 // Word list filtering and display
 
-import { S } from './state.js';
+import { S, save } from './state.js';
 import { buildFilters } from './flashcards.js';
 import { speak } from './audio.js';
 import { SPEAKER_SVG } from './utils.js';
@@ -10,10 +10,12 @@ export function setWF(c) {
   S.wlFilter = c;
   buildFilters();
   filterWL(document.getElementById('wlSearch').value);
+  save();
 }
 
 export function filterWL(q) {
   const words = getWords();
+  S.vocabSearch = q;
   q = q.toLowerCase();
   let f = S.wlFilter === 'Alle' ? words : words.filter(w => w.c === S.wlFilter);
   if (q) f = f.filter(w => w.w.toLowerCase().includes(q) || w.e.toLowerCase().includes(q) || w.t.toLowerCase().includes(q));
@@ -30,6 +32,7 @@ export function filterWL(q) {
       <div class="wl-trans">${w.t}</div>
     </div>`;
   }).join('');
+  save();
 }
 
 export function wlSpeak(text, btn) {

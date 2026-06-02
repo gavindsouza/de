@@ -1,12 +1,12 @@
 // Main entry point - wires up modules and exposes handlers to window
 
-import { S, save } from './state.js';
+import { S, save, restoreLevelUI, syncLevelUI } from './state.js';
 import { go, initNav } from './nav.js';
 import { buildFilters, buildDeck, showCard, flip, mark, setF, initSwipe, initKeyboard, fcSpeak } from './flashcards.js';
 import { prewarmTTS } from './audio.js';
 import { setWF, filterWL, wlSpeak } from './wordlist.js';
-import { newPrompt, countWords, checkEmail } from './email.js';
-import { newSpeak, spkPlay } from './speaking.js';
+import { newPrompt, countWords, checkEmail, renderWritingSection } from './email.js';
+import { newSpeak, spkPlay, renderSpeakingSection } from './speaking.js';
 import { saveIntro, loadIntro, incPractice } from './intro.js';
 import { newWF, chkWF } from './wfragen.js';
 import { newArt, chkArt } from './article.js';
@@ -18,46 +18,91 @@ import { updOverview, resetProgress, confirmReset } from './overview.js';
 import { initHoeren, buildHoeren, switchHPart, hPlayT1, hCheckT1, hNext1, hPlayT2, hCheckT2, hNext2, hPlayT3, hCheckT3, hNext3 } from './hoeren.js';
 import { initLesen, buildLesen, switchLPart, switchLSet, l1Pick, l1Check, l2Ans, l3Check } from './lesen.js';
 import { startExam, examNext, examSpeak, examH1Check, examH1Advance, examH2Check, examH2Advance, examH3Check, examH3Advance, examL1Pick, examL1Submit, examL2Ans, examL2Advance, examL3Submit, examS1Count, examS1Done, examS2Done, examSp2Next, examSp3Next, examFinish } from './mockexam.js';
+import { getLevelConfig, matchesDataLevel, isSectionEnabled } from './level-config.js';
+
+function applyLevelSections() {
+  document.querySelectorAll('[data-level]').forEach(el => {
+    el.hidden = !matchesDataLevel(el.dataset.level, S.level);
+  });
+  document.querySelectorAll('[data-section]').forEach(el => {
+    el.hidden = !isSectionEnabled(S.level, el.dataset.section);
+  });
+}
+
+function applyLevelChrome() {
+  const cfg = getLevelConfig(S.level);
+  document.getElementById('navVocabLabel').textContent = 'Vocab';
+  document.getElementById('navGrammarLabel').textContent = 'Grammar';
+  document.getElementById('navWriteLabel').textContent = 'Write';
+  document.getElementById('navSpeakLabel').textContent = 'Speak';
+  document.getElementById('navHomeLabel').textContent = 'Home';
+
+  document.getElementById('vocabLevelKicker').textContent = cfg.vocab.kicker;
+  document.getElementById('flashcardsTitle').textContent = cfg.vocab.title;
+  document.getElementById('flashcardsDesc').textContent = cfg.vocab.desc;
+  document.getElementById('wlSearch').placeholder = cfg.vocab.searchPlaceholder;
+
+  document.getElementById('grammarLevelKicker').textContent = cfg.grammar.kicker;
+  document.getElementById('grammarTitle').textContent = cfg.grammar.title;
+  document.getElementById('grammarDesc').textContent = cfg.grammar.desc;
+  document.getElementById('grammarFocusNote').textContent = cfg.grammar.focus;
+
+  document.getElementById('emailLevelKicker').textContent = cfg.writing.kicker;
+  document.getElementById('speakingLevelKicker').textContent = cfg.speaking.kicker;
+}
+
+function applyVocabView() {
+  const listView = S.vocabView === 'list';
+  document.getElementById('vocabCardsView').hidden = listView;
+  document.getElementById('vocabListView').hidden = !listView;
+  document.getElementById('vocabCardsTab').classList.toggle('active', !listView);
+  document.getElementById('vocabListTab').classList.toggle('active', listView);
+  document.getElementById('vocabToggleBtn').textContent = listView ? 'Back to cards ↩' : 'Open word list ↗';
+}
+
+export function setVocabView(view) {
+  S.vocabView = view;
+  save();
+  applyVocabView();
+  if (view === 'list') filterWL(S.vocabSearch);
+  else showCard();
+}
+
+export function toggleVocabView() {
+  setVocabView(S.vocabView === 'cards' ? 'list' : 'cards');
+}
 
 function rebuildForLevel() {
-  S.filter = 'Alle';
-  S.wlFilter = 'Alle';
+  restoreLevelUI();
+  applyLevelChrome();
+  applyLevelSections();
   buildFilters();
   buildDeck();
   showCard();
-  filterWL('');
-  document.getElementById('wlSearch').value = '';
+  document.getElementById('wlSearch').value = S.vocabSearch;
+  filterWL(S.vocabSearch);
+  applyVocabView();
+  renderWritingSection();
+  newPrompt();
   newArt();
+  newConj();
+  newCase();
+  newScramble();
+  renderSpeakingSection();
   newSpeak();
   updOverview();
-  // update level pill buttons
   document.querySelectorAll('.level-pill').forEach(b => {
     b.classList.toggle('active', b.dataset.lv === S.level);
-  });
-  // show/hide A2-only grammar cards
-  document.querySelectorAll('[data-level]').forEach(el => {
-    el.hidden = el.dataset.level !== S.level;
   });
 }
 
 export function setLevel(lv) {
-  if (lv === 'b1') {
-    // Show a brief "coming soon" toast
-    let toast = document.getElementById('levelToast');
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'levelToast';
-      toast.className = 'level-toast';
-      document.body.appendChild(toast);
-    }
-    toast.textContent = 'B1 — Coming Soon! 🚀';
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
-    return;
-  }
+  syncLevelUI();
   S.level = lv;
+  restoreLevelUI(lv);
   save();
   rebuildForLevel();
+  if (!isSectionEnabled(S.level, location.hash.slice(1) || 'overview')) go('overview');
 }
 
 // Expose to window for onclick handlers in HTML
@@ -71,7 +116,7 @@ Object.assign(window, {
   newCase, chkCase,
   newScramble, scrPlace, scrRemove, scrUndo, scrCheck,
   resetProgress, confirmReset,
-  setLevel,
+  setLevel, setVocabView, toggleVocabView,
   // Hören
   buildHoeren, switchHPart,
   hPlayT1, hCheckT1, hNext1,
@@ -96,8 +141,14 @@ Object.assign(window, {
 buildFilters();
 buildDeck();
 showCard();
-filterWL('');
+applyLevelChrome();
+applyLevelSections();
+document.getElementById('wlSearch').value = S.vocabSearch;
+filterWL(S.vocabSearch);
+applyVocabView();
+renderWritingSection();
 newPrompt();
+renderSpeakingSection();
 newSpeak();
 loadIntro();
 document.getElementById('pCount').textContent = S.pCount;
@@ -116,12 +167,8 @@ initKeyboard();
 initHoeren();
 initLesen();
 initNav();
-// Apply initial level state (pill buttons + grammar cards)
 document.querySelectorAll('.level-pill').forEach(b => {
   b.classList.toggle('active', b.dataset.lv === S.level);
 });
-document.querySelectorAll('[data-level]').forEach(el => {
-  el.hidden = el.dataset.level !== S.level;
-});
-go(location.hash.slice(1) || 'flashcards');
+go(location.hash.slice(1) || 'overview');
 prewarmTTS();

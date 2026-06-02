@@ -1,6 +1,8 @@
 // Navigation between sections
 
+import { S } from './state.js';
 import { updOverview } from './overview.js';
+import { isSectionEnabled } from './level-config.js';
 
 const VALID_SECTIONS = new Set([
   'flashcards', 'wordlist', 'grammar', 'derarticle', 'conjugation', 'cases', 'scramble',
@@ -8,7 +10,12 @@ const VALID_SECTIONS = new Set([
 ]);
 
 export function go(id) {
+  if (id === 'wordlist') {
+    id = 'flashcards';
+    window.setVocabView && window.setVocabView('list');
+  }
   if (!VALID_SECTIONS.has(id)) id = 'flashcards';
+  if (!isSectionEnabled(S.level, id)) id = 'overview';
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   const grammarSubs = ['derarticle', 'conjugation', 'cases', 'scramble'];

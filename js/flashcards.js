@@ -30,6 +30,7 @@ export function setF(c) {
   buildDeck();
   buildFilters();
   showCard();
+  save();
 }
 
 export function buildDeck() {

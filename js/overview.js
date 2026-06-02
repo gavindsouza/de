@@ -11,8 +11,10 @@ import { newCase } from './cases.js';
 import { newScramble } from './scramble.js';
 import { buildSched } from './schedule.js';
 import { getWords } from './level.js';
+import { getLevelConfig, isSectionEnabled } from './level-config.js';
 
 export function updOverview() {
+  const cfg = getLevelConfig(S.level);
   const words = getWords();
   const total = words.length;
   const known = S.known.size;
@@ -30,15 +32,27 @@ export function updOverview() {
     <div class="ov-hero-card"><div class="n n-red">${unknown}</div><div class="l">Again</div></div>
     <div class="ov-hero-card"><div class="n n-muted">${unseen}</div><div class="l">Unseen</div></div>
   `;
-  document.getElementById('ovFcSub').textContent = `${unknown + shaky + unseen} / ${total} words to review`;
+  document.getElementById('overviewTitle').textContent = cfg.overview.title;
+  document.getElementById('ovLevelNote').textContent = cfg.overview.note;
+  document.getElementById('ovLearnLabel').textContent = cfg.overview.learningLabel;
+  document.getElementById('ovToolsLabel').textContent = cfg.overview.toolsLabel;
+  document.getElementById('ovVocabTitle').textContent = 'Vocabulary';
+  document.getElementById('ovVocabSub').textContent = `${unknown + shaky + unseen} / ${total} words to review`;
+  document.getElementById('ovWritingTitle').textContent = cfg.writing.title;
+  document.getElementById('ovSpeakingTitle').textContent = cfg.speaking.title;
+  document.getElementById('ovGrammarTitle').textContent = cfg.grammar.title;
+  document.getElementById('ovGrammarStaticSub').textContent = cfg.grammar.focus;
   document.getElementById('ovWfSub').textContent = `${S.wfS} / ${S.wfT} correct`;
   document.getElementById('ovArtSub').textContent = `${S.artS} / ${S.artT} correct`;
   document.getElementById('ovIntroSub').textContent = `${S.pCount} / 20 practices`;
-  document.getElementById('ovWlSub').textContent = `${total} words`;
   document.getElementById('ovSchedSub').textContent = `${S.days.size} / 14 days done`;
   document.getElementById('ovExamSub').textContent = `${S.examDone} Prüfung${S.examDone === 1 ? '' : 'en'} gemacht`;
-  document.getElementById('ovHoerenSub').textContent = 'Hören & Aussagen üben';
-  document.getElementById('ovLesenSub').textContent = 'Texte & Formulare lesen';
+  document.getElementById('ovHoerenSub').textContent = S.level === 'a1' ? 'Hören & Aussagen üben' : 'Tailored module coming soon';
+  document.getElementById('ovLesenSub').textContent = S.level === 'a1' ? 'Texte & Formulare lesen' : 'Tailored module coming soon';
+
+  document.querySelectorAll('[data-overview-route]').forEach(card => {
+    card.hidden = !isSectionEnabled(S.level, card.dataset.overviewRoute);
+  });
 }
 
 export function resetProgress() {

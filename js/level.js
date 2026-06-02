@@ -9,7 +9,6 @@ import { S } from './state.js';
  * A2 is cumulative: it includes all A1 words plus A2-specific words.
  */
 export function getWords() {
-  if (S.level === 'a2') return [...a1Words, ...a2Words];
-  // a1 (default) — A1 only
+  if (S.level === 'a2' || S.level === 'b1') return [...a1Words, ...a2Words];
   return a1Words;
 }
