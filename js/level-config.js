@@ -45,8 +45,18 @@ export const LEVEL_CONFIG = {
     vocab: {
       kicker: 'A2 vocabulary track',
       title: 'Vocabulary',
-      desc: 'A2 mode blends A1 foundations with the A2 bank, so you can revise by cards or open the full list in one place.',
+      desc: 'Mix A1 foundations with the A2 bank, then revise by cards or scan the full list when you need it.',
       searchPlaceholder: 'Search A1 + A2 words...',
+      examBrief: {
+        kicker: 'A2 exam map',
+        desc: 'Vocabulary matters, but the A2 exam also tests how well you can catch key details, write short messages, and react in everyday situations.',
+        items: [
+          { label: 'Lesen', focus: 'scan', text: 'Pick out the key detail in notices, messages, and forms.' },
+          { label: 'Hören', focus: 'catch', text: 'Listen for times, places, plans, and simple problems.' },
+          { label: 'Schreiben', focus: '30-40 Wörter', text: 'Give a reason, mention a plan, and ask a follow-up question.' },
+          { label: 'Sprechen', focus: 'react', text: 'Arrange, explain, suggest alternatives, and solve daily tasks.' },
+        ],
+      },
     },
     grammar: {
       kicker: 'A2 exam grammar',

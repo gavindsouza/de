@@ -74,18 +74,18 @@
 <main>
   <!-- ===== FLASHCARDS ===== -->
   <div id="flashcards" class="section active">
-    <div class="section-head">
+    <div class="section-head vocab-head">
       <div>
         <div class="level-kicker" id="vocabLevelKicker">A1 vocabulary track</div>
         <h2 id="flashcardsTitle">Vocabulary</h2>
         <div class="desc" id="flashcardsDesc">Train the current level vocabulary with cards by default, then switch to the full list when you need it.</div>
       </div>
-      <button class="section-switch-btn" id="vocabToggleBtn" onclick="toggleVocabView()">Open word list ↗</button>
     </div>
     <div class="vocab-view-switch">
       <button class="seg-btn active" id="vocabCardsTab" onclick="setVocabView('cards')">Cards</button>
       <button class="seg-btn" id="vocabListTab" onclick="setVocabView('list')">Word List</button>
     </div>
+    <div class="vocab-exam-brief" id="vocabExamBrief" hidden></div>
     <div id="vocabCardsView">
       <div class="filter-scroll" id="catFilters"></div>
       <div class="fc-topbar">

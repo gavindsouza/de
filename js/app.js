@@ -41,6 +41,27 @@ function applyLevelChrome() {
   document.getElementById('flashcardsTitle').textContent = cfg.vocab.title;
   document.getElementById('flashcardsDesc').textContent = cfg.vocab.desc;
   document.getElementById('wlSearch').placeholder = cfg.vocab.searchPlaceholder;
+  const vocabBrief = document.getElementById('vocabExamBrief');
+  if (cfg.vocab.examBrief) {
+    vocabBrief.hidden = false;
+    vocabBrief.innerHTML = `
+      <div class="vocab-exam-brief-kicker">${cfg.vocab.examBrief.kicker}</div>
+      <div class="vocab-exam-brief-desc">${cfg.vocab.examBrief.desc}</div>
+      <div class="vocab-exam-brief-grid">
+        ${cfg.vocab.examBrief.items.map(item => `
+          <div class="vocab-exam-brief-item">
+            <div class="vocab-exam-brief-item-head">
+              <span class="vocab-exam-brief-item-label">${item.label}</span>
+              <span class="vocab-exam-brief-item-focus">${item.focus}</span>
+            </div>
+            <div class="vocab-exam-brief-item-text">${item.text}</div>
+          </div>
+        `).join('')}
+      </div>`;
+  } else {
+    vocabBrief.hidden = true;
+    vocabBrief.innerHTML = '';
+  }
 
   document.getElementById('grammarLevelKicker').textContent = cfg.grammar.kicker;
   document.getElementById('grammarTitle').textContent = cfg.grammar.title;
@@ -57,7 +78,6 @@ function applyVocabView() {
   document.getElementById('vocabListView').hidden = !listView;
   document.getElementById('vocabCardsTab').classList.toggle('active', !listView);
   document.getElementById('vocabListTab').classList.toggle('active', listView);
-  document.getElementById('vocabToggleBtn').textContent = listView ? 'Back to cards ↩' : 'Open word list ↗';
 }
 
 export function setVocabView(view) {

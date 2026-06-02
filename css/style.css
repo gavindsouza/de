@@ -64,13 +64,40 @@ h2{font-size:1.35rem;margin-bottom:12px;color:var(--accent2);font-weight:800}
 .desc{color:var(--muted);font-size:.85rem;margin-bottom:16px;line-height:1.45}
 .level-kicker{font-size:.72rem;color:var(--yellow);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:8px}
 .section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.vocab-head{margin-bottom:8px}
+.vocab-head .level-kicker{margin-bottom:4px}
+.vocab-head h2{margin-bottom:6px}
+.vocab-head .desc{margin-bottom:0}
 .section-switch-btn{
   flex-shrink:0;background:var(--card);border:1px solid var(--border);color:var(--accent2);
   padding:10px 12px;border-radius:12px;font-size:.78rem;font-weight:700;
 }
-.vocab-view-switch{display:flex;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:12px}
+.vocab-view-switch{display:flex;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:10px}
 .seg-btn{flex:1;background:transparent;color:var(--muted);padding:10px 12px;border-radius:10px;font-size:.82rem;font-weight:700}
 .seg-btn.active{background:var(--accent);color:#fff}
+.vocab-exam-brief{
+  margin-bottom:12px;padding:12px 14px;border-radius:16px;
+  background:linear-gradient(135deg,rgba(124,92,252,.14),rgba(17,24,39,.92));
+  border:1px solid rgba(124,92,252,.28);
+}
+.vocab-exam-brief-kicker{
+  font-size:.68rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--accent2);margin-bottom:6px;
+}
+.vocab-exam-brief-desc{
+  font-size:.8rem;line-height:1.45;color:var(--muted);margin-bottom:10px;
+}
+.vocab-exam-brief-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.vocab-exam-brief-item{
+  background:rgba(15,15,19,.36);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:10px;
+}
+.vocab-exam-brief-item-head{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;
+}
+.vocab-exam-brief-item-label{font-size:.78rem;font-weight:700;color:var(--text)}
+.vocab-exam-brief-item-focus{font-size:.68rem;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.3px}
+.vocab-exam-brief-item-text{font-size:.75rem;line-height:1.4;color:var(--muted)}
 
 /* === FLASHCARDS === */
 .fc-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
