@@ -37,9 +37,13 @@ function applyLevelChrome() {
   document.getElementById('navSpeakLabel').textContent = 'Speak';
   document.getElementById('navHomeLabel').textContent = 'Home';
 
-  document.getElementById('vocabLevelKicker').textContent = cfg.vocab.kicker;
+  const vocabKicker = document.getElementById('vocabLevelKicker');
+  vocabKicker.textContent = cfg.vocab.kicker || '';
+  vocabKicker.hidden = !cfg.vocab.kicker;
   document.getElementById('flashcardsTitle').textContent = cfg.vocab.title;
-  document.getElementById('flashcardsDesc').textContent = cfg.vocab.desc;
+  const vocabDesc = document.getElementById('flashcardsDesc');
+  vocabDesc.textContent = cfg.vocab.desc || '';
+  vocabDesc.hidden = !cfg.vocab.desc;
   document.getElementById('wlSearch').placeholder = cfg.vocab.searchPlaceholder;
   const vocabBrief = document.getElementById('vocabExamBrief');
   if (cfg.vocab.examBrief) {

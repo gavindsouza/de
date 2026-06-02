@@ -43,9 +43,9 @@ export const LEVEL_CONFIG = {
     label: 'A2',
     enabledSections: ['flashcards', 'grammar', 'email', 'speaking', 'overview', 'wfragen', 'derarticle', 'conjugation', 'cases', 'scramble'],
     vocab: {
-      kicker: 'A2 vocabulary',
-      title: 'Vocabulary',
-      desc: 'Revise A1 + A2 words with cards, or open the full list.',
+      kicker: '',
+      title: 'Vocab',
+      desc: '',
       searchPlaceholder: 'Search A1 + A2 words...',
       examBrief: {
         kicker: 'A2 exam map',
