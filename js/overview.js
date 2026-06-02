@@ -36,6 +36,27 @@ export function updOverview() {
   `;
   document.getElementById('overviewTitle').textContent = cfg.overview.title;
   document.getElementById('ovLevelNote').textContent = cfg.overview.note;
+  const ovExamBrief = document.getElementById('ovExamBrief');
+  if (cfg.vocab.examBrief) {
+    ovExamBrief.hidden = false;
+    ovExamBrief.innerHTML = `
+      <div class="vocab-exam-brief-kicker">${cfg.vocab.examBrief.kicker}</div>
+      <div class="vocab-exam-brief-desc">${cfg.vocab.examBrief.desc}</div>
+      <div class="vocab-exam-brief-grid">
+        ${cfg.vocab.examBrief.items.map(item => `
+          <div class="vocab-exam-brief-item">
+            <div class="vocab-exam-brief-item-head">
+              <span class="vocab-exam-brief-item-label">${item.label}</span>
+              <span class="vocab-exam-brief-item-focus">${item.focus}</span>
+            </div>
+            <div class="vocab-exam-brief-item-text">${item.text}</div>
+          </div>
+        `).join('')}
+      </div>`;
+  } else {
+    ovExamBrief.hidden = true;
+    ovExamBrief.innerHTML = '';
+  }
   document.getElementById('ovLearnLabel').textContent = cfg.overview.learningLabel;
   document.getElementById('ovToolsLabel').textContent = cfg.overview.toolsLabel;
   document.getElementById('ovVocabTitle').textContent = 'Vocabulary';
