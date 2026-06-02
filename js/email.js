@@ -2,6 +2,7 @@
 
 import { writingDataByLevel } from './data/email-prompts.js';
 import { S } from './state.js';
+import { getLevelConfig } from './level-config.js';
 import { rand } from './utils.js';
 
 function currentWriting() {
@@ -10,13 +11,14 @@ function currentWriting() {
 
 export function renderWritingSection() {
   const cfg = currentWriting();
-  document.getElementById('emailTitle').textContent = cfg.title;
-  document.getElementById('emailDesc').textContent = cfg.desc;
+  const uiCfg = getLevelConfig(S.level).writing;
+  document.getElementById('emailTitle').textContent = uiCfg.title;
+  document.getElementById('emailDesc').textContent = uiCfg.desc;
   document.getElementById('writingFormatHint').innerHTML = cfg.formatLines.join('<br>');
   document.getElementById('emBodyLabel').textContent = cfg.bodyLabel;
   document.getElementById('emBody').placeholder = cfg.textareaPlaceholder;
   document.getElementById('emCheckBtn').textContent = cfg.checkLabel;
-  document.getElementById('emailExamplesTitle').textContent = `${cfg.title} examples`;
+  document.getElementById('emailExamplesTitle').textContent = `${uiCfg.title} examples`;
   document.getElementById('emGreet').innerHTML = cfg.greetings.map(v => `<option>${v}</option>`).join('');
   document.getElementById('emClose').innerHTML = cfg.closings.map(v => `<option>${v}</option>`).join('');
   document.getElementById('emailExamples').innerHTML = cfg.examples.map(ex =>

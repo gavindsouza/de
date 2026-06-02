@@ -12,9 +12,11 @@ import { newScramble } from './scramble.js';
 import { buildSched } from './schedule.js';
 import { getWords } from './level.js';
 import { getLevelConfig, isSectionEnabled } from './level-config.js';
+import { writingDataByLevel } from './data/email-prompts.js';
 
 export function updOverview() {
   const cfg = getLevelConfig(S.level);
+  const writingCfg = writingDataByLevel[S.level] || writingDataByLevel.a1;
   const words = getWords();
   const total = words.length;
   const known = S.known.size;
@@ -40,6 +42,12 @@ export function updOverview() {
   document.getElementById('ovVocabSub').textContent = `${unknown + shaky + unseen} / ${total} words to review`;
   document.getElementById('ovWritingTitle').textContent = cfg.writing.title;
   document.getElementById('ovSpeakingTitle').textContent = cfg.speaking.title;
+  document.getElementById('ovWritingSub').textContent = `Write ${writingCfg.wordRange[0]}-${writingCfg.wordRange[1]} word tasks`;
+  document.getElementById('ovSpeakingSub').textContent = S.level === 'a1'
+    ? 'Practice oral exam cards'
+    : S.level === 'a2'
+      ? 'Respond to everyday situations'
+      : 'Build opinions and discussion answers';
   document.getElementById('ovGrammarTitle').textContent = cfg.grammar.title;
   document.getElementById('ovGrammarStaticSub').textContent = cfg.grammar.focus;
   document.getElementById('ovWfSub').textContent = `${S.wfS} / ${S.wfT} correct`;
