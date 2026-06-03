@@ -49,12 +49,12 @@ export const LEVEL_CONFIG = {
       searchPlaceholder: 'Search A1 + A2 words...',
       examBrief: {
         kicker: 'A2 exam map',
-        desc: 'Vocabulary matters, but the A2 exam also tests how well you can catch key details, write short messages, and react in everyday situations.',
+        desc: 'Vocabulary still matters, but A2 also checks whether you can extract key details, write short practical messages, and react naturally in daily situations.',
         items: [
-          { label: 'Lesen', focus: 'scan', text: 'Pick out the key detail in notices, messages, and forms.' },
-          { label: 'Hören', focus: 'catch', text: 'Listen for times, places, plans, and simple problems.' },
-          { label: 'Schreiben', focus: '30-40 Wörter', text: 'Give a reason, mention a plan, and ask a follow-up question.' },
-          { label: 'Sprechen', focus: 'react', text: 'Arrange, explain, suggest alternatives, and solve daily tasks.' },
+          { label: 'Lesen', focus: 'scan', text: 'Find key information quickly in notices, short messages, and simple forms.' },
+          { label: 'Hören', focus: 'catch', text: 'Catch times, places, plans, and everyday problems on the first listen.' },
+          { label: 'Schreiben', focus: '30-40 Wörter', text: 'State your reason, explain your plan, and end with a clear question.' },
+          { label: 'Sprechen', focus: 'react', text: 'Handle common situations by explaining, suggesting alternatives, and confirming details.' },
         ],
       },
     },
@@ -72,7 +72,7 @@ export const LEVEL_CONFIG = {
     speaking: {
       kicker: 'A2 oral track',
       title: 'Sprechen — A2',
-      desc: 'Work with everyday situations where you must explain, react, and keep the conversation moving.',
+      desc: 'Practice everyday situations where you explain problems, suggest options, and keep the conversation moving.',
       helperTitle: 'A2 speaking moves',
       helperRows: [
         ['Ich kann leider nicht..., weil...', 'Ich kann leider nicht kommen, weil ich arbeiten muss.'],
@@ -84,7 +84,7 @@ export const LEVEL_CONFIG = {
     },
     overview: {
       title: 'A2 Home',
-      note: 'A2 mode now centers vocabulary, grammar, writing, and speaking. A1-only reading, listening, and mock-exam modules are hidden until they match the A2 format.',
+      note: 'A2 mode focuses on vocabulary, grammar, writing, and speaking with exam-style tasks and language support.',
       learningLabel: 'A2 exam prep',
       toolsLabel: 'Shared drills',
     },

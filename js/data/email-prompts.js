@@ -70,8 +70,8 @@ export const writingDataByLevel = {
       '[2-3 linked sentences]',
       '<span class="hl">Abschlussfrage</span> oder Bitte um Antwort',
     ],
-    greetings: ['Hallo Lara,', 'Liebe Frau Becker,', 'Sehr geehrte Damen und Herren,'],
-    closings: ['Viele Grüße', 'Mit freundlichen Grüßen', 'Bis bald'],
+    greetings: ['Hallo Lara,', 'Guten Tag Frau Becker,', 'Sehr geehrte Damen und Herren,'],
+    closings: ['Viele Grüße', 'Mit freundlichen Grüßen', 'Freundliche Grüße'],
     connectors: ['weil', 'deshalb', 'könnten', 'würde', 'leider'],
     prompts: [
       {
@@ -103,11 +103,11 @@ export const writingDataByLevel = {
     examples: [
       {
         title: 'Reschedule a course',
-        lines: ['Sehr geehrte Damen und Herren,', '', 'ich habe mich für den Abendkurs angemeldet, kann aber am Montag nicht kommen, weil ich Spätschicht habe. Könnte ich stattdessen in den Mittwochkurs wechseln? Bitte antworten Sie mir kurz.', '', 'Mit freundlichen Grüßen'],
+        lines: ['Sehr geehrte Damen und Herren,', '', 'Ich habe mich für den Abendkurs angemeldet, kann aber am Montag nicht kommen, weil ich Spätschicht habe. Könnte ich stattdessen in den Mittwochkurs wechseln? Bitte antworten Sie mir kurz.', '', 'Mit freundlichen Grüßen'],
       },
       {
         title: 'Thank a neighbour',
-        lines: ['Hallo Nina,', '', 'vielen Dank, dass du mein Paket angenommen hast. Ich bin heute bis 18 Uhr bei der Arbeit, könnte es aber am Abend abholen. Passt dir 19 Uhr?', '', 'Viele Grüße'],
+        lines: ['Hallo Nina,', '', 'Vielen Dank, dass du mein Paket angenommen hast. Ich bin heute bis 18 Uhr bei der Arbeit, könnte es aber am Abend abholen. Passt dir 19 Uhr?', '', 'Viele Grüße'],
       },
     ],
   },

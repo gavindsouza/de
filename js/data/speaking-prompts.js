@@ -3,7 +3,7 @@ export const speakingPromptsByLevel = {
     {
       badge: 'A2 Situation',
       title: 'Termin verschieben',
-      task: 'Sie können heute nicht zum Deutschkurs kommen. Erklären Sie warum und schlagen Sie einen neuen Termin vor.',
+      task: 'Sie können heute nicht zum Deutschkurs kommen. Erklären Sie kurz warum und schlagen Sie einen neuen Termin vor.',
       suggestions: [
         { d: 'Es tut mir leid, aber ich kann heute nicht kommen, weil ich länger arbeiten muss.', e: 'Sorry, but I cannot come today because I have to work longer.' },
         { d: 'Können wir den Termin auf morgen Abend verschieben?', e: 'Can we move the appointment to tomorrow evening?' },
@@ -13,7 +13,7 @@ export const speakingPromptsByLevel = {
     {
       badge: 'A2 Situation',
       title: 'Wohnungsproblem melden',
-      task: 'Ihre Heizung funktioniert nicht. Beschreiben Sie das Problem, sagen Sie seit wann es so ist, und bitten Sie um Hilfe.',
+      task: 'Ihre Heizung funktioniert nicht. Beschreiben Sie das Problem, sagen Sie seit wann es so ist, und bitten Sie um schnelle Hilfe.',
       suggestions: [
         { d: 'Guten Tag, ich habe ein Problem mit meiner Heizung.', e: 'Hello, I have a problem with my heating.' },
         { d: 'Seit gestern Abend ist es in der Wohnung sehr kalt.', e: 'Since yesterday evening it has been very cold in the flat.' },
@@ -33,7 +33,7 @@ export const speakingPromptsByLevel = {
     {
       badge: 'A2 Situation',
       title: 'Im Hotel nachfragen',
-      task: 'Sie möchten im Hotel ein ruhigeres Zimmer. Beschreiben Sie das Problem und fragen Sie nach einer Lösung.',
+      task: 'Sie möchten im Hotel ein ruhigeres Zimmer. Beschreiben Sie das Problem und fragen Sie höflich nach einer Lösung.',
       suggestions: [
         { d: 'Entschuldigung, mein Zimmer ist leider sehr laut.', e: 'Sorry, my room is unfortunately very noisy.' },
         { d: 'Nebenan läuft die ganze Nacht Musik.', e: 'There is music playing next door all night.' },
