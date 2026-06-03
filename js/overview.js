@@ -76,8 +76,16 @@ export function updOverview() {
   document.getElementById('ovIntroSub').textContent = `${S.pCount} / 20 practices`;
   document.getElementById('ovSchedSub').textContent = `${S.days.size} / 14 days done`;
   document.getElementById('ovExamSub').textContent = `${S.examDone} Prüfung${S.examDone === 1 ? '' : 'en'} gemacht`;
-  document.getElementById('ovHoerenSub').textContent = S.level === 'a1' ? 'Hören & Aussagen üben' : 'Tailored module coming soon';
-  document.getElementById('ovLesenSub').textContent = S.level === 'a1' ? 'Texte & Formulare lesen' : 'Tailored module coming soon';
+  document.getElementById('ovHoerenSub').textContent = S.level === 'a1'
+    ? 'Hören & Aussagen üben'
+    : S.level === 'a2'
+      ? 'A2 listening module is being expanded'
+      : 'B1 listening path is being expanded';
+  document.getElementById('ovLesenSub').textContent = S.level === 'a1'
+    ? 'Texte & Formulare lesen'
+    : S.level === 'a2'
+      ? 'A2 reading module is being expanded'
+      : 'B1 reading path is being expanded';
 
   document.querySelectorAll('[data-overview-route]').forEach(card => {
     card.hidden = !isSectionEnabled(S.level, card.dataset.overviewRoute);
