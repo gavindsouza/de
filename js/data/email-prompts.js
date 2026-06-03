@@ -70,8 +70,8 @@ export const writingDataByLevel = {
       '[2-3 linked sentences]',
       '<span class="hl">Abschlussfrage</span> oder Bitte um Antwort',
     ],
-    greetings: ['Hallo Lara,', 'Liebe Frau Becker,', 'Sehr geehrte Damen und Herren,'],
-    closings: ['Viele Grüße', 'Mit freundlichen Grüßen', 'Bis bald'],
+    greetings: ['Hallo Lara,', 'Guten Tag Frau Becker,', 'Sehr geehrte Damen und Herren,'],
+    closings: ['Viele Grüße', 'Mit freundlichen Grüßen', 'Freundliche Grüße'],
     connectors: ['weil', 'deshalb', 'könnten', 'würde', 'leider'],
     prompts: [
       {
@@ -103,30 +103,30 @@ export const writingDataByLevel = {
     examples: [
       {
         title: 'Reschedule a course',
-        lines: ['Sehr geehrte Damen und Herren,', '', 'ich habe mich für den Abendkurs angemeldet, kann aber am Montag nicht kommen, weil ich Spätschicht habe. Könnte ich stattdessen in den Mittwochkurs wechseln? Bitte antworten Sie mir kurz.', '', 'Mit freundlichen Grüßen'],
+        lines: ['Sehr geehrte Damen und Herren,', '', 'Ich habe mich für den Abendkurs angemeldet, kann aber am Montag nicht kommen, weil ich Spätschicht habe. Könnte ich stattdessen in den Mittwochkurs wechseln? Bitte antworten Sie mir kurz.', '', 'Mit freundlichen Grüßen'],
       },
       {
         title: 'Thank a neighbour',
-        lines: ['Hallo Nina,', '', 'vielen Dank, dass du mein Paket angenommen hast. Ich bin heute bis 18 Uhr bei der Arbeit, könnte es aber am Abend abholen. Passt dir 19 Uhr?', '', 'Viele Grüße'],
+        lines: ['Hallo Nina,', '', 'Vielen Dank, dass du mein Paket angenommen hast. Ich bin heute bis 18 Uhr bei der Arbeit, könnte es aber am Abend abholen. Passt dir 19 Uhr?', '', 'Viele Grüße'],
       },
     ],
   },
   b1: {
     wordRange: [80, 100],
     softMax: 120,
-    promptHint: 'Tap for a new B1 task',
-    bodyLabel: 'Your message (80-100 words)',
-    textareaPlaceholder: 'Ich möchte mich zu folgendem Thema äußern...',
+    promptHint: 'Tap for a new B1 exam-style task',
+    bodyLabel: 'Your message (80-100 words, clearly structured)',
+    textareaPlaceholder: 'Ich schreibe Ihnen, weil ich zu diesem Thema Stellung nehmen möchte...',
     checkLabel: 'Check my B1 writing',
     formatLines: [
-      '<span class="hl">Einleitung</span> mit Anlass oder Bezug',
-      '<span class="hl">Meinung + Begründung</span> klar formulieren',
-      '<span class="hl">Beispiel / Vorschlag / Bitte</span> ergänzen',
-      '<span class="hl">Schluss</span> mit Ausblick oder Erwartung',
+      '<span class="hl">Anrede + Einleitung</span> mit klarem Anlass',
+      '<span class="hl">Position + Begründung</span> mit mindestens zwei verbundenen Argumenten',
+      '<span class="hl">Konkretes Beispiel / Vorschlag</span> zur Unterstützung der Aussage',
+      '<span class="hl">Schluss</span> mit Bitte, Frage oder nächstem Schritt',
     ],
-    greetings: ['Sehr geehrte Frau Sommer,', 'Liebes Team,', 'Hallo Jonas,'],
-    closings: ['Mit freundlichen Grüßen', 'Viele Grüße', 'Beste Grüße'],
-    connectors: ['meiner meinung', 'außerdem', 'deshalb', 'einerseits', 'andererseits', 'zusammenfassend'],
+    greetings: ['Sehr geehrte Frau Sommer,', 'Sehr geehrtes Redaktionsteam,', 'Liebes Team,', 'Hallo Jonas,'],
+    closings: ['Mit freundlichen Grüßen', 'Freundliche Grüße', 'Viele Grüße', 'Beste Grüße'],
+    connectors: ['meiner meinung', 'ich bin der meinung', 'außerdem', 'darüber hinaus', 'deshalb', 'einerseits', 'andererseits', 'allerdings', 'zusammenfassend'],
     prompts: [
       {
         scenario: 'Ihre Firma plant einen Teamtag. Sie möchten einen eigenen Vorschlag machen.',
@@ -143,11 +143,39 @@ export const writingDataByLevel = {
         instruction: 'Schreiben Sie eine formelle E-Mail. Schreiben Sie zu drei Punkten:',
         points: ['welches Seminar möchten Sie besuchen?', 'welchen Nutzen hat es für Ihre Arbeit?', 'worum bitten Sie konkret?'],
       },
+      {
+        scenario: 'In Ihrem Wohnviertel soll ein großer Parkplatz gebaut werden.',
+        instruction: 'Schreiben Sie an das Bezirksamt. Schreiben Sie zu drei Punkten:',
+        points: ['wie bewerten Sie den Plan?', 'welche Folgen erwarten Sie für die Nachbarschaft?', 'welche Alternative schlagen Sie vor?'],
+      },
+      {
+        scenario: 'Ihr Sprachkurs soll ab nächstem Monat nur noch online stattfinden.',
+        instruction: 'Schreiben Sie an die Kursleitung. Schreiben Sie zu drei Punkten:',
+        points: ['wie wirkt sich die Änderung auf Sie aus?', 'welche Vor- und Nachteile sehen Sie?', 'welchen Kompromiss wünschen Sie sich?'],
+      },
+      {
+        scenario: 'Sie möchten in Ihrem Betrieb flexible Arbeitszeiten einführen.',
+        instruction: 'Schreiben Sie an die Personalabteilung. Schreiben Sie zu drei Punkten:',
+        points: ['warum ist das Thema wichtig?', 'welche Vorteile hätte das für Mitarbeitende und Betrieb?', 'welche konkrete Regelung schlagen Sie vor?'],
+      },
+      {
+        scenario: 'Ein Freund überlegt, sein Studium abzubrechen und sofort zu arbeiten.',
+        instruction: 'Schreiben Sie Ihrem Freund eine E-Mail. Schreiben Sie zu drei Punkten:',
+        points: ['Ihre Meinung zur Situation', 'Argumente für beide Möglichkeiten', 'welchen Rat geben Sie konkret?'],
+      },
     ],
     examples: [
       {
         title: 'Suggest a team day',
-        lines: ['Sehr geehrte Frau Sommer,', '', 'ich habe gelesen, dass wir im Herbst einen Teamtag planen. Ich würde gern vorschlagen, einen gemeinsamen Workshop mit anschließendem Kochkurs zu organisieren. Einerseits könnten wir neue Ideen für unsere Projekte sammeln, andererseits hätten wir mehr Zeit, uns besser kennenzulernen. Ein solcher Tag wäre meiner Meinung nach motivierend und praktisch zugleich. Ich würde mich freuen, wenn Sie meinen Vorschlag prüfen könnten.', '', 'Mit freundlichen Grüßen'],
+        lines: ['Sehr geehrte Frau Sommer,', '', 'Ich habe gelesen, dass wir im Herbst einen Teamtag planen. Ich würde gern vorschlagen, einen Workshop mit anschließendem Kochkurs zu organisieren. Einerseits könnten wir dabei neue Ideen für unsere Projekte sammeln, andererseits würden wir als Team besser zusammenarbeiten. Ein konkreter Ablauf wäre: morgens Workshop, nachmittags gemeinsames Kochen in kleinen Gruppen. Ich würde mich freuen, wenn Sie diesen Vorschlag prüfen könnten.', '', 'Mit freundlichen Grüßen'],
+      },
+      {
+        title: 'Comment on closing a cinema',
+        lines: ['Sehr geehrtes Redaktionsteam,', '', 'Mit Sorge habe ich gelesen, dass unser altes Kino geschlossen werden soll. Meiner Meinung nach wäre das ein großer Verlust für unsere Stadt, weil besonders junge Menschen dann weniger kulturelle Angebote hätten. Außerdem ist das Kino ein wichtiger Treffpunkt im Viertel. Statt einer Schließung könnte man das Gebäude modernisieren und zusätzlich Veranstaltungen für Schulen anbieten. Ich hoffe, dass die Stadt diesen Vorschlag berücksichtigt.', '', 'Freundliche Grüße'],
+      },
+      {
+        title: 'Request seminar support',
+        lines: ['Sehr geehrte Frau König,', '', 'Ich möchte im Juli an einem Seminar zum Thema Projektkommunikation teilnehmen. Der Kurs ist für meine Arbeit sinnvoll, weil ich regelmäßig Kundentermine vorbereite und Präsentationen halte. Außerdem könnte ich die Inhalte direkt im Team weitergeben. Das Seminar dauert zwei Tage und kostet 280 Euro. Ich bitte Sie daher um eine Kostenübernahme und eine Freistellung für diesen Zeitraum. Über eine kurze Rückmeldung würde ich mich sehr freuen.', '', 'Mit freundlichen Grüßen'],
       },
     ],
   },
