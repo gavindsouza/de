@@ -1,10 +1,11 @@
 // Speaking simulator module
 
-import { words } from './data/words.js';
 import { speak } from './audio.js';
 import { SPEAKER_SVG } from './utils.js';
-
-const nouns = words.filter(w => w.a);
+import { S } from './state.js';
+import { getWords } from './level.js';
+import { getLevelConfig } from './level-config.js';
+import { speakingPromptsByLevel } from './data/speaking-prompts.js';
 
 function getSentences(w) {
   // Plural-only nouns (plurale tantum) need their own sentence set since indefinite
@@ -186,10 +187,46 @@ function getSentences(w) {
   ];
 }
 
+function renderHelperRows(rows) {
+  document.getElementById('spkHelperTable').innerHTML = `
+    <tr><th>Pattern</th><th>Example</th></tr>
+    ${rows.map(([pattern, example]) => `<tr><td class="hl">${pattern}</td><td>${example}</td></tr>`).join('')}
+  `;
+}
+
+export function renderSpeakingSection() {
+  const cfg = getLevelConfig(S.level).speaking;
+  document.getElementById('speakingTitle').textContent = cfg.title;
+  document.getElementById('speakingDesc').textContent = cfg.desc;
+  document.getElementById('spkHelperTitle').textContent = cfg.helperTitle;
+  renderHelperRows(cfg.helperRows);
+}
+
 export function newSpeak() {
+  if (S.level !== 'a1') {
+    const promptBank = speakingPromptsByLevel[S.level] || speakingPromptsByLevel.a2;
+    const prompt = promptBank[Math.random() * promptBank.length | 0];
+    document.getElementById('spkArt').textContent = prompt.badge;
+    document.getElementById('spkWd').textContent = prompt.title;
+    document.getElementById('spkTask').textContent = prompt.task;
+    document.getElementById('spkSugs').innerHTML = prompt.suggestions
+      .map(s =>
+        `<div class="spk-sug">
+          <div class="spk-sug-main">
+            <div class="de">${s.d}</div>
+            <div class="en">${s.e}</div>
+          </div>
+          <button class="spk-play-btn" data-de="${s.d.replace(/"/g, '&quot;')}" onclick="spkPlay(this.dataset.de, this)" title="Hear sentence">${SPEAKER_SVG}</button>
+        </div>`
+      )
+      .join('');
+    return;
+  }
+  const nouns = getWords().filter(w => w.a);
   const w = nouns[Math.random() * nouns.length | 0];
   document.getElementById('spkArt').textContent = w.a;
   document.getElementById('spkWd').textContent = w.w;
+  document.getElementById('spkTask').textContent = 'Form a simple question or request with this cue word.';
   document.getElementById('spkSugs').innerHTML = getSentences(w)
     .map(s =>
       `<div class="spk-sug">

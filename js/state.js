@@ -1,7 +1,5 @@
 // App state and localStorage persistence
 
-import { words } from './data/words.js';
-
 export const S = {
   idx: 0,
   known: new Set(),
@@ -11,6 +9,9 @@ export const S = {
   deck: [],
   filter: 'Alle',
   wlFilter: 'Alle',
+  vocabView: 'cards',
+  vocabSearch: '',
+  levelUI: {},
   wfS: 0,
   wfT: 0,
   artS: 0,
@@ -25,7 +26,30 @@ export const S = {
   days: new Set(),
   intro: {},
   examDone: 0,
+  level: 'a1',   // target level: 'a1' | 'a2' | 'b1'
 };
+
+function defaultLevelUI() {
+  return {
+    filter: 'Alle',
+    wlFilter: 'Alle',
+    vocabView: 'cards',
+    vocabSearch: '',
+  };
+}
+
+function normalizeLevelUI(levelUI) {
+  const base = { a1: defaultLevelUI(), a2: defaultLevelUI(), b1: defaultLevelUI() };
+  Object.entries(levelUI || {}).forEach(([level, value]) => {
+    base[level] = { ...defaultLevelUI(), ...(value || {}) };
+  });
+  return base;
+}
+
+function ensureLevelUI(level = S.level) {
+  if (!S.levelUI[level]) S.levelUI[level] = defaultLevelUI();
+  return S.levelUI[level];
+}
 
 // Load from localStorage
 try {
@@ -47,9 +71,30 @@ try {
   if (d.ds) S.days = new Set(d.ds);
   if (d.i) S.intro = d.i;
   if (d.ed) S.examDone = d.ed;
+  if (d.lv) S.level = d.lv;
+  S.levelUI = normalizeLevelUI(d.lui);
 } catch (e) { /* ignore corrupt data */ }
 
+export function syncLevelUI(level = S.level) {
+  const ui = ensureLevelUI(level);
+  ui.filter = S.filter;
+  ui.wlFilter = S.wlFilter;
+  ui.vocabView = S.vocabView;
+  ui.vocabSearch = S.vocabSearch;
+}
+
+export function restoreLevelUI(level = S.level) {
+  const ui = ensureLevelUI(level);
+  S.filter = ui.filter;
+  S.wlFilter = ui.wlFilter;
+  S.vocabView = ui.vocabView;
+  S.vocabSearch = ui.vocabSearch;
+}
+
+restoreLevelUI(S.level);
+
 export function save() {
+  syncLevelUI();
   localStorage.setItem('a1s', JSON.stringify({
     k: [...S.known],
     u: [...S.unknown],
@@ -68,5 +113,7 @@ export function save() {
     ds: [...S.days],
     i: S.intro,
     ed: S.examDone,
+    lv: S.level,
+    lui: S.levelUI,
   }));
 }

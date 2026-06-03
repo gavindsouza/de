@@ -62,6 +62,42 @@ main{padding:0 0 16px}
 .section.active{display:block}
 h2{font-size:1.35rem;margin-bottom:12px;color:var(--accent2);font-weight:800}
 .desc{color:var(--muted);font-size:.85rem;margin-bottom:16px;line-height:1.45}
+.level-kicker{font-size:.72rem;color:var(--yellow);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:8px}
+.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.vocab-head{margin-bottom:8px}
+.vocab-head .level-kicker{margin-bottom:4px}
+.vocab-head h2{margin-bottom:6px}
+.vocab-head .desc{margin-bottom:0}
+.section-switch-btn{
+  flex-shrink:0;background:var(--card);border:1px solid var(--border);color:var(--accent2);
+  padding:10px 12px;border-radius:12px;font-size:.78rem;font-weight:700;
+}
+.vocab-view-switch{display:flex;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:10px}
+.seg-btn{flex:1;background:transparent;color:var(--muted);padding:10px 12px;border-radius:10px;font-size:.82rem;font-weight:700}
+.seg-btn.active{background:var(--accent);color:#fff}
+.vocab-exam-brief{
+  margin-bottom:12px;padding:12px 14px;border-radius:16px;
+  background:linear-gradient(135deg,rgba(124,92,252,.14),rgba(17,24,39,.92));
+  border:1px solid rgba(124,92,252,.28);
+}
+.vocab-exam-brief-kicker{
+  font-size:.68rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--accent2);margin-bottom:6px;
+}
+.vocab-exam-brief-desc{
+  font-size:.8rem;line-height:1.45;color:var(--muted);margin-bottom:10px;
+}
+.vocab-exam-brief-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.vocab-exam-brief-item{
+  background:rgba(15,15,19,.36);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:10px;
+}
+.vocab-exam-brief-item-head{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;
+}
+.vocab-exam-brief-item-label{font-size:.78rem;font-weight:700;color:var(--text)}
+.vocab-exam-brief-item-focus{font-size:.68rem;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.3px}
+.vocab-exam-brief-item-text{font-size:.75rem;line-height:1.4;color:var(--muted)}
 
 /* === FLASHCARDS === */
 .fc-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
@@ -236,6 +272,7 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
 }
 .spk-card .art{font-size:.9rem;color:var(--muted);font-weight:600}
 .spk-card .wd{font-size:2.6rem;font-weight:800;color:var(--accent2);margin:8px 0 20px;line-height:1.1}
+.spk-task{font-size:.92rem;color:var(--text);line-height:1.5}
 .spk-sug{background:var(--surface);border-radius:14px;padding:14px;margin:8px 0;border:1.5px solid var(--border);text-align:left;display:flex;align-items:center;gap:12px}
 .spk-sug:active{border-color:var(--accent);background:var(--card)}
 .spk-sug-main{flex:1;min-width:0}
@@ -593,3 +630,30 @@ th{color:var(--accent2);font-weight:700;font-size:.72rem;text-transform:uppercas
 
 /* Resize speaker icon in speaking practice to match its original 18 px */
 .spk-play-btn svg{width:18px;height:18px}
+
+/* === LEVEL SELECTOR === */
+.level-selector{display:flex;gap:8px;margin-bottom:16px}
+.level-pill{
+  flex:1;padding:10px 6px;background:var(--card);color:var(--muted);
+  border-radius:12px;font-size:.82rem;font-weight:700;text-align:center;
+  border:1.5px solid var(--border);transition:background .15s,color .15s,border-color .15s;
+}
+.level-pill.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.level-pill.soon{opacity:.5;cursor:default}
+.level-pill .lv-badge{
+  display:inline-block;font-size:1rem;font-weight:800;letter-spacing:.5px;
+}
+.level-pill .lv-sub{display:block;font-size:.68rem;font-weight:500;margin-top:2px;opacity:.8}
+
+/* === COMING SOON TOAST === */
+.level-toast{
+  position:fixed;bottom:calc(var(--nav-h) + var(--safe-b) + 16px);left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--card);color:var(--text);
+  padding:10px 20px;border-radius:20px;font-size:.9rem;font-weight:600;
+  border:1px solid var(--border);
+  opacity:0;pointer-events:none;
+  transition:opacity .25s,transform .25s;
+  z-index:200;white-space:nowrap;
+}
+.level-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}

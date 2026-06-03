@@ -1,6 +1,5 @@
 // Overview dashboard and reset
 
-import { words } from './data/words.js';
 import { S, save } from './state.js';
 import { buildDeck, showCard, buildFilters } from './flashcards.js';
 import { filterWL } from './wordlist.js';
@@ -11,8 +10,14 @@ import { newConj } from './conjugation.js';
 import { newCase } from './cases.js';
 import { newScramble } from './scramble.js';
 import { buildSched } from './schedule.js';
+import { getWords } from './level.js';
+import { getLevelConfig, isSectionEnabled } from './level-config.js';
+import { writingDataByLevel } from './data/email-prompts.js';
 
 export function updOverview() {
+  const cfg = getLevelConfig(S.level);
+  const writingCfg = writingDataByLevel[S.level] || writingDataByLevel.a1;
+  const words = getWords();
   const total = words.length;
   const known = S.known.size;
   const unknown = S.unknown.size;
@@ -29,15 +34,54 @@ export function updOverview() {
     <div class="ov-hero-card"><div class="n n-red">${unknown}</div><div class="l">Again</div></div>
     <div class="ov-hero-card"><div class="n n-muted">${unseen}</div><div class="l">Unseen</div></div>
   `;
-  document.getElementById('ovFcSub').textContent = `${unknown + shaky + unseen} / ${total} words to review`;
+  document.getElementById('overviewTitle').textContent = cfg.overview.title;
+  document.getElementById('ovLevelNote').textContent = cfg.overview.note;
+  const ovExamBrief = document.getElementById('ovExamBrief');
+  if (cfg.vocab.examBrief) {
+    ovExamBrief.hidden = false;
+    ovExamBrief.innerHTML = `
+      <div class="vocab-exam-brief-kicker">${cfg.vocab.examBrief.kicker}</div>
+      <div class="vocab-exam-brief-desc">${cfg.vocab.examBrief.desc}</div>
+      <div class="vocab-exam-brief-grid">
+        ${cfg.vocab.examBrief.items.map(item => `
+          <div class="vocab-exam-brief-item">
+            <div class="vocab-exam-brief-item-head">
+              <span class="vocab-exam-brief-item-label">${item.label}</span>
+              <span class="vocab-exam-brief-item-focus">${item.focus}</span>
+            </div>
+            <div class="vocab-exam-brief-item-text">${item.text}</div>
+          </div>
+        `).join('')}
+      </div>`;
+  } else {
+    ovExamBrief.hidden = true;
+    ovExamBrief.innerHTML = '';
+  }
+  document.getElementById('ovLearnLabel').textContent = cfg.overview.learningLabel;
+  document.getElementById('ovToolsLabel').textContent = cfg.overview.toolsLabel;
+  document.getElementById('ovVocabTitle').textContent = 'Vocabulary';
+  document.getElementById('ovVocabSub').textContent = `${unknown + shaky + unseen} / ${total} words to review`;
+  document.getElementById('ovWritingTitle').textContent = cfg.writing.title;
+  document.getElementById('ovSpeakingTitle').textContent = cfg.speaking.title;
+  document.getElementById('ovWritingSub').textContent = `Write ${writingCfg.wordRange[0]}-${writingCfg.wordRange[1]} word tasks`;
+  document.getElementById('ovSpeakingSub').textContent = S.level === 'a1'
+    ? 'Practice oral exam cards'
+    : S.level === 'a2'
+      ? 'Respond to everyday situations'
+      : 'Build opinions and discussion answers';
+  document.getElementById('ovGrammarTitle').textContent = cfg.grammar.title;
+  document.getElementById('ovGrammarStaticSub').textContent = cfg.grammar.focus;
   document.getElementById('ovWfSub').textContent = `${S.wfS} / ${S.wfT} correct`;
   document.getElementById('ovArtSub').textContent = `${S.artS} / ${S.artT} correct`;
   document.getElementById('ovIntroSub').textContent = `${S.pCount} / 20 practices`;
-  document.getElementById('ovWlSub').textContent = `${total} words`;
   document.getElementById('ovSchedSub').textContent = `${S.days.size} / 14 days done`;
   document.getElementById('ovExamSub').textContent = `${S.examDone} Prüfung${S.examDone === 1 ? '' : 'en'} gemacht`;
-  document.getElementById('ovHoerenSub').textContent = 'Hören & Aussagen üben';
-  document.getElementById('ovLesenSub').textContent = 'Texte & Formulare lesen';
+  document.getElementById('ovHoerenSub').textContent = S.level === 'a1' ? 'Hören & Aussagen üben' : 'Tailored module coming soon';
+  document.getElementById('ovLesenSub').textContent = S.level === 'a1' ? 'Texte & Formulare lesen' : 'Tailored module coming soon';
+
+  document.querySelectorAll('[data-overview-route]').forEach(card => {
+    card.hidden = !isSectionEnabled(S.level, card.dataset.overviewRoute);
+  });
 }
 
 export function resetProgress() {
@@ -58,6 +102,7 @@ export function resetProgress() {
 }
 
 export function confirmReset() {
+  const currentLevel = S.level;   // preserve level across reset
   localStorage.removeItem('a1s');
   S.known.clear(); S.unknown.clear(); S.shaky.clear();
   S.wfS = 0; S.wfT = 0;
@@ -66,6 +111,8 @@ export function confirmReset() {
   S.casS = 0; S.casT = 0;
   S.scrS = 0; S.scrT = 0;
   S.pCount = 0; S.days.clear(); S.intro = {}; S.idx = 0; S.examDone = 0;
+  S.level = currentLevel;
+  save();
   buildDeck(); showCard(); buildFilters(); filterWL('');
   document.getElementById('wlSearch').value = '';
   document.getElementById('wfS').textContent = '0';

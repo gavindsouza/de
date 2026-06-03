@@ -1,12 +1,11 @@
 // Der / die / das article quiz
 
-import { words } from './data/words.js';
 import { S, save } from './state.js';
 import { rand, markOpts, updStatPair } from './utils.js';
-
-const articleWords = words.filter(w => w.a === 'der' || w.a === 'die' || w.a === 'das');
+import { getWords } from './level.js';
 
 export function newArt() {
+  const articleWords = getWords().filter(w => w.a === 'der' || w.a === 'die' || w.a === 'das');
   const w = rand(articleWords);
   document.getElementById('artQuiz').innerHTML =
     `<div class="quiz-box">

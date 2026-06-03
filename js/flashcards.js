@@ -1,14 +1,16 @@
 // Flashcard logic: deck building, display, swipe, keyboard
 
-import { words } from './data/words.js';
 import { S, save } from './state.js';
 import { speak } from './audio.js';
+import { getWords } from './level.js';
 
 export function cats() {
+  const words = getWords();
   return ['Alle', ...new Set(words.map(w => w.c))];
 }
 
 export function buildFilters() {
+  const words = getWords();
   const c = cats();
   const lc = words.length - S.known.size;
   document.getElementById('catFilters').innerHTML =
@@ -28,9 +30,11 @@ export function setF(c) {
   buildDeck();
   buildFilters();
   showCard();
+  save();
 }
 
 export function buildDeck() {
+  const words = getWords();
   let base;
   if (S.filter === 'Learning') {
     base = words.filter(w => !S.known.has(w.w));
